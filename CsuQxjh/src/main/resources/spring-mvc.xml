@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemaLocation="
+  http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/mvc
+  http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+  <!-- 开启controller,springmvc注解支持,扫描controller -->
+  <context:component-scan base-package="com.csu.qxjh.*.controller" use-default-filters="false">
+    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+  </context:component-scan>
+
+  <mvc:annotation-driven />
+ 
+  <mvc:default-servlet-handler />
+ 
+  <!-- ========================= VIEW定义 ========================= -->
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/" />
+    <property name="suffix" value=".jsp" />
+  </bean>
+  
+  	<!-- 配置文件上传，如果没有使用文件上传可以不用配置-->
+	<bean id="multipartResolver"  
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="utf-8" />  
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="10485760000" />  
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960" />  
+    </bean> 
+</beans>

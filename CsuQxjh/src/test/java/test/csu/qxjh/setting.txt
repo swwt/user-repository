@@ -1,0 +1,17 @@
+<!--hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到--> 
+     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+         <property name="sessionFactory" ref="sessionFactory"></property>  
+    </bean>
+     
+     <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+             
+             <tx:method name="*" />
+         </tx:attributes>
+    </tx:advice>
+     
+    <aop:config proxy-target-class="true">
+         <!-- <aop:advisor advice-ref="txAdvice" pointcut="execution(* dao.*.*(..))"/> -->
+        <aop:pointcut expression="execution(* com.csu.qxjh.test.dao.BookDao.*(..))" id="pointcut"/>
+         <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
+     </aop:config>

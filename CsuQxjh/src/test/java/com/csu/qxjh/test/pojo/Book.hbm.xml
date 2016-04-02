@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.csu.qxjh.test.pojo">
+
+    <class name="Book" table="book" dynamic-insert="true">
+    	
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <!-- 指定主键的生成方式, native: 使用数据库本地方式 -->
+            <generator class="native" />
+        </id>
+          
+        <property name="bookName" type="java.lang.String">
+            <column name="book_name" />
+        </property>       
+		
+    </class>
+    
+</hibernate-mapping>
