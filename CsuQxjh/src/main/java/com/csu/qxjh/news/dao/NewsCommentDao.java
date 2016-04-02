@@ -1,4 +1,4 @@
-package com.csu.qxjh.admin.dao;
+package com.csu.qxjh.news.dao;
 
 public interface NewsCommentDao {
 

@@ -1,4 +1,4 @@
-package com.csu.qxjh.admin.service;
+package com.csu.qxjh.news.service;
 
 public interface NewsCommentService {
 
