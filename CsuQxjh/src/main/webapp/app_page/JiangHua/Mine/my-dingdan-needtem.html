@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>E3父子模版</title>
+
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/own.css" />
+
+		<style type="text/css">
+			.mui-bar-nav .mui-title,
+			.mui-icon,
+			.mui-btn {
+				color: white;
+			}
+			/*我的订单样式表   order-items*/
+			
+			.mui-content.order-items {
+				background-color: #F0F2F5;
+				margin-top: 10px;
+				padding: 6 0px;
+			}
+			/*order item 每个订单项*/
+			
+			.order-items .order-item {
+				height: 155px;
+				width: 100%;
+				margin-top: 10px;
+				background-color: #fff;
+			}
+			/*order item上部 top样式表*/
+			
+			.order-items .order-item .item-top {
+				height: 24%;
+				width: 100%;
+				padding-top: 4px;
+				border: 1px solid#E1E1E1;
+			}
+			
+			.order-items .order-item .item-top img {
+				margin-top: 3px;
+				margin-left: 12px;
+				margin-right: 10px;
+				border-radius: 10%;
+				float: left;
+				width: 1.0em;
+				height: 1.0em;
+			}
+			
+			.order-items .order-item .item-top .item-shop-name {
+				margin-top: 2px;
+				float: left;
+				font-size: 14px;
+				color: #222222;
+			}
+			
+			.order-items .order-item .item-top .mui-icon.mui-icon-forward {
+				margin-top: 0px;
+				color: #C0C0C0;
+				margin-bottom: 5px;
+			}
+			
+			.order-items .order-item .item-top .mui-icon.mui-icon-trash {
+				margin-bottom: 3px;
+				margin-top: 0px;
+				float: right;
+				color: gray;
+				font-size: 1.5em;
+				margin-right: 10px
+			}
+			/*order item上部 middle样式表*/
+			
+			.order-items .order-item .item-middile {
+				height: 49%;
+				width: 100%;
+				padding: 10px;
+			}
+			
+			.order-items .order-item .item-middile .item-img {
+				float: left;
+				width: 3em;
+				height: 3em;
+				border: 1px solid#E0E0E0;
+				border-radius: 10%;
+				margin-right: 12px;
+			}
+			
+			.order-items .order-item .item-middile .item-info {
+				font-size: 12px;
+				text-align: left;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				
+			}
+			/*order item上部 bottom样式表*/
+			
+			.order-items .order-item .item-bottom {
+				padding-top: 5px;
+				height: 27%;
+				width: 100%;
+				border: 1px solid#E1E1E1;
+			}
+			
+			.order-items .order-item .item-bottom .item-pay {
+				font-size: 12px;
+				margin-left: 10px;
+			}
+			
+			.order-items .order-item .item-bottom .item-account {
+				font-size: 14px;
+				font-weight: bold;
+			}
+			
+			.order-items .order-item .item-bottom .item-btn-purchase {
+				float: right;
+				font-size: 12px;
+				margin-right: 10px;
+			}
+			
+			.order-items .order-item .item-bottom .item-btn-comment {
+				float: right;
+				font-size: 12px;
+				margin-right: 10px;
+				margin-bottom: 3px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav own-main-background-color own-header-hidden">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的订单</h1>
+		</header>
+		<div id="orderItems" class="mui-content own-content-padding order-items">
+			<div class="order-item">
+				<div class="item-top">
+					<img src="../img/shopIcon_1.png" />
+					<a href="#">
+						<span class="item-shop-name">明卓办公用品专营店</span>
+						<span class="mui-icon mui-icon-forward"></span>
+					</a>
+					<span id="itemTrash" class="mui-icon mui-icon-trash"></span>
+				</div>
+				<div class="item-middile">
+					<img class="item-img" src="../img/dongzhi.png" />
+					<span class="item-info">东芝(TOSHIBA) Q300系列 480G SATA3 固态硬盘</span>
+				</div>
+				<div class="item-bottom">
+					<span class="item-pay">实付款：￥<span class="item-account">779.00</span></span>
+					<button class="item-btn-purchase">再次购买</button>
+					<button class="item-btn-comment">评价晒单</button>
+				</div>
+			</div>
+			<div class="order-item">
+				<div class="item-top">
+					<img src="../img/shopIcon_1.png" />
+					<a href="#">
+						<span class="item-shop-name">明卓办公用品专营店</span>
+						<span class="mui-icon mui-icon-forward"></span>
+					</a>
+					<span id="itemTrash" class="mui-icon mui-icon-trash"></span>
+				</div>
+				<div class="item-middile">
+					<img class="item-img" src="../img/dongzhi.png" />
+					<span class="item-info">东芝(TOSHIBA) Q300系列 480G SATA3 固态硬盘</span>
+				</div>
+				<div class="item-bottom">
+					<span class="item-pay">实付款：￥<span class="item-account">779.00</span></span>
+					<button class="item-btn-purchase">再次购买</button>
+					<button class="item-btn-comment">评价晒单</button>
+				</div>
+			</div>
+			<div class="order-item">
+				<div class="item-top">
+					<img src="../img/shopIcon_1.png" />
+					<a href="#">
+						<span class="item-shop-name">明卓办公用品专营店</span>
+						<span class="mui-icon mui-icon-forward"></span>
+					</a>
+					<span id="itemTrash" class="mui-icon mui-icon-trash"></span>
+				</div>
+				<div class="item-middile">
+					<img class="item-img" src="../img/dongzhi.png" />
+					<span class="item-info">东芝(TOSHIBA) Q300系列 480G SATA3 固态硬盘  东芝(TOSHIBA) Q300系列 480G SATA3 固态硬盘</span>
+				</div>
+				<div class="item-bottom">
+					<span class="item-pay">实付款：￥<span class="item-account">779.00</span></span>
+					<button class="item-btn-purchase">再次购买</button>
+					<button class="item-btn-comment">评价晒单</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/mui.min.js" charset="UTF-8"></script>
+		<script src="../js/own.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="UTF-8">
+			mui.init({
+				swipeBack: false
+			});
+			mui.plusReady(function(){
+				//adaptive();
+			});
+
+			function adaptive() {
+				cases = document.getElementsByClassName("item-info");
+				for (i = 0; i < cases.length; i++) {
+					var e = cases[i].scrollHeight;
+					cases[i].style.paddingTop = (51 - e)/2 + 'px';
+				}
+			}
+		</script>
+
+	</body>
+
+</html>

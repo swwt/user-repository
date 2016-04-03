@@ -24,10 +24,10 @@ public class TestEnvironment {
 	
 	@Test
 	public void test1(){
-//		Book book=new Book();
-//		book.setBookName("ssss");
+		Book book=new Book();
+		book.setBook_name("aa");
 //		bookDao.save(book);
-		System.out.println(sessionFactory.getCurrentSession());
+		sessionFactory.getCurrentSession().save(book);
 //		sessionFactory.getCurrentSession().flush();
 //		System.out.println(sessionFactory.getCurrentSession().get(Book.class, 1));
 //		System.out.println(sessionFactory.getCurrentSession());

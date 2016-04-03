@@ -1,5 +1,4 @@
 package com.csu.qxjh.util;
-
 import java.security.MessageDigest;
 public class MD5Util {
     public final static String MD5(String s) {
@@ -27,8 +26,7 @@ public class MD5Util {
             return null;
         }
     }
-    public static void main(String[] args) {
-        System.out.println(MD5Util.MD5("20121221"));
-        System.out.println(MD5Util.MD5("20121221"));
+    public static void main(String[] args) {   	
+       System.out.println(MD5Util.MD5("20121221"));
     }
 }

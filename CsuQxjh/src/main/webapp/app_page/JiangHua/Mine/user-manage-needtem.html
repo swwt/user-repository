@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>E3父子模版，可直接用index的父子模版</title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/own.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+
+		<style type="text/css">
+			.mui-input-row label {
+				width: 20%;
+			}
+			
+			.mui-input-row label~input {
+				width: 80%;
+			}
+			
+			.mui-bar.mui-bar-nav .mui-icon,
+			.mui-bar.mui-bar-nav .mui-title {
+				color: #fff;
+			}
+			/* 设置ul li中的title和content */
+			
+			.mui-content .mui-table-view .mui-table-view-cell .manage-content {
+				vertical-align: middle;
+				display: inline;
+				float: right;
+				font-size: 14px;
+				color: #C7C7C7;
+				margin-right: 15px;
+			}
+			
+			.mui-content .mui-table-view .mui-table-view-cell .manage-title {
+				vertical-align: middle;
+				display: inline;
+			}
+			
+			.mui-content .mui-scroll .mui-table-view{
+				margin-top: 15px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav own-main-background-color own-header-hidden">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">账户管理</h1>
+		</header>
+-->
+		<div class="mui-content">
+			<div class="mui-scroll">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right mui-media" href="../Mine/changepsd-needtem.html">
+							<span class="manage-title mui-media-body" style="height: 40px;line-height: 40px;">头像</span>
+							<img src="../img/3.jpg" class="mui-media-object" style="float: right;width: 2em;height:2em;border-radius: 45%;margin-right: 28px;" />
+						</a>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<span class="manage-title">用户名</span>
+						<span class="manage-content">jh_1287879608</span>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="../Mine/changepsd-needtem.html">
+							<span class="manage-title">昵称</span>
+							<span class="manage-content">苹果小王子</span>
+						</a>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="../Mine/changepsd-needtem.html">
+							<span class="manage-title">性别</span>
+							<span class="manage-content">保密</span>
+						</a>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="../Mine/changepsd-needtem.html">
+							<span class="manage-title">出生日期</span>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="mui-table-view" >
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="../Mine/changepsd-needtem.html">
+							<span style="vertical-align: middle;display: inline; ">地址管理</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="../Mine/changepsd-needtem.html">
+							<span style="vertical-align: middle;display: inline; ">账户安全</span>
+							<span class="manage-content" style="">可修改密码</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="../js/mui.min.js" charset="UTF-8"></script>
+		<script src="../js/own.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: false
+			});
+			mui.plusReady(function() {
+				//adaptive();
+			});
+		</script>
+	</body>
+
+</html>

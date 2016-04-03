@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+		<title>E3</title>
+
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/own.css" />
+
+		<style type="text/css">
+			.mui-bar-nav .mui-title {
+				color: white;
+			}
+			
+			.mui-active .mui-icon,
+			.mui-active .mui-tab-label {
+				color: #f23030;
+			}
+			/* 搜索框Search*/
+			
+			.mui-search .mui-placeholder {
+				color: #FAFAFA;
+				text-align: left;
+			}
+			
+			.mui-search .mui-icon-speech {
+				color: #FFFFFF!important;
+			}
+			
+			.mui-search .mui-icon-search {
+				color: white!important;
+			}
+			
+			.mui-bar .mui-search {
+				width: 80%;
+				color: white;
+				margin-top: 2px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header id="bar-label" class="mui-bar mui-bar-nav own-main-background-color " style="display: none;">
+			<h1 id="nav-title" class="mui-title">首页</h1>
+			<span id="messageCenter" class="mui-icon mui-icon-chat mui-pull-right" style="color: #fff;font-size: 18px;margin-top: 3px;"></span>
+			<span id="settingCenter" class="mui-icon mui-icon-gear mui-pull-right" style="color: #fff;font-size: 22px;margin-top: 1px;margin-right:1px ;"></span>
+		</header>
+
+		<header id="bar-search" class="mui-bar mui-bar-nav own-main-background-color ">
+			<div class="mui-input-row mui-search " style="margin-left: 10%;display:inline-flex">
+				<input id="search" type="search" class="mui-input-speech mui-input-clear " onfocus="hideBarTabs()" placeholder="输入关键词搜索" style="color: white;">
+			</div>
+			<div id="messageCenterForSearch" class="mui-pull-right" style="display: inline-flex;">
+				<a class="mui-icon mui-icon-chat mui-pull-right" style="font-size: 15px;color:#fff;">
+					<span style="display: block;font-size: 8px;margin-top: 4px;vertical-align:middle;">消息</span>
+				</a>
+			</div>
+		</header>
+
+		<nav class="mui-bar mui-bar-tab ">
+			<a class="mui-tab-item mui-active" href="baritemHtml/home.html">
+				<span class="mui-icon iconfont icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" href="baritemHtml/categories.html">
+				<span class="mui-icon iconfont icon-fenlei"></span>
+				<span class="mui-tab-label">分类</span>
+			</a>
+			<a class="mui-tab-item" href="baritemHtml/gongyi.html">
+				<span class="mui-icon iconfont icon-xinyuandan"></span>
+				<span class="mui-tab-label">公益</span>
+			</a>
+			<a class="mui-tab-item" href="baritemHtml/cart_1.html">
+				<span class="mui-icon iconfont icon-cart"><span class="mui-badge">5</span></span>
+				<span class="mui-tab-label">购物车</span>
+			</a>
+			<a class="mui-tab-item" href="baritemHtml/mine_1.html">
+				<span class="mui-icon iconfont icon-wode"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+
+		<script src="js/mui.min.js" charset="UTF-8"></script>
+		<script src="js/ajax.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="UTF-8">
+			mui.init({
+				swipeBack: false
+			});
+			var mainWebView; //当前主webview
+			var navtitle;
+			var curTabItem; //当前被选中tabitem
+			var barItemUrl = ['baritemHtml/home.html', 'baritemHtml/categories.html', 'baritemHtml/gongyi.html', 'baritemHtml/cart_1.html', 'baritemHtml/mine_1.html'];
+			var barItemWebView = {}; //每个tabitem所对应显示的页面对象
+			
+			//搜索结果的斧子模板
+			var parentSearchWebview;
+			var subSearchWebview;
+			
+			//父子模版页面
+			var headerWebView;
+			var contentWebView;
+			//商品详情的父子模版
+			var detailTem;
+			var detailsub;
+			mui.plusReady(function() {
+				//改变statusbar
+				plus.navigator.setStatusBarBackground('#41cea9');
+				navtitle = document.getElementById('nav-title');
+				mainWebView = plus.webview.currentWebview();
+				//判断是否已经登陆,若没有登陆将预加载登陆页面，知道登陆成功为止close登陆页面
+				//judgelogin();
+				//初始化商品详情页面。
+				initProductDetail();
+				//初始化页面,
+				inittabitemWebviews();
+				//为每个bar－item添加点击事件
+				addEventForTabitem();
+				// 创建搜索模板类
+				initSearchTemplate();
+				//创建父子模版类
+				initParentChildTemplate();
+				//接收自定义的事件页面切换
+				changeWebViewEvent();
+				//判断是否已经获取session_key
+				/*if (!localStorage.getItem('session_key')) {
+					ajax_get_SessionKey()
+				}else {
+					closeStartScreent();
+				}*/
+				// 为'消息'按钮添加监听事件，跳转到'消息中心'页面
+				addEventForMessageCenter();
+				// 为'设置'按钮添加监听事件，跳转到'设置中心'页面
+				addEventForSettingCenter();
+			});
+			// 隐藏 .mui-bar-tab
+			function hideBarTabs() {
+				document.getElementById('.mui-bar.mui-bar-tab')[0].classList.add('mui-plus-visible');
+			}
+			//关闭启动页面
+			function closeStartScreent() {
+				//创建父子模版完成后关闭启动页面
+				plus.navigator.closeSplashscreen();
+			}
+			//判断是否已经登陆
+			function judgelogin() {
+				//			//测试语句
+				//			localStorage.removeItem('user');
+				//判断是否已经登录成功//localstorage在页面关闭的时候也同样存在，sessionstorage页面关闭数据不存在
+				if (!localStorage.getItem('user')) {
+					mui.preload({
+						url: 'Mine/login.html',
+						id: 'Mine/login.html',
+						styles: {
+							top: '0px',
+							bottom: '0px'
+						}
+					});
+				}
+			}
+
+			function initProductDetail() {
+				//独立的父子模版页面
+				detailTem = mui.preload({
+					url: 'product-detail-tem.html',
+					id: 'product-detail-tem.html',
+					styles: {
+						top: '0px',
+						bottom: '0px'
+					}
+				});
+				detailsub = mui.preload({
+					url: 'Home/product-detail-needtem.html',
+					id: 'Home/product-detail-needtem.html',
+					styles: {
+						top: '44px',
+						bottom: '0px',
+						bounce: 'vertical',
+						bounceBackground: '#DCDCDC'
+					}
+				});
+				detailsub.hide();
+				detailTem.hide();
+				detailsub.addEventListener('loaded', function() {
+					detailsub.show();
+				}, false);
+				detailTem.addEventListener('hide', function() {
+					detailsub.hide();
+				}, false);
+				detailTem.append(detailsub);
+			}
+			//初始化每个tabitem所对应的页面
+			function inittabitemWebviews() {
+				for (var i = 0; i < barItemUrl.length; i++) {
+					barItemWebView[i] = mui.preload({
+						url: barItemUrl[i],
+						id: barItemUrl[i],
+						styles: {
+							top: '44px',
+							bottom: '51px',
+							left: '0px',
+							bounce: 'vertical',
+							bounceBackground: '#DCDCDC'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+					//				if (i != 0) {
+					barItemWebView[i].hide();
+					//				}
+					mainWebView.append(barItemWebView[i]);
+				}
+				barItemWebView[0].show();
+			}
+			//为搜索框添加onfocus事件
+			function addFocusEventForSearch() {
+				// 获得焦点时弹出软键盘，并隐藏mui-bar-tab
+				document.getElementById('search').addEventListener('focus', function() {
+					document.getElementsByClassName('.mui-bar.mui-bar-tab')[0].style["display"] = "none";
+				});
+				document.getElementById('search').addEventListener('focusout', function() {
+					document.getElementsByClassName('.mui-bar.mui-bar-tab')[0].style["display"] = "";
+				});
+				mui('.mui-search').on('focusout', '#search', function() {
+					// 搜索框是去焦点时，关闭软键盘，显示mui-bar-tab
+					document.getElementsByClassName('.mui-bar.mui-bar-tab')[0].style["display"] = "";
+				});
+			}
+			//为每个tabitem添加监听
+			function addEventForTabitem() {
+				mui('.mui-bar-tab').on('tap', '.mui-tab-item', function() {
+					var tabitem = this;
+					if (tabitem == curTabItem) {
+						return;
+					}
+					curTabItem = tabitem;
+					navtitle.innerText = tabitem.children[tabitem.children.length - 1].innerText;
+					var bar_title = navtitle.innerText;
+					if (bar_title == "首页" || bar_title == "分类") {
+						document.getElementById('bar-label').style["display"] = "none";
+						document.getElementById('bar-search').style["display"] = "block";
+					} else {
+						document.getElementById('bar-label').style["display"] = "block";
+						document.getElementById('bar-search').style["display"] = "none";
+					}
+					if (bar_title == "我的") {
+						document.getElementById('messageCenter').style.display = "inline";
+						document.getElementById('settingCenter').style.display = "inline";
+					} else if (bar_title == "购物车" || bar_title == "公益") {
+						document.getElementById('messageCenter').style.display = "inline";
+						document.getElementById('settingCenter').style.display = "none";
+					}
+					//设置将显示当前webview
+					showCurWebView(tabitem.getAttribute('href'));
+				});
+			}
+			//设置webview的切换显示的函数
+			function showCurWebView(href) {
+				var index = 0;
+				for (var i = 0; i < barItemUrl.length; i++) {
+					if (href == barItemUrl[i]) {
+						index = i;
+					} else {
+						barItemWebView[i].hide();
+					}
+				}
+				barItemWebView[index].show();
+			}
+			
+			// 初始化搜索模板页面
+			function initSearchTemplate(){
+				parentSearchWebview = mui.preload({
+					url: 'template/search-template.html',
+					id: 'template/search-template.html',
+					styles:{
+						top: '0px',
+						bottom: '0px'
+					},
+					extras:{
+						mtype:'search-parent'
+					}
+				});
+				
+				subSearchWebview = mui.preload({
+					url: '',
+					id: 'template/search-sub-template.html',
+					styles: {
+						top: '44px',
+						bottom: '0px',
+						bounce: 'vertical',
+						bounceBackground: '#DCDCDC'
+					},
+					extras:{
+						mtype:'search-sub'
+					}
+				});
+				
+				subSearchWebview.hide();
+				parentSearchWebview.hide();
+				
+				subSearchWebview.addEventListener('loaded', function(){
+					subSearchWebview.show();
+				}, false);
+				
+				parentSearchWebview.addEventListener('hide', function(){
+					subSearchWebview.hide();
+				}, false);
+				
+				parentSearchWebview.addEventListener('show', function(){
+					if(subSearchWebview){
+						subSearchWebview.show();
+					}
+				});
+				
+				parentSearchWebview.append(subSearchWebview);				
+			}
+			
+			//初始化父子模版函数
+			function initParentChildTemplate() {
+				headerWebView = mui.preload({
+					url: 'template-main.html',
+					id: 'template-main.html',
+					styles: {
+						top: '0px',
+						bottom: '0px'
+					},
+					extras: {
+						mtype: 'main'
+					}
+				});
+				contentWebView = mui.preload({
+					url: '',
+					id: 'template-sub.html',
+					styles: {
+						top: '44px',
+						bottom: '0px',
+						bounce: 'vertical',
+						bounceBackground: '#DCDCDC'
+					},
+					extras: {
+						mtype: 'sub'
+					}
+				});
+				contentWebView.hide();
+				headerWebView.hide();
+				contentWebView.addEventListener('loaded', function() {
+					contentWebView.show();
+				}, false);
+				headerWebView.addEventListener('hide', function() {
+					//设置statusbar
+					//				plus.navigator.setStatusBarBackground('#41cea9');
+					contentWebView.hide();
+				}, false);
+				headerWebView.addEventListener('show', function() {
+					//设置statusbar
+					//				plus.navigator.setStatusBarBackground('#f7f7f7');
+				});
+				headerWebView.append(contentWebView);
+			}
+			//添加监听事件
+			function changeWebViewEvent() {
+				window.addEventListener('newWebView', function(options) {
+					//				var list = plus.webview.all();
+					//				mui.each(list,function(index,item){
+					//					console.log(item.id);
+					//				});
+					var id = options.detail.id;
+					var href = options.detail.href;
+					var aniShow = options.detail.aniShow;
+					var title = options.detail.title;
+					//是否显示按钮
+					var isBars = options.detail.isBars;
+					var barsIcon = options.detail.barsIcon;
+					var categoryID = options.detail.categoryID;
+					console.log(id);
+					console.log(href);
+					console.log(aniShow);
+					console.log(title);
+					console.log(categoryID);
+					//需要特殊处理的地方，比如说登陆页面模态，需要有时候被控制在内存中。
+					if (id == 'Mine/login.html') {
+						var loginWebView = plus.webview.getWebviewById(id);
+						if (loginWebView) {
+							loginWebView.show(aniShow);
+						} else {
+							//这个条件下面是为了适应当登录页面并没有初始化，或者初始化之后用户又已经登录了这个页面被删除之后再次登录
+							loginWebView = mui.preload({
+								url: 'Mine/login.html',
+								id: 'Mine/login.html',
+								styles: {
+									top: '0px',
+									bottom: '0px'
+								}
+							});
+							loginWebView.addEventListener('loaded', function() {
+								loginWebView.show(aniShow);
+							}, false);
+						}
+					} /*else if (id == 'Home/product-detail-needtem.html') {
+						var productID = options.detail.product_id;
+						mui.fire(detailTem, 'detailTemplate', {
+							id: id,
+							aniShow: aniShow,
+							target: href,
+							product_id: productID
+						});
+						if (mui.os.ios || (mui.os.android && parseFloat(mui.os.version) < 4.4)) {
+							detailsub.loadURL(id);
+							detailTem.show(aniShow);
+						}
+					} */
+					else if(id == 'Home/searchPage.html'){
+						var categoryID = options.detail.category_id;
+						mui.fire(parentSearchWebview, 'searchTemplateFire', {
+							id: id,
+							aniShow: aniShow,
+							target: href,
+							isBars: false,
+							barsIcon: '',
+							categoryID: categoryID
+						});
+						if(mui.os.ios ||　mui.os.android && parseFloat(mui.os.version) < 4.4){
+							subSearchWebview.loadURL(href);
+							parentSearchWebview.show(aniShow, 150);
+						}
+						
+					}else if (~id.indexOf('.html')) {
+						if (!~id.indexOf('needtem.html')) {
+							mui.openWindow({
+								url: href,
+								id: id,
+								styles: {
+									popGesture: 'close'
+								},
+								show: {
+									aniShow: aniShow
+								},
+								waiting: {
+									autoShow: true
+								}
+							});
+						} else {
+							//headerWebView.hide();如果在这里添加这个代码，会导致监听事件在下面contentwebview show之后又隐藏掉它
+							contentWebView.hide();
+							//像template-main传送事件让他更改标题
+							console.log("账户管理页面：" + title);
+							mui.fire(headerWebView, 'templateFire', {
+								id: id,
+								title: title,
+								aniShow: aniShow,
+								target: href,
+								isBars: isBars,
+								barsIcon: barsIcon,
+								categoryID: categoryID
+							});
+							//如果为展示category或者商品信息的页面，需要每次都重新加载，因为存在刷新页面信息的东西;
+							//再次加载页面显示的也是之前加载的页面信息，所以这里，在这个页面返回的时候将里面的数据清空
+							if (mui.os.ios || (mui.os.android && parseFloat(mui.os.version) < 4.4)) {
+								var str = contentWebView.getURL();
+								var index = str.indexOf('www/');
+								str = str.substring(index + 4);
+								console.log(contentWebView.getURL() + "  " + str);
+								if ((!~id.indexOf('category-detail') && !~id.indexOf('goods-detail')) && (contentWebView.getURL() == href || str == href)) {
+									console.log("loaded");
+									contentWebView.show();
+								} else {
+									console.log("new load");
+									contentWebView.loadURL(href);
+								}
+								headerWebView.show(aniShow, 150);
+							}
+						}
+					}
+				}, false);
+			}
+			//两次点击返回
+			var first = null;
+			mui.back = function() {
+				//首次按键
+				if (!first) {
+					first = new Date().getTime();
+					mui.toast("再按一次退出");
+					setTimeout(function() {
+						first = null;
+					}, 1000);
+				} else {
+					if (new Date().getTime() - first < 1000) {
+						plus.runtime.quit();
+					}
+				}
+			}
+
+			// 为'消息'按钮添加监听事件，跳转到'消息中心'页面
+			function addEventForMessageCenter(){
+				document.getElementById('messageCenter').addEventListener('tap', function(){
+					mui.fire(mainWebView, 'newWebView',{
+						id:'Mine/message-center-needtem.html',
+						href:'Mine/message-center-needtem.html',
+						aniShow: 'slide-in-bottom',
+						title: "消息中心",
+						isBars: false,
+						barsIcon:''
+					});
+				});
+				document.getElementById('messageCenterForSearch').addEventListener('tap', function(){
+					mui.fire(mainWebView, 'newWebView',{
+						id:'Mine/message-center-needtem.html',
+						href:'Mine/message-center-needtem.html',
+						aniShow: 'slide-in-bottom',
+						title: "消息中心",
+						isBars: false,
+						barsIcon:''
+					});
+				});
+				
+			}
+			// 为'设置'按钮添加监听事件，跳转到'设置中心'页面
+			function addEventForSettingCenter(){
+				document.getElementById('settingCenter').addEventListener('tap', function(){
+					mui.fire(mainWebView, 'newWebView',{
+						id:'Mine/setting-center-needtem.html',
+						href:'Mine/setting-center-needtem.html',
+						aniShow: 'slide-in-right',
+						title: "设置中心",
+						isBars: false,
+						barsIcon:''
+					});
+				});
+			}
+		</script>
+
+	</body>
+
+</html>

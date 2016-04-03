@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>E3父子模版，可直接用index的父子模版</title>
+
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/own.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+
+		<style type="text/css">
+			.mui-icon,
+    		.mui-bar-nav .mui-title {
+    			color: white;
+    		}
+		
+			.message-items .message-item.mui-media .mui-media-object {
+				width: 2em;
+				height: 1.8em;
+				line-height: 1.8em;
+				text-align: center;
+				border-radius: 20%;
+				color: #fff;
+				font-size: 1.4em;
+				font-weight: bold;
+				float: left;
+				margin-right: 10px;
+			}
+			
+			.msg-kefu{
+				background-color: #D8505C;
+			}
+			
+			.msg-cuxiao{
+				background-color: #FEB220;
+			}
+			
+			.msg-asset{
+				background-color: #F15352;
+			}
+			
+			.msg-logistics{
+				background-color: #00A0EA;
+			}
+			
+			.message-items .message-item.mui-media .mui-media-body{
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			
+			.mui-media-body .message-title{
+				color: #252525;
+				font-size: 16px;
+			}
+			
+			.mui-media-body .message-des{
+				color: #8A8B8D;
+				font-size: 12px;
+			}
+			
+			
+		</style>
+
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav own-main-background-color ">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">消息中心</h1>
+		</header>-->
+
+		<div class="mui-content">
+			<ul class="message-items mui-table-view">
+				<li class="message-item mui-table-view-cell mui-media">
+					<span class="msg-kefu mui-media-object mui-icon mui-icon-home"></span>
+					<div class="mui-media-body">
+						<div class="message-title">
+							江华客服
+						</div>
+						<div class="message-des mui-ellipsis-1">
+							查看您与客服的会话记录
+						</div>
+					</div>
+				</li>
+				
+				<li class="message-item mui-table-view-cell mui-media">
+					<span class="msg-cuxiao mui-media-object mui-icon mui-icon-home">
+					</span>
+					<div class="mui-media-body">
+						<div class="message-title">
+							优惠促销
+						</div>
+						<div class="message-des mui-ellipsis-1">
+							疯狂星期二3-15空调超级品类日，400元一件
+						</div>
+					</div>
+				</li>
+				
+				<li class="message-item mui-table-view-cell mui-media">
+					<span class="msg-asset mui-media-object mui-icon mui-icon-home"></span>
+					<div class="mui-media-body">
+						<div class="message-title">
+							我的资产
+						</div>
+						<div class="message-des mui-ellipsis-1">
+							您有一张优惠券今日到期，优惠额20.0元
+						</div>
+					</div>
+				</li>
+				
+				<li class="message-item mui-table-view-cell mui-media">
+					<span class="msg-logistics mui-media-object mui-icon mui-icon-home"></span>
+					<div class="mui-media-body">
+						<div class="message-title">
+							物流信息
+						</div>
+						<div class="message-des mui-ellipsis-1">
+							随时随地查看宝贝的物流信息
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<script src="../js/mui.min.js" charset="UTF-8"></script>
+		<script src="../js/own.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: false
+			});
+			mui.plusReady(function() {
+				//adaptive();
+			});
+		</script>
+	</body>
+
+</html>

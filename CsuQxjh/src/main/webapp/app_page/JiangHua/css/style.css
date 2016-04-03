@@ -1,0 +1,148 @@
+#main,
+#goods,
+#search {
+	margin-bottom: 80px;
+}
+
+h2 {
+	margin: 15px 0;
+}
+
+#top.mui-bar {
+	position: inherit;
+}
+
+#main .mui-segmented-control {
+	border: none;
+	margin-left: 0;
+}
+
+#main .mui-segmented-control .mui-control-item {
+	display: block;
+	width: 100%;
+	border: 1px solid #E5E5E5;
+	border-left: none;
+	border-top: none;
+	background: white;
+	color: #252525;
+	height: 3em;
+	line-height: 3em;
+}
+
+#main .mui-segmented-control .mui-control-item:first-child {
+	border-top: 1px solid #ccc;
+}
+
+#main .mui-segmented-control .mui-control-item.mui-active {
+	color: #dd524d;
+	background-color: inherit;
+	border: none;
+}
+
+#main .mui-content-padded {
+	margin-right: 0;
+	margin-top: 0;
+}
+
+#main .mui-content-padded h4 {
+	margin: 30px 0;
+}
+
+#main .mui-table-view:before,
+#main .mui-table-view:after {
+	background: none;
+}
+
+#search .mui-segmented-control {
+	border: 1px solid #ccc;
+}
+
+#search .mui-segmented-control .mui-control-item {
+	border: none;
+	color: #252525;
+}
+
+#search .mui-segmented-control .mui-control-item.mui-active {
+	color: white;
+	background-color: #dd524d;
+	border: none;
+}
+
+#search .mui-table-view .mui-media-object {
+}
+
+#search .mui-table-view-cell p {
+}
+
+#search .mui-table-view-cell p.mui-danger {
+}
+
+#search .mui-table-view-cell p.mui-name {
+}
+
+#goods .goodCard {
+	margin: 15px 0;
+	background: white;
+	border: 1px solid #ccc;
+}
+
+#goods .goodTag {
+	margin: 10px;
+}
+
+#goods .goodTag .bones .mui-row {
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+
+#goods .goodTag .bones .bonesName {
+	color: #888;
+}
+
+#goods .goodTag .bones .bonesInfo {
+	font-weight: bold;
+}
+
+.goodPrice,
+#goods .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	color: #dd524d;
+}
+
+#goods .mui-segmented-control.mui-segmented-control-inverted ~ .mui-slider-progress-bar {
+	background-color: #dd524d;
+}
+
+#goods table {
+	margin: 10px;
+	padding: 10px;
+}
+
+#goods table td {
+	padding: 10px;
+}
+
+#goods .comment {
+	border-top: 1px solid #ccc;
+	padding: 10px 0;
+}
+
+#goods .comment .CommentStar {
+	color: #dd524d;
+}
+
+#goods .comment .CommentUser {
+	color: #888;
+}
+
+#goods .comment .mui-row {
+	margin: 10px 0;
+}
+
+#goods .comment .commentContent {
+	color: black;
+}
+
+#goods .comment .commentPic > div {
+	margin: 0 10px;
+}
