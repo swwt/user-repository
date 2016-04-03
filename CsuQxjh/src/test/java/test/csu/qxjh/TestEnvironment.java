@@ -2,34 +2,39 @@ package test.csu.qxjh;
 
 import javax.annotation.Resource;
 
-import org.hibernate.SessionFactory;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import com.csu.qxjh.test.pojo.Book;
+import com.csu.qxjh.user.pojo.User;
+import com.csu.qxjh.user.service.UserService;
 
+
+//测试方法
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)  
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring-config.xml"})
 public class TestEnvironment {
-
 	@Resource
-	private SessionFactory sessionFactory;
+	private UserService userService;
 	
 	@Test
+	public void test2(){
+		System.out.println(userService.getUserById("402881e853db53520153db53556d0000"));
+	}
+	@Test
 	public void test1(){
-		Book book=new Book();
-		book.setBook_name("aa");
-//		bookDao.save(book);
-		sessionFactory.getCurrentSession().save(book);
-//		sessionFactory.getCurrentSession().flush();
-//		System.out.println(sessionFactory.getCurrentSession().get(Book.class, 1));
-//		System.out.println(sessionFactory.getCurrentSession());
+		User user=new User();
+		//user.setId("d1r12dwq12");
+		user.setUser_login_name("swwt");
+		user.setUser_password("123456");
+		userService.insert(user);
 	}
 }

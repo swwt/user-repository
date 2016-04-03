@@ -55,7 +55,12 @@
 	    <!-- 扫描Hibernate注解方式的pojo包 -->
 	  <property name="packagesToScan">
 	       <list>
-	            <value>com.csu.qxjh.test.pojo</value>
+	       		<value>com.csu.qxjh.test.pojo</value>
+	            <value>com.csu.qxjh.admin.pojo</value>
+	            <value>com.csu.qxjh.user.pojo</value>
+	            <value>com.csu.qxjh.sellor.pojo</value>
+	            <value>com.csu.qxjh.news.pojo</value>
+	            <value>com.csu.qxjh.goods.pojo</value>
 	       </list>
       </property>
     	
@@ -64,6 +69,8 @@
 	        <prop key="hibernate.dialect">${hibernate.dialect}</prop>
 	        <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 	        <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+	        <!-- 设置 Hibernate 的事务隔离级别 -->
+    		<prop key="connection.isolation">4</prop>
 	    <!--   <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>-->   
 	        <!-- 配置管理 Session 的方式 
     	    <prop key="hibernate.current_session_context_class">
