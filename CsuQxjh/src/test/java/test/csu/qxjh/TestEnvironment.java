@@ -16,7 +16,7 @@ import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.service.UserService;
 
 
-//测试方法
+//测试方法，以下几个注解都是必须的！
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)  
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,8 +26,12 @@ public class TestEnvironment {
 	private UserService userService;
 	
 	@Test
+	public void test3(){
+		System.out.println(userService.getByNamePassword("swwt5", "123456"));
+	}
+	@Test
 	public void test2(){
-		System.out.println(userService.getUserById("402881e853db53520153db53556d0000"));
+		System.out.println(userService.getUserById("402881e853dccb070153dccb0a220000"));
 	}
 	@Test
 	public void test1(){

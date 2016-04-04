@@ -25,10 +25,18 @@ public class UserServiceImpl implements UserService{
 		String password_MD5=new MD5Util().MD5(passowrd);
 		user.setUser_password(password_MD5);
 		userDao.insert(user);
+		user.setUser_name(user.getId());
+		userDao.update(user);//将用户名设置为与主键值一样
 	}
 
 	public User getUserById(String id) {
 		// TODO Auto-generated method stub
 		return userDao.getById(id);
+	}
+
+	public User getByNamePassword(String user_login_name, String user_password) {
+		// TODO Auto-generated method stub
+		String password_MD5=new MD5Util().MD5(user_password);//先获取加密后的密码
+		return userDao.getByNamePassword(user_login_name, password_MD5);
 	}
 }

@@ -16,12 +16,12 @@ import org.hibernate.annotations.GenericGenerator;
 public class User {
 	
 	private String id;//主键
-	private String user_name;//用户名
-	private String user_login_name;//登录名
+	private String user_name;//用户名(值与主键相同)
+	private String user_login_name;//登录名(用户登陆所使用的登录名)
 	private String user_real_name;//真实姓名
 	private String user_nickname;//昵称
 	private String user_home_address;//联系地址
-	private String user_phone;//联系电话
+	private String user_phone;//联系电话（手机号）
 	private int user_sex;//性别（0：男;1：女）
 	private String user_password;//密码
 	private String user_birthday;//出生年月

@@ -7,6 +7,8 @@
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="jsHostName/hostName.js"></script>
 		<style>
 			.area {
 				margin: 20px auto 0px auto;
@@ -70,7 +72,33 @@
 				border: solid 1px #aaa;
 			}
 		</style>
-
+<script type="text/javascript">
+				function login(){	
+					alert(1);
+					var user_login_name=document.getElementById("user_login_name").value;
+					var user_password=document.getElementById("user_password").value;
+	
+					mui.ajax(host+'/user/login',{
+						data:{
+							user_login_name:user_login_name,
+							user_password:user_password
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							alert(data.message);
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+				}
+				
+</script>
 	</head>
 
 	<body>
@@ -81,14 +109,15 @@
 			<form id='login-form' class="mui-input-group">
 				<div class="mui-input-row">
 					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+					<input id='user_login_name' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
 				</div>
 				<div class="mui-input-row">
 					<label>密码</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+					<input id='user_password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
 				</div>
+				
 			</form>
-			<form class="mui-input-group">
+ 			<form class="mui-input-group">
 				<ul class="mui-table-view mui-table-view-chevron">
 					<li class="mui-table-view-cell">
 						自动登录
@@ -98,8 +127,9 @@
 					</li>
 				</ul>
 			</form>
+
 			<div class="mui-content-padded">
-				<button id='login' class="mui-btn mui-btn-block mui-btn-danger">登录</button>
+				<button id='login' class="mui-btn mui-btn-block mui-btn-danger" onclick="login()">登录</button>
 				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
 				</div>
 			</div>

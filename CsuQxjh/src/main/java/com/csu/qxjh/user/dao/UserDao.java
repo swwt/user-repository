@@ -3,6 +3,8 @@ package com.csu.qxjh.user.dao;
 import com.csu.qxjh.user.pojo.User;
 
 public interface UserDao {
+	void update(User user);//更新用户信息
 	User getById(String id);//根据主键获取用户
 	void insert(User user);//插入一条用户信息
+	User getByNamePassword(String user_login_name,String user_password);//根据登录名和密码查询用户
 }

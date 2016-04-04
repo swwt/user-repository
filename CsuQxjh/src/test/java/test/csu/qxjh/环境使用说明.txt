@@ -1,8 +1,24 @@
 
-1.关于数据库事务方面，这里配置的是采用注解的方式来进行事务管理(@Transactional)
 
-2.Hibernate的基类映射采用注解方式(@Id,@Column等等。。。。)
 
-3.spring IOC容器对于bean的管理都使用注解的方式
+
+一.关于数据库事务方面，这里配置的是采用注解的方式来进行事务管理(@Transactional)
+
+
+二.Hibernate的基类映射采用注解方式(@Id,@Column等等。。。。)
+
+
+三.spring IOC容器对于bean的管理都使用注解的方式
 (注册bean:@Repository、@Service、@Controller 和 @Component)
 (注入bean：推荐使用@Resource;@Autowired也行)
+
+
+四.关于springmvc也是采用注解方式，注解扫描的包已在配置文件中
+
+
+五.配置文件说明：
+resources.properties是一些参数(键值对的形式)
+spring-config.xml是spring和Hibernate整合的文件(舍弃Hibernate原生的配置文件)
+spring-mvc.xml是springmvc的配置文件
+
+
