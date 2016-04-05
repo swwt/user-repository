@@ -24,7 +24,6 @@
     		}
     		
     </style>
-    
 		<!-- 登陆ajax操作 -->
 <script type="text/javascript">
 				function loginAjax(){	 
@@ -45,6 +44,18 @@
 							//服务器返回响应，根据响应结果，分析是否登录成功；							
 							if(data.code==1){//登陆成功跳转到首页
 								alert(data.message);
+								
+								var userJSON=data.result;
+								
+								//alert(JSON.stringify(userJSON));//将JSON对象转化为字符串
+								localStorage.setItem("user",JSON.stringify(userJSON));
+								mui.plusReady(function(){
+     								 mui.openWindow({
+									  url: '../index.html', 
+									  id:'info'
+								  });
+								});
+								
 							}else{//登录失败，给出提醒
 								alert(data.message);
 							}
@@ -77,7 +88,7 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label><span class="mui-icon iconfont icon-zhanghao"></span></label>
-					<input id='user_login_name' type="text" class="mui-input-clear" value="13881111755" placeholder="请输入手机号或用户名" />
+					<input id='user_login_name' type="text" class="mui-input-clear" value="18142642529" placeholder="请输入手机号或用户名" />
 				</div>
 				<div class="mui-input-row">
 					<label><span class="mui-icon iconfont icon-mimaxiugai"></span></label>

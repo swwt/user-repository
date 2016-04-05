@@ -205,7 +205,8 @@
 					"baritemHtml/mine_1.html",
 					"baritemHtml/gongyi.html",
 					"Mine/login.html",
-					"TestImage.html"
+					"TestImage.html",
+					"test.html"
 				],
 				"refer": [
 					"template-main.html",
@@ -299,7 +300,10 @@
 					"js/md5.js",
 					"jsHostName/hostName.js"
 				],
-				"refer": [],
+				"refer": [
+					"Mine/address.html",
+					"index.html"
+				],
 				"priority": 0
 			},
 			"baritemHtml/home.html": {
@@ -383,7 +387,8 @@
 					"js/load.js",
 					"fonts/iconfont.ttf",
 					"js/md5.js",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"test.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -460,7 +465,8 @@
 					"js/load.js",
 					"js/md5.js",
 					"index.html",
-					"img/cishanjia.png"
+					"img/cishanjia.png",
+					"test.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -537,7 +543,9 @@
 					"css/mui.min.css",
 					"img/muwu.jpg",
 					"Home/searchPage.html",
-					"js/own.js"
+					"js/own.js",
+					"img/cbd.jpg",
+					"test.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -589,6 +597,16 @@
 				"resources": [
 					"images/goods/mangguo.png",
 					"img/shuijiao.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"test.html": {
+				"resources": [
+					"fonts/iconfont.ttf",
+					"baritemHtml/categories.html",
+					"baritemHtml/gongyi.html",
+					"baritemHtml/cart_1.html"
 				],
 				"refer": [],
 				"priority": 0

@@ -12,7 +12,8 @@
 			"baritemHtml/mine_1.html",
 			"baritemHtml/gongyi.html",
 			"Mine/login.html",
-			"TestImage.html"
+			"TestImage.html",
+			"test.html"
 		],
 		"refer": [
 			"baritemHtml/home.html",
@@ -43,7 +44,8 @@
 			"template/search-template.html",
 			"Home/searchPage.html",
 			"search-template.html",
-			"TestImage.html"
+			"TestImage.html",
+			"test.html"
 		]
 	},
 	"template-main.html": {
@@ -106,6 +108,10 @@
 			"js/load.js",
 			"js/md5.js",
 			"jsHostName/hostName.js"
+		],
+		"refer": [
+			"Mine/address.html",
+			"index.html"
 		]
 	},
 	"baritemHtml/home.html": {
@@ -190,7 +196,11 @@
 			"js/load.js",
 			"fonts/iconfont.ttf",
 			"js/md5.js",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"test.html"
+		],
+		"refer": [
+			"test.html"
 		]
 	},
 	"Mine/change-address-needtem.html": {
@@ -259,10 +269,12 @@
 			"js/load.js",
 			"js/md5.js",
 			"index.html",
-			"img/cishanjia.png"
+			"img/cishanjia.png",
+			"test.html"
 		],
 		"refer": [
-			"index.html"
+			"index.html",
+			"test.html"
 		]
 	},
 	"Mine/user-manage.html": {
@@ -333,10 +345,13 @@
 			"css/mui.min.css",
 			"img/muwu.jpg",
 			"Home/searchPage.html",
-			"js/own.js"
+			"js/own.js",
+			"img/cbd.jpg",
+			"test.html"
 		],
 		"refer": [
-			"Home/searchPage.html"
+			"Home/searchPage.html",
+			"test.html"
 		]
 	},
 	"Home/goodsIndex-needtem.html": {
@@ -381,6 +396,19 @@
 		"resources": [
 			"images/goods/mangguo.png",
 			"img/shuijiao.jpg"
+		]
+	},
+	"test.html": {
+		"resources": [
+			"fonts/iconfont.ttf",
+			"baritemHtml/categories.html",
+			"baritemHtml/gongyi.html",
+			"baritemHtml/cart_1.html"
+		],
+		"refer": [
+			"baritemHtml/categories.html",
+			"baritemHtml/gongyi.html",
+			"baritemHtml/cart_1.html"
 		]
 	}
 }
