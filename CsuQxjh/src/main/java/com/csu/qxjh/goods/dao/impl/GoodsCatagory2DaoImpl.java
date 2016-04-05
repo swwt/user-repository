@@ -1,5 +1,7 @@
 package com.csu.qxjh.goods.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -37,6 +39,14 @@ public class GoodsCatagory2DaoImpl implements GoodsCatagory2Dao{
 	public void update(GoodsCatagory2 goodsCatagory2) {
 		// TODO Auto-generated method stub
 		getSession().update(goodsCatagory2);
+	}
+	@Override
+	public List selectAll() {
+		// TODO Auto-generated method stub
+		String hql="From GoodsCatagory2";
+		Query query=getSession().createQuery(hql);
+		List catagory2_list=query.list();
+		return catagory2_list;
 	}
 
 }

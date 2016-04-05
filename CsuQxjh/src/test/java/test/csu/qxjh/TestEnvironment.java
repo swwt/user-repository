@@ -46,8 +46,8 @@ public class TestEnvironment {
     	goodsCatagory1.setId(5);
     	goodsCatagory1.setGoods_catagory1_name("蔬菜");
     	goodsCatagory1.setGoods_catagory1_remark("修改");
-//    	goodsCatagory1Service.add(goodsCatagory1);
-    	goodsCatagory1Service.update(goodsCatagory1);
+    	goodsCatagory1Service.add(goodsCatagory1);
+//    	goodsCatagory1Service.update(goodsCatagory1);
 //    	System.out.println(goodsCatagory1Service.getById(6).getGoodsCatagory2List());
     }
 	@Test

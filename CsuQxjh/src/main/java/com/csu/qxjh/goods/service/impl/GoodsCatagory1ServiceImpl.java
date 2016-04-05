@@ -1,5 +1,7 @@
 package com.csu.qxjh.goods.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.csu.qxjh.goods.dao.GoodsCatagory1Dao;
 import com.csu.qxjh.goods.pojo.GoodsCatagory1;
 import com.csu.qxjh.goods.service.GoodsCatagory1Service;
+
 
 @Service
 public class GoodsCatagory1ServiceImpl implements GoodsCatagory1Service{
@@ -29,6 +32,12 @@ public class GoodsCatagory1ServiceImpl implements GoodsCatagory1Service{
 	public void update(GoodsCatagory1 goodsCatagory1) {
 		// TODO Auto-generated method stub
 		goodsCatagory1Dao.update(goodsCatagory1);
+	}
+
+	@Override
+	public List getAll() {
+		// TODO Auto-generated method stub
+		return goodsCatagory1Dao.selectAll();
 	}
 
 }

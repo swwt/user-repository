@@ -1,5 +1,7 @@
 package com.csu.qxjh.goods.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.csu.qxjh.goods.dao.GoodsCatagory1Dao;
 import com.csu.qxjh.goods.pojo.GoodsCatagory1;
+
+
 
 @Repository
 public class GoodsCatagory1DaoImpl implements GoodsCatagory1Dao{
@@ -36,6 +40,14 @@ public class GoodsCatagory1DaoImpl implements GoodsCatagory1Dao{
 	public void update(GoodsCatagory1 goodsCatagory1) {
 		// TODO Auto-generated method stub
 		getSession().update(goodsCatagory1);
+	}
+	@Override
+	public List selectAll() {
+		// TODO Auto-generated method stub、
+		String hql="From GoodsCatagory1";
+		Query query=getSession().createQuery(hql);
+		List catagory1_list=query.list();
+		return catagory1_list;
 	}
 
 }

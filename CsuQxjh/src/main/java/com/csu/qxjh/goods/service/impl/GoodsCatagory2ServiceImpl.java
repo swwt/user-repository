@@ -1,5 +1,7 @@
 package com.csu.qxjh.goods.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -31,6 +33,12 @@ public class GoodsCatagory2ServiceImpl implements GoodsCatagory2Service{
 	public void update(GoodsCatagory2 goodsCatagory2) {
 		// TODO Auto-generated method stub
 		goodsCatagory2Dao.update(goodsCatagory2);
+	}
+
+	@Override
+	public List getAll() {
+		// TODO Auto-generated method stub
+		return goodsCatagory2Dao.selectAll();
 	}
 
 }
