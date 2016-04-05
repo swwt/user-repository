@@ -39,4 +39,22 @@ public class UserServiceImpl implements UserService{
 		String password_MD5=new MD5Util().MD5(user_password);//先获取加密后的密码
 		return userDao.getByNamePassword(user_login_name, password_MD5);
 	}
+
+	public User getByName(String user_login_name) {
+		// TODO Auto-generated method stub
+		return userDao.getByName(user_login_name);
+	}
+
+	@Override
+	public User getByPhone(String user_phone) {
+		// TODO Auto-generated method stub
+		return userDao.getByPhone(user_phone);
+	}
+
+	@Override
+	public User getByPhonePassword(String user_phone, String user_password) {
+		// TODO Auto-generated method stub
+		String password_MD5=new MD5Util().MD5(user_password);//先获取加密后的密码
+		return userDao.getByPhonePassword(user_phone, password_MD5);
+	}
 }

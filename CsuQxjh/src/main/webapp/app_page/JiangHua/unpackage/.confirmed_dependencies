@@ -10,7 +10,9 @@
 			"fonts/iconfont.ttf",
 			"fonts/mui.ttf",
 			"baritemHtml/mine_1.html",
-			"baritemHtml/gongyi.html"
+			"baritemHtml/gongyi.html",
+			"Mine/login.html",
+			"TestImage.html"
 		],
 		"refer": [
 			"baritemHtml/home.html",
@@ -40,7 +42,8 @@
 			"Home/goodsIndex-needtem.html",
 			"template/search-template.html",
 			"Home/searchPage.html",
-			"search-template.html"
+			"search-template.html",
+			"TestImage.html"
 		]
 	},
 	"template-main.html": {
@@ -101,7 +104,8 @@
 			"js/ajax.js",
 			"fonts/iconfont.ttf",
 			"js/load.js",
-			"js/md5.js"
+			"js/md5.js",
+			"jsHostName/hostName.js"
 		]
 	},
 	"baritemHtml/home.html": {
@@ -371,6 +375,12 @@
 		"refer": [
 			"template-main.html",
 			"Mine/message-center-needtem.html"
+		]
+	},
+	"TestImage.html": {
+		"resources": [
+			"images/goods/mangguo.png",
+			"img/shuijiao.jpg"
 		]
 	}
 }

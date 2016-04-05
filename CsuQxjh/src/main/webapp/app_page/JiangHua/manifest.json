@@ -203,13 +203,14 @@
 					"fonts/iconfont.ttf",
 					"fonts/mui.ttf",
 					"baritemHtml/mine_1.html",
-					"baritemHtml/gongyi.html"
+					"baritemHtml/gongyi.html",
+					"Mine/login.html",
+					"TestImage.html"
 				],
 				"refer": [
 					"template-main.html",
 					"baritemHtml/mine.html",
 					"baritemHtml/xinyuandan.html",
-					"Mine/login.html",
 					"baritemHtml/category.html",
 					"baritemHtml/cart.html",
 					"product-detail-tem.html",
@@ -295,7 +296,8 @@
 					"js/ajax.js",
 					"fonts/iconfont.ttf",
 					"js/load.js",
-					"js/md5.js"
+					"js/md5.js",
+					"jsHostName/hostName.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -581,6 +583,14 @@
 					"template-main.html",
 					"Mine/message-center-needtem.html"
 				],
+				"priority": 0
+			},
+			"TestImage.html": {
+				"resources": [
+					"images/goods/mangguo.png",
+					"img/shuijiao.jpg"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

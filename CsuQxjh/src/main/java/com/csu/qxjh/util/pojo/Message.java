@@ -3,7 +3,7 @@ package com.csu.qxjh.util.pojo;
 /*
  * 
  * 服务器返回json数据格式定义
- * int code : 结果码，用来标记服务端和客户端 错误，成功信息
+ * int code : 结果码，用来标记服务端和客户端 错误，成功信息(0代表失败，1代表成功,-1代表未登录)
  * String message: 错误信息
  * Object result: 请求成功返回的数据
  * 

@@ -32,4 +32,12 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />  
     </bean> 
+    <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/*"/><!-- 拦截user控制层 -->
+			<mvc:exclude-mapping path="/user/login"/> 	
+			<mvc:exclude-mapping path="/"/>  	
+			<bean class="com.csu.qxjh.util.LoginInterceptor_app"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

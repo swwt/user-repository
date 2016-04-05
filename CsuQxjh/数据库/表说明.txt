@@ -1,0 +1,59 @@
+说明：以下表，除了用户表，卖家，管理员，订单这四个表的主键使用字符串类型，其余表的主键皆使用整型！
+
+
+
+1.admin 管理员表   
+2.sellor 卖家表                           
+3.user 用户表（买家）
+ 
+
+4.goods_catagory_1 商品一级分类表
+5.goods_catagory_2 商品二级分类表      
+6.goods  商品表（所有商家发布的商品）
+7.goods_detail 商品详情表    
+8.goods_image 商品所需的图片表 
+9.goods_detail_image  商品详情所需的图片表  
+  
+       
+10.collection 用户（买家）收藏表表
+11.user_address  用户（买家）收获地址表                  
+12.user_goods_history  用户（买家）浏览历史表   
+  
+                 
+13.coupon_sellor 优惠券表（卖家发布的）                    
+14.coupon_user 优惠券表（买家持有的）    
+15.goods_coupon 商品和优惠券的关系表（即限制优惠券适用范围）                 
+                        
+
+16.goods_order 订单表            
+17.goods_comment 商品评价表（针对某订单对应的商品）   
+18.shopping_cart 购物车表
+  
+             
+19.goods_sellor_feedback 商品售后反馈表（对商家产品的投诉）  
+20.service_feedback 服务反馈表（对该电商平台的建议）    
+    
+            
+21.message_center_assets 消息中心之我的资产表（如优惠券之类的过期通知）           
+22.message_center_help_sell 消息中心之售后或帮助服务表        
+23.message_center_server_customer 消息中心之客服表 
+  
+                
+24.news  公益新闻表                           
+25.news_comment  公益新闻评价表                   
+
+
+26.offer_promotion_discount  优惠促销表（折扣类的）       
+27.offer_promotion_fullcutproducts 优惠促销表（满减类的） 
+28.offer_promotion_fullsendproducts 优惠促销表 （满赠类的）
+29.offer_promotion_type 优惠促销类型表（存储上述三种促销表的表名即促销名称）          
+30.promotion_gifs 赠品表（满赠类的附带赠品）                  
+
+ 
+31.adminoperatelogs 管理员操作日志表
+32.useroperatelogs 用户日志表                
+33.selloroperatelogs卖家日志表
+                     
+
+                           
+

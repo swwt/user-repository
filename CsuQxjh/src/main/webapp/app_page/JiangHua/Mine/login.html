@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../css/own.css"/>
     <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
-    
+    <script src="../jsHostName/hostName.js"></script>
     <style type="text/css">
     		/*下面两项是重置muicss的输入框label和input之间的宽比率*/
     		.mui-input-row label {
@@ -24,6 +24,40 @@
     		}
     		
     </style>
+    
+		<!-- 登陆ajax操作 -->
+<script type="text/javascript">
+				function loginAjax(){	 
+					
+					alert(1);
+					var user_login_name=document.getElementById("user_login_name").value;
+					var user_password=document.getElementById("user_password").value;
+	
+					mui.ajax(host+'/user/login',{
+						data:{
+							user_login_name:user_login_name,
+							user_password:user_password
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；							
+							if(data.code==1){//登陆成功跳转到首页
+								alert(data.message);
+							}else{//登录失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+				}
+				
+</script>
 </head>
 <body>
 	
@@ -43,16 +77,16 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label><span class="mui-icon iconfont icon-zhanghao"></span></label>
-					<input type="text" class="mui-input-clear" value="13881111755" placeholder="请输入手机号或邮箱" />
+					<input id='user_login_name' type="text" class="mui-input-clear" value="13881111755" placeholder="请输入手机号或用户名" />
 				</div>
 				<div class="mui-input-row">
 					<label><span class="mui-icon iconfont icon-mimaxiugai"></span></label>
-					<input type="password" class="mui-input-clear" value="123456" placeholder="请输入密码" />
+					<input id='user_password' type="password" class="mui-input-clear" value="123456" placeholder="请输入密码" />
 				</div>
 			</form>
 		</div>
 		<div class="mui-button-row" style="margin: 10px 15px;">
-			<button id="loginBtn" type="button" class="mui-btn mui-btn-green own-btn-green mui-btn-block " style="padding: 5px 0px;">登录</button>
+			<button id="loginBtn" type="button" class="mui-btn mui-btn-green own-btn-green mui-btn-block " style="padding: 5px 0px;" onclick="loginAjax()">登录</button>
 		</div>
 		<div class="mui-button-row" style="padding-top: 0px;">
 			<button id="register" type="button" class="mui-btn mui-btn-link own-main-color own-font-size" style="padding-top: 0px; margin-right: 60px; ">快速注册</button>
