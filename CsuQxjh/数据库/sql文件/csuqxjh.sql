@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/4/6 14:53:16                            */
+/* Created on:     2016/4/6 15:19:11                            */
 /*==============================================================*/
 
 
@@ -33,6 +33,8 @@ drop table if exists goods_image;
 drop table if exists goods_order;
 
 drop table if exists goods_sellor_feedback;
+
+drop table if exists image_explanation;
 
 drop table if exists message_center_assets;
 
@@ -88,6 +90,7 @@ create table admin
    admin_address        varchar(50) comment '地址',
    admin_degree         int comment '管理员级别',
    admin_time           varchar(20) comment '管理员信息最后修改时间',
+   admin_head           varchar(50) comment '头像',
    primary key (id)
 );
 
@@ -327,6 +330,22 @@ create table goods_sellor_feedback
 alter table goods_sellor_feedback comment '用户对商家商品的反馈';
 
 /*==============================================================*/
+/* Table: image_explanation                                     */
+/*==============================================================*/
+create table image_explanation
+(
+   id                   int not null comment '编号',
+   image_explanation_object text comment '说明的对象（一般是表格名+字段名）',
+   image_explanation_height int comment '图片高要求',
+   image_explanation_size int comment '图片大小要求',
+   image_explanation_width int comment '图片宽要求',
+   image_explanation_remark text comment '备注',
+   primary key (id)
+);
+
+alter table image_explanation comment '图片规格说明';
+
+/*==============================================================*/
 /* Table: message_center_assets                                 */
 /*==============================================================*/
 create table message_center_assets
@@ -495,11 +514,11 @@ alter table promotion_gifs comment '赠品表';
 create table recommend_catagory
 (
    id                   int not null comment '编号',
-   recommend_catagory_image varchar(50) comment '标志性图片',
+   recommend_catagory_image varchar(50) comment '图片路径',
    primary key (id)
 );
 
-alter table recommend_catagory comment '推荐分类';
+alter table recommend_catagory comment '推荐分类对应的图片';
 
 /*==============================================================*/
 /* Table: sellor                                                */
