@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -79,9 +80,10 @@ public class GoodsCatagory1 {
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
 	}
-	@OneToMany(mappedBy="goodsCatagory1")//指定由谁来维护关联关系
-	@LazyCollection(LazyCollectionOption.EXTRA)
+	@OneToMany(mappedBy="goodsCatagory1",fetch=FetchType.EAGER)//指定由谁来维护关联关系
+	//@LazyCollection(LazyCollectionOption.EXTRA)
 	//　　--->　　LazyCollection属性设置成EXTRA指定了当如果查询数据的个数时候，只会发出一条 count(*)的语句，提高性能
+	//此设置易造成延迟加载异常
 	public List<GoodsCatagory2> getGoodsCatagory2List() {
 		return goodsCatagory2List;
 	}

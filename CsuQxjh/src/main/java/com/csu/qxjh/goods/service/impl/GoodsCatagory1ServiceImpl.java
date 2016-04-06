@@ -5,12 +5,15 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.csu.qxjh.goods.dao.GoodsCatagory1Dao;
 import com.csu.qxjh.goods.pojo.GoodsCatagory1;
 import com.csu.qxjh.goods.service.GoodsCatagory1Service;
 
-
+//如果有事务,那么加入事务,没有的话新建一个
+@Transactional(propagation=Propagation.REQUIRED)
 @Service
 public class GoodsCatagory1ServiceImpl implements GoodsCatagory1Service{
 
@@ -35,7 +38,7 @@ public class GoodsCatagory1ServiceImpl implements GoodsCatagory1Service{
 	}
 
 	@Override
-	public List getAll() {
+	public List<GoodsCatagory1> getAll() {
 		// TODO Auto-generated method stub
 		return goodsCatagory1Dao.selectAll();
 	}

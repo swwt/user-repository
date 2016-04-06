@@ -42,11 +42,11 @@ public class GoodsCatagory1DaoImpl implements GoodsCatagory1Dao{
 		getSession().update(goodsCatagory1);
 	}
 	@Override
-	public List selectAll() {
+	public List<GoodsCatagory1> selectAll() {
 		// TODO Auto-generated method stub、
 		String hql="From GoodsCatagory1";
 		Query query=getSession().createQuery(hql);
-		List catagory1_list=query.list();
+		List<GoodsCatagory1> catagory1_list=query.list();
 		return catagory1_list;
 	}
 

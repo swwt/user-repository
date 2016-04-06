@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/4/5 10:36:41                            */
+/* Created on:     2016/4/6 14:53:16                            */
 /*==============================================================*/
 
 
@@ -53,6 +53,8 @@ drop table if exists offer_promotion_fullsendproducts;
 drop table if exists offer_promotion_type;
 
 drop table if exists promotion_gifs;
+
+drop table if exists recommend_catagory;
 
 drop table if exists sellor;
 
@@ -197,7 +199,6 @@ create table goods_catagory_2
    goods_catagory_2_time_last_update varchar(20) comment '最后修改时间',
    admin_id             varchar(50) comment '最后修改管理员编号',
    goods_catagory_2_remark text comment '备注',
-   goods_catagory_2_type int comment '分类的类型，0代表专场分类，1代表热门分类',
    primary key (id)
 );
 
@@ -487,6 +488,18 @@ create table promotion_gifs
 );
 
 alter table promotion_gifs comment '赠品表';
+
+/*==============================================================*/
+/* Table: recommend_catagory                                    */
+/*==============================================================*/
+create table recommend_catagory
+(
+   id                   int not null comment '编号',
+   recommend_catagory_image varchar(50) comment '标志性图片',
+   primary key (id)
+);
+
+alter table recommend_catagory comment '推荐分类';
 
 /*==============================================================*/
 /* Table: sellor                                                */

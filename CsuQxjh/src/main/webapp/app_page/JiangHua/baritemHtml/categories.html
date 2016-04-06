@@ -6,7 +6,7 @@
 		<title>jianghua</title>
 		<link rel="stylesheet" href="../css/mui.min.css" />
 		<link rel="stylesheet" href="../css/style.css" />
-
+		<script src="../jsHostName/hostName.js"></script>
 		<style type="text/css">
 			.special .specialIcon .mui-table-view .mui-table-view-cell.mui-media .mui-media-body {
 				color: #686868;
@@ -26,7 +26,79 @@
 				margin-top: 18px;
 			}
 		</style>
-
+<!-- 商品分类ajax操作 -->
+<script type="text/javascript">
+			
+			function getCatagory(){//获取一级分类信息	 					
+					//alert("分类");					
+					mui.ajax(host+'/catagory/getCatagory1All',{
+						data:{
+						
+						},						 
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
+							if(data.code==1){//表示获取成功
+								//alert(data.message);
+								
+								var catagoryJSON=data.result;
+								var catoryHtml="<a class=\"mui-control-item mui-active\" href=\"#item1mobile\" style=\"\">推荐分类</a>";
+								for(var i=0;i<catagoryJSON.length;i++){
+									var t=i+2;
+									var sonString="<a class=\"mui-control-item\" href=\"#item"+t+"mobile\">"
+									+catagoryJSON[i].goods_catagory1_name+
+									"</a>";
+									catoryHtml=catoryHtml+sonString;
+								}
+								document.getElementById("segmentedControl").innerHTML=catoryHtml;
+								//alert(JSON.stringify(userJSON));//将JSON对象转化为字符串
+								
+							}else{//获取失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误（请求响应超时）");
+						}
+					});
+				
+			mui.ajax(host+'/catagory/getSpecialHotCatagory2',{
+						data:{
+						
+						},						 
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
+							if(data.code==1){//登陆成功跳转到首页
+								//alert(data.message);
+								
+								var catagoryJSON=data.result;
+								var specialJSON=catagoryJSON.special;
+								var hotJSON=catagoryJSON.hot;
+								
+							}else{//获取失败，显示错误信息
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误（请求响应超时）");
+						}
+					});
+			
+			}
+			
+			
+			
+			window.onload=getCatagory;	
+</script>
 	</head>
 
 	<body>
@@ -49,33 +121,34 @@
 			<div class="mui-row">
 				<div class="mui-col-xs-3">
 					<div id="segmentedControl" class="mui-segmented-control" style="">
-						<a class="mui-control-item mui-active" href="#item1mobile" style="">
+				<!--<a class="mui-control-item mui-active" href="#item1mobile" style="">
 					推荐分类
-				</a>
-						<a class="mui-control-item" href="#item2mobile">
+						</a>
+					<a class="mui-control-item" href="#item2mobile">
 					有机蔬菜
-				</a>
+						</a>
 						<a class="mui-control-item" href="#item3mobile">
 					有机鲜果
-				</a>
+						</a>
 						<a class="mui-control-item" href="#item4mobile">
 					粗粮谷物
-				</a>
+						</a>
 						<a class="mui-control-item" href="#item5mobile">
 					土鸡蛋
-				</a>
+						</a>
 						<a class="mui-control-item" href="#item6mobile">
 					纯正蜂蜜
-				</a>
+						</a>
 						<a class="mui-control-item" href="#item7mobile">
 					坚果
-				</a>
+						</a>
 						<a class="mui-control-item" href="#item8mobile">
 					精品肉类
-				</a>
+						</a>
 						<a class="mui-control-item" href="#item9mobile">
 					小吃零食
-				</a>
+						</a>
+				-->
 					</div>
 				</div>
 				<div class="mui-col-xs-9">
@@ -92,6 +165,12 @@
 											<a href="../Home/searchPage.html">
 												<img class="mui-media-object" src="../img/cbd.jpg">
 												<div class="mui-media-body">今日最大牌</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-6">
+											<a href="../Home/searchPage.html">
+												<img class="mui-media-object" src="../img/muwu.jpg">
+												<div class="mui-media-body">百店惠战</div>
 											</a>
 										</li>
 										<li class="mui-table-view-cell mui-media mui-col-xs-6">

@@ -41,12 +41,27 @@ public class GoodsCatagory2DaoImpl implements GoodsCatagory2Dao{
 		getSession().update(goodsCatagory2);
 	}
 	@Override
-	public List selectAll() {
+	public List<GoodsCatagory2> selectAll() {
 		// TODO Auto-generated method stub
 		String hql="From GoodsCatagory2";
 		Query query=getSession().createQuery(hql);
-		List catagory2_list=query.list();
+		List<GoodsCatagory2> catagory2_list=query.list();
 		return catagory2_list;
 	}
-
+	@Override
+	public List<GoodsCatagory2> selectByCatagory1Id(int id) {
+		// TODO Auto-generated method stub
+		String hql="From GoodsCatagory2 where goods_catagory_1_id=?";
+		Query query=getSession().createQuery(hql).setInteger(0, id);
+		List<GoodsCatagory2> catagory2_list=query.list();
+		return catagory2_list;
+	}
+	@Override
+	public List<GoodsCatagory2> selectByType(int type) {
+		// TODO Auto-generated method stub
+		String hql="From GoodsCatagory2 where goods_catagory_2_type=?";
+		Query query=getSession().createQuery(hql).setInteger(0, type);
+		List<GoodsCatagory2> catagory2_list=query.list();
+		return catagory2_list;
+	}
 }

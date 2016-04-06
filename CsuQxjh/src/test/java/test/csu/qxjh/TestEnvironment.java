@@ -1,5 +1,7 @@
 package test.csu.qxjh;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 
@@ -31,6 +33,16 @@ public class TestEnvironment {
 	private GoodsCatagory1Service goodsCatagory1Service;
     @Resource
 	private GoodsCatagory2Service goodsCatagory2Service;
+    
+    @Test
+    public void test6(){
+    	List<GoodsCatagory1> list=goodsCatagory1Service.getAll();
+		for(int i=0;i<list.size();i++){
+			//System.out.println(list.get(i).getGoodsCatagory2List().size());
+			list.get(i).setGoodsCatagory2List(null);
+		}
+    }
+    
     @Test
     public void test5(){
     	GoodsCatagory2 goodsCatagory2=new GoodsCatagory2();
@@ -42,13 +54,16 @@ public class TestEnvironment {
     }
     @Test
     public void test4(){
-    	GoodsCatagory1 goodsCatagory1=new GoodsCatagory1();
-    	goodsCatagory1.setId(5);
-    	goodsCatagory1.setGoods_catagory1_name("蔬菜");
-    	goodsCatagory1.setGoods_catagory1_remark("修改");
-    	goodsCatagory1Service.add(goodsCatagory1);
+ //   	GoodsCatagory1 goodsCatagory1=new GoodsCatagory1();
+//    	goodsCatagory1.setId(5);
+ //   	goodsCatagory1.setGoods_catagory1_name("特色肉类");
+//    	goodsCatagory1.setGoods_catagory1_remark("修改");
+ //   	goodsCatagory1Service.add(goodsCatagory1);
 //    	goodsCatagory1Service.update(goodsCatagory1);
-//    	System.out.println(goodsCatagory1Service.getById(6).getGoodsCatagory2List());
+    	
+    	List<GoodsCatagory1> list=goodsCatagory1Service.getAll();
+    	System.out.println(list);
+//    	System.out.println(goodsCatagory2Service.getAll().size());
     }
 	@Test
 	public void test3(){
