@@ -347,7 +347,8 @@
 			"Home/searchPage.html",
 			"js/own.js",
 			"img/cbd.jpg",
-			"test.html"
+			"test.html",
+			"jsHostName/hostName.js"
 		],
 		"refer": [
 			"Home/searchPage.html",
@@ -403,7 +404,13 @@
 			"fonts/iconfont.ttf",
 			"baritemHtml/categories.html",
 			"baritemHtml/gongyi.html",
-			"baritemHtml/cart_1.html"
+			"baritemHtml/cart_1.html",
+			"js/main.js",
+			"js/own.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"img/shuijiao.jpg"
 		],
 		"refer": [
 			"baritemHtml/categories.html",

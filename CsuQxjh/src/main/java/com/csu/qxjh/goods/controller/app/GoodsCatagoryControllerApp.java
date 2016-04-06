@@ -49,7 +49,7 @@ public class GoodsCatagoryControllerApp {
 	}
 	
 	@ResponseBody
-	@RequestMapping("getCatagory2ByCatagory1Id")//根据一级分类id返回对应所有二级分类信息
+	@RequestMapping("/getCatagory2ByCatagory1Id")//根据一级分类id返回对应所有二级分类信息
 	public Message getCatagory2ByCatagory1Id(int id){
 		Message message=new Message();
 		List<GoodsCatagory2> list=goodsCatagory2Service.getByCatagory1Id(id);
@@ -60,14 +60,17 @@ public class GoodsCatagoryControllerApp {
 	}
 	
 	@ResponseBody
-	@RequestMapping("getSpecialHotCatagory2")//获取二级分类中所有的专场分类和热门分类
+	@RequestMapping("/getSpecialHotCatagory2")//获取二级分类中所有的专场分类和热门分类,包括推荐分类对应的图片
 	public Message getCatagory2ByType(){
+		System.out.println("getSpecialHotCatagory2-------");
 		Message message=new Message();
-		Map<String,List<GoodsCatagory2>> map=new HashMap();
+		Map<String,Object> map=new HashMap();
 		List<GoodsCatagory2> specialList=goodsCatagory2Service.getSpecialCatagory2();//专场分类
 		List<GoodsCatagory2> hotList=goodsCatagory2Service.getHotCatagory2();//热门分类
+		String recommendCatagoryImage=goodsCatagory2Service.getRecommendCatagoryImage();//获取推荐分类对应的图片
 		map.put("special", specialList);
 		map.put("hot", hotList);
+		map.put("recommendCatagoryImage", recommendCatagoryImage);
 		message.setCode(1);
 		message.setMessage("获取成功");
 		message.setResult(map);

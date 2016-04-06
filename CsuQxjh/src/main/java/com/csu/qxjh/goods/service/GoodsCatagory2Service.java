@@ -15,4 +15,5 @@ public interface GoodsCatagory2Service {
 	List<GoodsCatagory2> getByCatagory1Id(int id);//获取所有二级分类的信息
 	List<GoodsCatagory2> getSpecialCatagory2();//获取专场分类
 	List<GoodsCatagory2> getHotCatagory2();//获取热门分类
+	String getRecommendCatagoryImage();//获取推荐分类对应的标志性的图片
 }
