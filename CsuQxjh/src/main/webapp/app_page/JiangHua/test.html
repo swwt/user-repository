@@ -1,48 +1,56 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<link rel="stylesheet" href="css/mui.min.css" />
-		<link rel="stylesheet" href="css/style.css" />
-		<script type="text/javascript" src="js/mui.min.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/own.js"></script>
-		<script type="text/javascript">
-		
-		window.onload=function(){
-			document.getElementById("test").innerHTML
-			="<li class=\"mui-table-view-cell mui-media mui-col-xs-4\">"+
-										"<a>"+
-										"<img class=\"mui-media-object\" src=\"img/shuijiao.jpg\">"+
-										"<div class=\"mui-media-body\">蔬菜</div>"+
-										"</a>"+
-										"</li>";
-		}
-			
-		</script>
-	</head>
-	<body>
-		<div class="special">
-					<div class="specialIcon">
-						<ul class="mui-table-view mui-grid-view" id="test">
-							<!--	<li class="mui-table-view-cell mui-media mui-col-xs-4">
-										<a>
-										<img class="mui-media-object" src="img/shuijiao.jpg">
-										<div class="mui-media-body">蔬菜</div>
-										</a>
-								</li>	
-							-->
-						</ul>
-					</div>
-		</div>
-	</body>
-	<script type="application/javascript">
-			//mui.init();
-			mui.plusReady(function() {				
-				mui('.special').on('tap', "li",function() {
-					alert("监听事件32");					
-				});
-			});
-		</script>
-</html>
+<div class="mui-content-padded" id="parentCatagory">
+ 					<div id="item1mobile" class="mui-control-content mui-active">
+ 							<div class="banner" id="specialImage">
+ 								<img src="http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory1_image/1.jpg" width="100%">
+ 								
+ 							</div>
+ 							<div class="special">
+ 								<p>专场推荐</p> 
+ 								<div class="specialIcon">
+ 									<ul class="mui-table-view mui-grid-view" id="specialCatagory">
+ 										<li class="mui-table-view-cell mui-media mui-col-xs-6">
+ 											<a href="../Home/searchPage.html">
+ 												<img class="mui-media-object" src="http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory2_image/1.jpg">
+ 													<div class="mui-media-body">叶菜类</div>
+ 											</a>
+ 										</li> 
+ 									</ul>
+ 								</div>
+ 							</div>
+ 							<div class="special">
+ 								<p>热门分类</p>
+ 								<div class="specialIcon">
+ 									<ul class="mui-table-view mui-grid-view" id="hotCatagory"></ul>
+ 								</div>
+ 							</div>
+ 					</div>
+ 					<div id="item2mobile" class="mui-control-content">
+ 						<div class="banner" id="specialImage">
+ 							<img src="http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory1_image/1.jpg" width="100%">
+ 							
+ 						</div>
+ 							<div class="special">
+ 								<p>热门分类</p>
+ 								<div class="specialIcon">
+ 									<ul class="mui-table-view mui-grid-view" id="hotCatagory">
+ 										<li class="mui-table-view-cell mui-media mui-col-xs-4">
+ 											<a href="#">
+ 												<img class="mui-media-object" src="http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory2_image/1.jpg">
+ 													<div class="mui-media-body">叶菜类</div>
+ 											</a>
+ 										</li>
+ 									</ul>
+ 								</div>
+ 							</div>
+ 					</div>
+ 					<div id="item3mobile" class="mui-control-content">
+ 														<div class="banner" id="specialImage">
+ 															<img src="http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory1_image/1.jpg" width="100%">
+ 															
+ 														</div>
+ 														<div style="width:250px;text-align:center;solid; height:200px; line-height:200px;">
+ 															<b>敬请期待！</b>
+ 															
+ 														</div>
+ 					</div>
+</div>

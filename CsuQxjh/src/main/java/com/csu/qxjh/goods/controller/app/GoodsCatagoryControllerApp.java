@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.csu.qxjh.goods.pojo.GoodsCatagory1;
@@ -39,9 +40,7 @@ public class GoodsCatagoryControllerApp {
 		System.out.println("get--------");
 		Message message=new Message();
 		List<GoodsCatagory1> list=goodsCatagory1Service.getAll();
-		for(int i=0;i<list.size();i++){
-			list.get(i).setGoodsCatagory2List(null);
-		}
+		
 		message.setCode(1);
 		message.setMessage("获取成功");
 		message.setResult(list);
@@ -50,9 +49,9 @@ public class GoodsCatagoryControllerApp {
 	
 	@ResponseBody
 	@RequestMapping("/getCatagory2ByCatagory1Id")//根据一级分类id返回对应所有二级分类信息
-	public Message getCatagory2ByCatagory1Id(int id){
+	public Message getCatagory2ByCatagory1Id(@RequestParam(value="catagory1Id") String catagory1Id){
 		Message message=new Message();
-		List<GoodsCatagory2> list=goodsCatagory2Service.getByCatagory1Id(id);
+		List<GoodsCatagory2> list=goodsCatagory2Service.getByCatagory1Id(Integer.parseInt(catagory1Id));
 		message.setCode(1);
 		message.setMessage("获取成功");
 		message.setResult(list);

@@ -50,17 +50,14 @@ public class GoodsCatagory2ServiceImpl implements GoodsCatagory2Service{
 
 	@Override
 	public List<GoodsCatagory2> getByCatagory1Id(int id) {
-		// TODO Auto-generated method stub
-		return goodsCatagory2Dao.selectByCatagory1Id(id);
+		List<GoodsCatagory2> list=goodsCatagory2Dao.selectByCatagory1Id(id);
+		return list;
 	}
 
 	@Override
 	public List<GoodsCatagory2> getSpecialCatagory2() {
 		// TODO Auto-generated method stub
 		List<GoodsCatagory2> specialList=goodsCatagory2Dao.selectByType(1);
-		for(int i=0;i<specialList.size();i++){
-			specialList.get(i).getGoodsCatagory1().setGoodsCatagory2List(null);//设置为null，以避免打印时出现无限循环
-		}
 		return specialList;
 	}
 
@@ -68,9 +65,6 @@ public class GoodsCatagory2ServiceImpl implements GoodsCatagory2Service{
 	public List<GoodsCatagory2> getHotCatagory2() {
 		// TODO Auto-generated method stub
 		List<GoodsCatagory2> hotList=goodsCatagory2Dao.selectByType(2);
-		for(int i=0;i<hotList.size();i++){
-			hotList.get(i).getGoodsCatagory1().setGoodsCatagory2List(null);
-		}
 		return hotList;
 	}
 

@@ -30,23 +30,27 @@
 			}
 		</style>
 <!-- 商品分类ajax操作 -->
-<script type="text/javascript">
+<script type="text/javascript">  
 			
 			function getCatagory(){//获取一级分类信息
-				//请求一级分类数据
+				var catagoryJSON;//一级分类JSON数组
+				var wait=0; 
+	//---------------------------------请求一级分类数据-------------------------------------------------------------------------------------
 				mui.ajax(host+'/catagory/getCatagory1All',{
 						data:{
-						
-						},						 
+						 
+						},
+						async: false,//设为同步请求
 						dataType:'json',//服务器返回json格式数据
 						type:'post',//HTTP请求类型
 						timeout:10000,//超时时间设置为10秒；
 						success:function(data){
 							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
 							if(data.code==1){//表示获取成功
-								//alert(data.message);
-								
-								var catagoryJSON=data.result;
+								alert(data.message);
+								 
+								catagoryJSON=data.result;
+								wait=1;
 								var catoryHtml="<a class=\"mui-control-item mui-active\" href=\"#item1mobile\" style=\"\">推荐分类</a>";
 								for(var i=0;i<catagoryJSON.length;i++){
 									var t=i+2;
@@ -58,6 +62,8 @@
 								document.getElementById("segmentedControl").innerHTML=catoryHtml;
 								//alert(JSON.stringify(userJSON));//将JSON对象转化为字符串
 								
+								getCatagory2(catagoryJSON); 
+								
 							}else{//获取失败，给出提醒
 								alert(data.message);
 							}
@@ -68,8 +74,8 @@
 							//alert("出现错误（请求响应超时）");
 						}
 					});
-					//alert(host+'/catagory/getSpecialHotCatagory2');	
-					//请求专场分类和热门分类数据
+//					//alert(host+'/catagory/getSpecialHotCatagory2');	
+//	//---------------------请求专场分类和热门分类数据------------------------------------------------------------------------------------------------
 					mui.ajax(host+'/catagory/getSpecialHotCatagory2',{
 						data:{
 						
@@ -80,7 +86,7 @@
 						success:function(data){
 							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
 							if(data.code==1){//表示获取成功
-								alert(data.message);
+								//alert(data.message);
 								var catagoryJSON=data.result;
 								var specialJSON=catagoryJSON.special;
 								var hotJSON=catagoryJSON.hot;
@@ -135,100 +141,154 @@
 							//alert("出现错误（请求响应超时）");
 						}
 					}); 
-				
-			
+//				mui.plusReady(function() {
+//					mui('.special .specialIcon .mui-table-view').on('tap', "a", function() {
+//					alert("监听----");
+//					});
+				//alert(2);
+//			});	
 			}
-			
-			
-			
-			window.onload=getCatagory;	
-			
-			
-			
+			 
+			function getCatagory2(catagoryJSON){
+//				/*
+//				* ----------------加载每个一级分类对应的下级分类数据-------------------------------------------------------------------
+//				*/	
+//					 alert("二级分类请求开始");
+					 //alert(catagoryJSON.length);
+					 //var remarkNode=document.getElementById("remark");//标志性节点作为依据
+					 for(var i=0;i<catagoryJSON.length;i++){
+					 		//alert(1);
+					 		var t=i+2;
+						 	var catagory1=catagoryJSON[i];
+						 	var catagory1Image=catagory1.goods_catagory_1_icon;//对应的一级分类的图片
+						 	var catagory2JSON;
+						 	var catagory1Id=catagory1.id;
+
+						 	//alert("id:"+catagory1Id);
+						 	//根据一级分类id请求对应下一级的数据
+							mui.ajax(host+'/catagory/getCatagory2ByCatagory1Id',{
+								data:{
+									catagory1Id:catagory1Id
+								},	
+								async: false,//设为同步请求
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){
+									//服务器返回响应，根据响应结果，分析是否成功获取数据；							
+									if(data.code==1){//表示获取成功
+										catagory2JSON=data.result;
+										
+										
+										var createDiv=document.createElement("div");
+										createDiv.id="item"+t+"mobile";
+										createDiv.className="mui-control-content";
+										var imageHtml="<div class=\"banner\" id=\"specialImage\">"
+										+"<img src=\""+host+catagory1Image+"\" width=\"100%\">"
+										+"</div>";
+										var contentHtml="<div class=\"special\">"
+															+"<p>热门分类</p>"
+																+"<div class=\"specialIcon\">"
+																	+"<ul class=\"mui-table-view mui-grid-view\" id=\"hotCatagory\">";
+
+										for(var i=0;i<catagory2JSON.length;i++){
+											//alert(2);
+											var catagory2By1=catagory2JSON[i];
+											contentHtml=contentHtml
+														+"<li class=\"mui-table-view-cell mui-media mui-col-xs-4\">"+
+											  				"<a href=\"../Home/searchPage.html\">"+
+																"<img class=\"mui-media-object\" src=\""+host+catagory2By1.goods_catagory_2_icon+"\">"+
+																"<div class=\"mui-media-body\">"+catagory2By1.goods_catagory_2_name+"</div>"+
+															"</a>"+
+														"</li>";
+										} 
+										contentHtml=contentHtml
+															+"</ul>"
+														+"</div>"
+													+"</div>";
+													
+										if(catagory2JSON.length!=0){
+											createDiv.innerHTML=imageHtml+contentHtml;
+										}else{
+											
+											createDiv.innerHTML=imageHtml
+																+"<div style=\"width:250px;text-align:center;solid; height:200px; line-height:200px;\">"
+																+"<b>敬请期待！</b>"
+																+"</div>";
+										}
+										//createDiv.innerHTML=imageHtml+contentHtml;							
+										//remarkNode.insertBefore(createDiv,null);
+										
+										document.getElementById("parentCatagory").appendChild(createDiv);
+	 
+									}else{//获取失败，给出提醒
+										alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									//console.log(type);
+									//alert("出现错误（请求响应超时）");
+								}
+							}); 
+
+							
+					 }
+//					 mui.plusReady(function(){
+//   					console.log("html!!!!!!："+document.getElementById("parentCatagory").outerHTML);
+//					});
+			}
+			function test(){
+				var createDiv=document.createElement("div");
+										createDiv.id="item"+2+"mobile";
+										createDiv.className="mui-control-content";
+										var imageHtml="<div class=\"banner\" id=\"specialImage\">"
+										+"<img src=\""+"http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory1_image/1.jpg"+"\" width=\"100%\">"
+										+"</div>";
+										var contentHtml="<div class=\"special\">"
+															+"<p>热门分类</p>"
+																+"<div class=\"specialIcon\">"
+																	+"<ul class=\"mui-table-view mui-grid-view\" id=\"hotCatagory\">";
+		
+											contentHtml=contentHtml
+														+"<li class=\"mui-table-view-cell mui-media mui-col-xs-4\">"+
+											  				"<a href=\"#\">"+
+																"<img class=\"mui-media-object\" src=\""+"http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory2_image/1.jpg"+"\">"+
+																"<div class=\"mui-media-body\">"+"叶菜类1"+"</div>"+
+															"</a>"+
+														"</li>";
+										contentHtml=contentHtml
+															+"</ul>"
+														+"</div>"
+													+"</div>";
+													
+				createDiv.innerHTML=imageHtml+contentHtml;
+				document.getElementById("parentCatagory").appendChild(createDiv);
+			}
+			window.onload=getCatagory;			
 </script>
 	</head>
 
-	<body>
-		<!--<header id="top" class="mui-bar mui-bar-nav">
-			<div class="mui-row mui-text-center">
-				<div class="mui-col-xs-1 mui-col-sm-1 ">
-					<span class="mui-icon mui-icon-videocam"></span>
-				</div>
-				<div class="mui-col-xs-10 mui-col-sm-10">
-					<div class="mui-input-row mui-search">
-						<input type="search" class="mui-search mui-input-clear mui-input-speech" placeholder="搜索" title="search" />
-					</div>
-				</div>
-				<div class="mui-col-xs-1 mui-col-sm-1">
-					<span class="mui-icon mui-icon-chatboxes"></span>
-				</div>
-			</div>
-		</header>-->
+	<body>		
 		<div id="main" class="mui-content-padded">
 			<div class="mui-row">
 				<div class="mui-col-xs-3">
 					<div id="segmentedControl" class="mui-segmented-control" style="">
-				<!--<a class="mui-control-item mui-active" href="#item1mobile" style="">
-					推荐分类
-						</a>
-					<a class="mui-control-item" href="#item2mobile">
-					有机蔬菜
-						</a>
-						<a class="mui-control-item" href="#item3mobile">
-					有机鲜果
-						</a>
-						<a class="mui-control-item" href="#item4mobile">
-					粗粮谷物
-						</a>
-						<a class="mui-control-item" href="#item5mobile">
-					土鸡蛋
-						</a>
-						<a class="mui-control-item" href="#item6mobile">
-					纯正蜂蜜
-						</a>
-						<a class="mui-control-item" href="#item7mobile">
-					坚果
-						</a>
-						<a class="mui-control-item" href="#item8mobile">
-					精品肉类
-						</a>
-						<a class="mui-control-item" href="#item9mobile">
-					小吃零食
-						</a>
-				-->
+			
 					</div>
 				</div>
 				<div class="mui-col-xs-9">
-					<div class="mui-content-padded">
+					<div class="mui-content-padded" id="parentCatagory">
 						<div id="item1mobile" class="mui-control-content mui-active">
 							<div class="banner" id="specialImage">
-							<!--	<img src="../img/categoriesBanner.jpg" width="100%">-->
+							
 							</div>
 						
 							<div class="special">
 								<p>专场推荐</p> 
 								<div class="specialIcon">
 									<ul class="mui-table-view mui-grid-view" id="specialCatagory">
-									<!--	<li class="mui-table-view-cell mui-media mui-col-xs-6">
-											<a href="../Home/searchPage.html">
-												<img class="mui-media-object" src="../img/cbd.jpg">
-												<div class="mui-media-body">今日最大牌</div>
-											
-											</a>									
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-6">
-											<a href="../Home/searchPage.html">
-												<img class="mui-media-object" src="../img/muwu.jpg">
-												<div class="mui-media-body">百店惠战</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-6">
-											<a href="../Home/searchPage.html">
-												<img class="mui-media-object" src="../img/muwu.jpg">
-												<div class="mui-media-body">百店惠战</div>
-											</a>
-										</li>
-								-->	
+									
 									</ul>
 								</div>
 							</div>
@@ -236,91 +296,43 @@
 								<p>热门分类</p>
 								<div class="specialIcon">
 									<ul class="mui-table-view mui-grid-view" id="hotCatagory">
-									<!--<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<img class="mui-media-object" src="../img/shuijiao.jpg">
-											<div class="mui-media-body">蔬菜</div>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<img class="mui-media-object" src="../img/muwu.jpg">
-											<div class="mui-media-body">鲜果</div>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<img class="mui-media-object" src="../img/muwu.jpg">
-											<div class="mui-media-body">稻谷</div>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<img class="mui-media-object" src="../img/shuijiao.jpg">
-											<div class="mui-media-body">蛋类</div>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<img class="mui-media-object" src="../img/muwu.jpg">
-											<div class="mui-media-body">特产</div>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<img class="mui-media-object" src="../img/muwu.jpg">
-											<div class="mui-media-body">坚果</div>
-										</li>
-									-->
+									
 									</ul>
 								</div>
 							</div>
 						</div>
-						<div id="item2mobile" class="mui-control-content">
-							有机蔬菜
-						</div>
-						<div id="item3mobile" class="mui-control-content">
-							有机鲜果
-						</div>
-						<div id="item4mobile" class="mui-control-content">
-							粗粮谷物
-						</div>
-						<div id="item5mobile" class="mui-control-content">
-							土鸡蛋
-						</div>
-						<div id="item6mobile" class="mui-control-content">
-							纯正蜂蜜
-						</div>
-						<div id="item7mobile" class="mui-control-content">
-							坚果
-						</div>
-						<div id="item8mobile" class="mui-control-content">
-							精品肉类
-						</div>
-						<div id="item9mobile" class="mui-control-content">
-							小吃零食
-						</div>
+						
+						
+					<!--	<div id="item2mobile" class="mui-control-content">
+	 						<div class="banner" id="specialImage">
+	 							<img src="http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory1_image/1.jpg" width="100%">
+	 							
+	 						</div>
+	 							<div class="special">
+	 								<p>热门分类</p>
+	 								<div class="specialIcon">
+	 									<ul class="mui-table-view mui-grid-view" id="hotCatagory">
+	 										<li class="mui-table-view-cell mui-media mui-col-xs-4">
+	 											<a href="#">
+	 												<img class="mui-media-object" src="http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory2_image/1.jpg">
+	 													<div class="mui-media-body">叶菜类</div>
+	 											</a>
+	 										</li>
+	 									</ul>
+	 								</div>
+	 							</div>
+	 					-->
+	 					</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--<div id="bottom" class="mui-col-xs-12">
-			<nav class="mui-bar mui-bar-tab">
-				<a class="mui-tab-item" href="#">
-					<span class="mui-icon mui-icon-home"></span>
-					<span class="mui-tab-label">首页</span>
-				</a>
-				<a class="mui-tab-item mui-active" href="#">
-					<span class="mui-icon mui-icon-list"></span>
-					<span class="mui-tab-label">分类</span>
-				</a>
-				<a class="mui-tab-item" href="#">
-					<span class="mui-,icon mui-icon-flag"></span>
-					<span class="mui-tab-label">公益</span>
-				</a>
-				<a class="mui-tab-item" href="#">
-					<span class="mui-icon mui-icon-download"><span class="mui-badge">5</span></span>
-					<span class="mui-tab-label">购物车</span>
-				</a>
-				<a class="mui-tab-item" href="#">
-					<span class="mui-icon mui-icon-contact"></span>
-					<span class="mui-tab-label">我的</span>
-				</a>
-			</nav>
-		</div>-->
+		
 		
 	
 	</body>
 	<script type="application/javascript">
+		
 			mui.init();
 			var currentWebview;
 			var parentWebview;
@@ -344,11 +356,11 @@
 					});
 				});
 //				alert(1);
-//				mui('.special .specialIcon .mui-table-view').on('tap', "li", function() {
+//				mui('.special .specialIcon .mui-table-view').on('tap', "a", function() {
 //					alert("监听----");
 //					
 //				});
 //				alert(2);
-			});
+			});	
 		</script>
 </html>

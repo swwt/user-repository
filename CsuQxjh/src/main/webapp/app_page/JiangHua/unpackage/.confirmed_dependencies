@@ -13,7 +13,9 @@
 			"baritemHtml/gongyi.html",
 			"Mine/login.html",
 			"TestImage.html",
-			"test.html"
+			"test.html",
+			"test2.html",
+			"baritemHtml/test2.html"
 		],
 		"refer": [
 			"baritemHtml/home.html",
@@ -45,7 +47,9 @@
 			"Home/searchPage.html",
 			"search-template.html",
 			"TestImage.html",
-			"test.html"
+			"test.html",
+			"test2.html",
+			"baritemHtml/test2.html"
 		]
 	},
 	"template-main.html": {
@@ -416,6 +420,18 @@
 			"baritemHtml/categories.html",
 			"baritemHtml/gongyi.html",
 			"baritemHtml/cart_1.html"
+		]
+	},
+	"baritemHtml/test2.html": {
+		"resources": [
+			"js/main.js",
+			"js/own.js",
+			"js/mui.min.js",
+			"img/shuijiao.jpg",
+			"img/muwu.jpg",
+			"css/mui.min.css",
+			"css/style.css",
+			"img/categoriesBanner.jpg"
 		]
 	}
 }
