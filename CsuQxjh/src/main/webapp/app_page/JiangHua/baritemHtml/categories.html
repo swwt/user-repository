@@ -79,7 +79,8 @@
 					mui.ajax(host+'/catagory/getSpecialHotCatagory2',{
 						data:{
 						
-						},						 
+						},	
+						//async: false,
 						dataType:'json',//服务器返回json格式数据
 						type:'post',//HTTP请求类型
 						timeout:10000,//超时时间设置为10秒；
@@ -150,6 +151,7 @@
 			}
 			 
 			function getCatagory2(catagoryJSON){
+				alert("getCatagory2");
 //				/*
 //				* ----------------加载每个一级分类对应的下级分类数据-------------------------------------------------------------------
 //				*/	
@@ -170,7 +172,7 @@
 								data:{
 									catagory1Id:catagory1Id
 								},	
-								async: false,//设为同步请求
+								async:false,//设为同步请求
 								dataType:'json',//服务器返回json格式数据
 								type:'post',//HTTP请求类型
 								timeout:10000,//超时时间设置为10秒；
@@ -201,6 +203,7 @@
 																"<div class=\"mui-media-body\">"+catagory2By1.goods_catagory_2_name+"</div>"+
 															"</a>"+
 														"</li>";
+														//alert(catagory2By1.goods_catagory_2_name);
 										} 
 										contentHtml=contentHtml
 															+"</ul>"
@@ -340,7 +343,7 @@
 				currentWebview = plus.webview.currentWebview();
 				parentWebview = plus.webview.currentWebview().parent();
 				mui('.special .specialIcon .mui-table-view').on('tap', 'a', function() {
-					alert("监听事件");
+					alert("监听事件1");
 					var anishow = getaniShow();
 					var item = this;
 					var itemID = this.getAttribute('href');
@@ -355,12 +358,16 @@
 						category_id: itemID
 					});
 				});
-//				alert(1);
-//				mui('.special .specialIcon .mui-table-view').on('tap', "a", function() {
-//					alert("监听----");
-//					
+				 
+//				mui('#segmentedControl').on('tap', 'a', function() {
+//					getCatagory();
 //				});
-//				alert(2);
+				
+				currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次
+					getCatagory(); 
+					location.reload();
+				});
 			});	
+			
 		</script>
 </html>
