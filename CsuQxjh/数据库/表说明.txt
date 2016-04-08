@@ -54,6 +54,6 @@
 33.useroperatelogs 用户日志表                
 34.selloroperatelogs卖家日志表
                      
-35.image_explanation图片规格大小说明
-                           
+35.image_explanation图片规格大小说明表
+36.word_explanation字数限制说明表                        
 

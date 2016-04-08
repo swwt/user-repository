@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/4/6 15:19:11                            */
+/* Created on:     2016/4/8 19:51:52                            */
 /*==============================================================*/
 
 
@@ -73,6 +73,8 @@ drop table if exists user_address;
 drop table if exists user_goods_history;
 
 drop table if exists useroperatelogs;
+
+drop table if exists word_explanation;
 
 /*==============================================================*/
 /* Table: admin                                                 */
@@ -161,7 +163,7 @@ create table coupon_user
 create table goods
 (
    id                   int not null comment '编号',
-   goods_catagory_2     int comment '商品类型编号',
+   goods_catagory_2_id  int comment '商品类型编号',
    sellor_id            varchar(50) comment '卖家编号',
    goods_name           varchar(50) comment '商品名称',
    goods_introduction   text comment '商品简介',
@@ -173,6 +175,8 @@ create table goods
    offer_promotion_discount_id int comment '优惠折扣促销编号，若没有，为空',
    offer_promotion_fullcutproducts_id int comment '优惠满减促销编号，若没有，为空',
    offer_promotion_fullsendproducts_id int comment '优惠促销满赠编号，若没有，为空',
+   goods_check_status   int comment '该商品审核状态',
+   goods_on_sale_status int comment '商品上架状态',
    primary key (id)
 );
 
@@ -655,4 +659,18 @@ create table useroperatelogs
 );
 
 alter table useroperatelogs comment '用户日志表';
+
+/*==============================================================*/
+/* Table: word_explanation                                      */
+/*==============================================================*/
+create table word_explanation
+(
+   id                   int not null comment '编号',
+   word_explanation_object varchar(50) comment '说明对象（一般是表名加字段名）',
+   word_explanation_down int comment '字数下限',
+   word_explanation_up  int comment '字数上限',
+   primary key (id)
+);
+
+alter table word_explanation comment '字数大小限制表';
 
