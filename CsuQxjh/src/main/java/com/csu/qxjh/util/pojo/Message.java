@@ -11,6 +11,10 @@ package com.csu.qxjh.util.pojo;
  */
 public class Message {
 	
+	public static int ACCOUNT_NOT_EXIT = 0;
+	public static int PASSWORD_ERROR = 1;
+	public static int LOGIN_SUCCESS = 2;
+	
 	private int code; //
 	private String message ;
 	private Object result;
