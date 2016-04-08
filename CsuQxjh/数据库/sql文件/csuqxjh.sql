@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/4/8 19:51:52                            */
+/* Created on:     2016/4/8 20:06:10                            */
 /*==============================================================*/
 
 
@@ -172,9 +172,6 @@ create table goods
    goods_time_last_update varchar(20) comment '商品最后修改时间',
    goods_number         int comment '商品库存',
    goods_promotion_type int comment '该商品是否有促销活动，且促销活动是什么类型',
-   offer_promotion_discount_id int comment '优惠折扣促销编号，若没有，为空',
-   offer_promotion_fullcutproducts_id int comment '优惠满减促销编号，若没有，为空',
-   offer_promotion_fullsendproducts_id int comment '优惠促销满赠编号，若没有，为空',
    goods_check_status   int comment '该商品审核状态',
    goods_on_sale_status int comment '商品上架状态',
    primary key (id)

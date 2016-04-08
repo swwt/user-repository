@@ -33,6 +33,7 @@
 <script type="text/javascript">  
 			
 			function getCatagory(){//获取一级分类信息
+//				alert("请求数据");
 				var catagoryJSON;//一级分类JSON数组
 				var wait=0; 
 	//---------------------------------请求一级分类数据-------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@
 						success:function(data){
 							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
 							if(data.code==1){//表示获取成功
-								alert(data.message);
+						//		alert(data.message);
 								 
 								catagoryJSON=data.result;
 								wait=1;
@@ -106,7 +107,7 @@
 							  		var specialCatagory2=specialJSON[i];
 							  		catory2Html=catory2Html
 							  				+"<li class=\"mui-table-view-cell mui-media mui-col-xs-6\">"
-												+"<a href=\"../Home/searchPage.html\">"//---------》在此设置二级分类对应的超链接
+												+"<a href=\""+specialCatagory2.id+"\">"//---------》在此设置二级分类对应的超链接
 													+"<img class=\"mui-media-object\" src=\""+host+specialCatagory2.goods_catagory_2_icon+"\">"
 													+"<div class=\"mui-media-body\">"+specialCatagory2.goods_catagory_2_name+"</div>"
 												+"</a>"
@@ -151,7 +152,7 @@
 			}
 			 
 			function getCatagory2(catagoryJSON){
-				alert("getCatagory2");
+//				alert("getCatagory2");
 //				/*
 //				* ----------------加载每个一级分类对应的下级分类数据-------------------------------------------------------------------
 //				*/	
@@ -364,8 +365,13 @@
 //				});
 				
 				currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次
-					getCatagory(); 
-					location.reload();
+					
+					if(plus.networkinfo.getCurrentType()==1){
+						alert("当前没有网络");
+					}else{
+						getCatagory(); 
+						location.reload();
+					}					
 				});
 			});	
 			
