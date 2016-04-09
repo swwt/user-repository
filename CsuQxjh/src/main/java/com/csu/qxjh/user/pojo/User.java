@@ -1,9 +1,13 @@
 package com.csu.qxjh.user.pojo;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -30,8 +34,8 @@ public class User {
 	private String user_type;//用户类型（老师or学生）
 	private String user_number;//学工号
 	private String user_college;//学院
-	
-	
+	private Set<GoodsOrder> goodsOrders;//对应的订单（用户删除订单，只是修改订单中用户是否保存的状态，但是并不实际删除数据表中的订单记录）
+	private Set<Collection> collections;//用户的收藏表
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -163,17 +167,23 @@ public class User {
 	public void setUser_college(String user_college) {
 		this.user_college = user_college;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", user_name=" + user_name + ", user_login_name=" + user_login_name
-				+ ", user_real_name=" + user_real_name + ", user_nickname=" + user_nickname + ", user_home_address="
-				+ user_home_address + ", user_phone=" + user_phone + ", user_sex=" + user_sex + ", user_password="
-				+ user_password + ", user_birthday=" + user_birthday + ", user_head_image=" + user_head_image
-				+ ", user_email=" + user_email + ", user_type=" + user_type + ", user_number=" + user_number
-				+ ", user_college=" + user_college + "]";
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
+	public Set<GoodsOrder> getGoodsOrders() {
+		return goodsOrders;
 	}
+	public void setGoodsOrders(Set<GoodsOrder> goodsOrders) {
+		this.goodsOrders = goodsOrders;
+	}
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
+	public Set<Collection> getCollections() {
+		return collections;
+	}
+	public void setCollections(Set<Collection> collections) {
+		this.collections = collections;
+	}
+	
+	
+
 	
 	
 }

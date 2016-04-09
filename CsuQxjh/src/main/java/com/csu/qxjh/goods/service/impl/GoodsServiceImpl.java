@@ -1,13 +1,18 @@
 package com.csu.qxjh.goods.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.csu.qxjh.goods.dao.GoodsDao;
 import com.csu.qxjh.goods.pojo.Goods;
 import com.csu.qxjh.goods.service.GoodsService;
 
+@Transactional(propagation=Propagation.REQUIRED)
 @Service
 public class GoodsServiceImpl implements GoodsService{
 	@Resource
@@ -19,7 +24,7 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public Goods getByCatagory2Id(int catagoryId) {
+	public List<Goods> getByCatagory2Id(int catagoryId) {
 		// TODO Auto-generated method stub
 		return goodsDao.selectByGoodsCatagory2(catagoryId);
 	}

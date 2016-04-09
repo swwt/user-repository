@@ -4,7 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
  * 优惠促销（折扣类的）
@@ -13,6 +18,7 @@ import javax.persistence.Table;
 @Table(name="offer_promotion_discount")
 public class OfferPromotionDiscount {
 	private int id;//主键
+	private Goods goods;//所属商品
 	private String offer_promotion_discount_time_start;//开始时间
 	private String offer_promotion_discount_time_end;//结束时间
 	private String offer_promotion_discount_time_publish;//发布时间
@@ -56,6 +62,15 @@ public class OfferPromotionDiscount {
 	}
 	public void setOffer_promotion_discount_amount(double offer_promotion_discount_amount) {
 		this.offer_promotion_discount_amount = offer_promotion_discount_amount;
+	}
+	@OneToOne
+	@JoinColumn(name="goods_id")
+	@JsonIgnore
+	public Goods getGoods() {
+		return goods;
+	}
+	public void setGoods(Goods goods) {
+		this.goods = goods;
 	}
 	
 

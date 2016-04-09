@@ -1,12 +1,17 @@
 package com.csu.qxjh.sellor.pojo;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.csu.qxjh.user.pojo.Collection;
 
 /*
  * 卖家
@@ -19,13 +24,13 @@ public class Sellor {
 	private String sellor_real_name;//	真实姓名
 	private String sellor_login_name;//	登录名
 	private String sellor_nickname;//	昵称
-	private int sellor_sex;//	性别
+	private int sellor_sex;//	性别，（0：男;1：女）
 	private String sellor_main;//	卖家主营人
 	private String sellor_address;//	联系地址
 	private String sellor_phone;//	电话
 	private String sellor_email;//	邮箱
 	private String sellor_head_image;//	卖家头像
-	private String sellor_store_id;//店铺编号
+	private String sellor_store_id;//店铺编号(一个卖家只有一个店铺)
 	private String sellor_password;//	密码
 	private int sellor_services_index;//	店铺服务指数
 	private int sellor_evaluation_index;//	商品评价指数
@@ -35,6 +40,7 @@ public class Sellor {
 	private String sellor_company;//	公司名称
 	private String sellor_company_address;//	所在地区
 	private String sellor_store_time;//	开店时间
+	private Set<Collection> collections;//该店铺被收藏多少次
 	public Sellor() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -187,6 +193,13 @@ public class Sellor {
 	}
 	public void setSellor_store_time(String sellor_store_time) {
 		this.sellor_store_time = sellor_store_time;
+	}
+	@ManyToMany(mappedBy="sellorList")
+	public Set<Collection> getCollections() {
+		return collections;
+	}
+	public void setCollections(Set<Collection> collections) {
+		this.collections = collections;
 	}
 
 	

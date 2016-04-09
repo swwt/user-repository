@@ -57,3 +57,5 @@
 35.image_explanation图片规格大小说明表
 36.word_explanation字数限制说明表                        
 
+37.collection_goods收藏表与商品表多对多的关联表
+38.collection_store收藏表和店铺表多对多的关联表

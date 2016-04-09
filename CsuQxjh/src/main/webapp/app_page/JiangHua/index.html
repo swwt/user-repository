@@ -302,7 +302,6 @@
 						mtype:'search-parent'
 					}
 				});
-				
 				subSearchWebview = mui.preload({
 					url: '',
 					id: 'template/search-sub-template.html',
@@ -316,10 +315,8 @@
 						mtype:'search-sub'
 					}
 				});
-				
 				subSearchWebview.hide();
 				parentSearchWebview.hide();
-				
 				subSearchWebview.addEventListener('loaded', function(){
 					subSearchWebview.show();
 				}, false);
@@ -336,7 +333,6 @@
 				
 				parentSearchWebview.append(subSearchWebview);				
 			}
-			
 			//初始化父子模版函数
 			function initParentChildTemplate() {
 				headerWebView = mui.preload({
@@ -433,6 +429,8 @@
 					} */
 					else if(id == 'Home/searchPage.html'){
 						var categoryID = options.detail.category_id;
+						alert('newWebView');
+//						alert(subSearchWebview.getURL()); 
 						mui.fire(parentSearchWebview, 'searchTemplateFire', {
 							id: id,
 							aniShow: aniShow,
@@ -441,8 +439,10 @@
 							barsIcon: '',
 							categoryID: categoryID
 						});
+						
 						if(mui.os.ios ||　mui.os.android && parseFloat(mui.os.version) < 4.4){
 							subSearchWebview.loadURL(href);
+							
 							parentSearchWebview.show(aniShow, 150);
 						}
 						

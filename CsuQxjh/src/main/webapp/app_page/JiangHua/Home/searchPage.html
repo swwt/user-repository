@@ -71,24 +71,36 @@
 			
 			
 		</style>
+		<script type="text/javascript">
+			function getGoodsListByCategory2(catagory2Id){
+				mui.ajax(host+'/goods/getByCatagory2Id',{
+						data:{
+						 catagory2Id:catagory2Id
+						},
+						async: false,//设为同步请求
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
+							if(data.code==1){//表示获取成功
+								goodsJSON=data.result;
+								
+							}else{//获取失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){ 
+							//异常处理；
+							//console.log(type);
+							alert("出现错误（请求响应超时）");
+						}
+					});
+			}
+		</script>
 	</head>
 
 	<body>
-		<!--<header id="top" class="mui-bar mui-bar-nav">
-	<div class="mui-row mui-text-center">
-		<div class="mui-col-xs-1 mui-col-sm-1 ">
-			<span class="mui-icon mui-icon-videocam"></span>
-		</div>
-		<div class="mui-col-xs-10 mui-col-sm-10">
-			<div class="mui-input-row mui-search">
-				<input type="search" class="mui-search mui-input-clear mui-input-speech" placeholder="搜索"  title="search"/>
-			</div>
-		</div>
-		<div class="mui-col-xs-1 mui-col-sm-1">
-			<span class="mui-icon mui-icon-chatboxes"></span>
-		</div>
-	</div>
-</header>-->
 		<div id="search" class="mui-content-padded">
 			<div id="segmentedControl" class="mui-segmented-control">
 				<a class="mui-control-item" href="#item1mobile">
@@ -171,37 +183,18 @@
 				</div>
 			</div>
 		</div>
-		<!--<div id="bottom" class="mui-col-xs-12">
-	<nav class="mui-bar mui-bar-tab">
-		<a class="mui-tab-item" href="#">
-			<span class="mui-icon mui-icon-home"></span>
-			<span class="mui-tab-label">首页</span>
-		</a>
-		<a class="mui-tab-item" href="#">
-			<span class="mui-icon mui-icon-list"></span>
-			<span class="mui-tab-label">分类</span>
-		</a>
-		<a class="mui-tab-item" href="#">
-			<span class="mui-icon mui-icon-flag"></span>
-			<span class="mui-tab-label">公益</span>
-		</a>
-		<a class="mui-tab-item" href="#">
-			<span class="mui-icon mui-icon-download"><span class="mui-badge">5</span></span>
-			<span class="mui-tab-label">购物车</span>
-		</a>
-		<a class="mui-tab-item" href="#">
-			<span class="mui-icon mui-icon-contact"></span>
-			<span class="mui-tab-label">我的</span>
-		</a>
-	</nav>
-</div>-->
 		<script type="text/javascript" src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/main.js"></script>
 		<script type="application/javascript" src="../js/own.js"></script>
 		<script type="application/javascript">
-			mui.init({
+		 mui.init({
 				swipeBack: false
 			});
+			
+			window.addEventListener('searchPageFire', function(options) {					
+					var categoryID = options.detail.categoryID;
+					getGoodsListByCategory2(categoryID);
+				}, false);
 		</script>
 	</body>
 

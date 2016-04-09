@@ -163,6 +163,9 @@
 						subSearchWebview.loadURL(href);
 						self.show(aniShow);
 					}
+					mui.fire(subSearchWebview,'searchPageFire',{
+						categoryID:categoryID
+					});
 				}, false);
 				//接收子页面的获取categoryID的事件
 				window.addEventListener('getCategoryID', function(e) {

@@ -1,5 +1,7 @@
 package com.csu.qxjh.goods.pojo;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.csu.qxjh.admin.pojo.Admin;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
  * 商品二级分类
@@ -25,6 +29,7 @@ public class GoodsCatagory2 {
 	private String goods_catagory_2_remark;//备注
 	private int  goods_catagory_2_type;//分类的类型(分类的类型，0代表普通分类，1代表专场分类，2代表热门分类)--》对应的是推荐分类的那一栏
 	private Admin admin;//该分类最后修改管理员（管理员与该分类一对多）
+	private List<Goods> goodsList;//该分类下的所有商品
 	public GoodsCatagory2() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -93,6 +98,16 @@ public class GoodsCatagory2 {
 	}
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
+	}
+	
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="goodsCatagory2")
+	@JsonIgnore
+	public List<Goods> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(List<Goods> goodsList) {
+		this.goodsList = goodsList;
 	}
 	
 	

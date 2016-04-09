@@ -4,7 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
  * 优惠促销（满减类的）
@@ -13,6 +17,7 @@ import javax.persistence.Table;
 @Table(name="offer_promotion_fullcutproducts")
 public class OfferPromotionFullcutproducts {
 	private int id;//主键
+	private Goods goods;//所属商品
 	private String offer_promotion_fullcutproducts_name;//优惠促销名称
 	private String offer_promotion_fullcutproducts_remark;//优惠促销备注
 	private String offer_promotion_fullcutproducts_time_start;//优惠促销开始时间
@@ -81,6 +86,15 @@ public class OfferPromotionFullcutproducts {
 	}
 	public void setOffer_promotion_fullcutproducts_money_reduce(double offer_promotion_fullcutproducts_money_reduce) {
 		this.offer_promotion_fullcutproducts_money_reduce = offer_promotion_fullcutproducts_money_reduce;
+	}
+	@OneToOne
+	@JoinColumn(name="goods_id")
+	@JsonIgnore
+	public Goods getGoods() {
+		return goods;
+	}
+	public void setGoods(Goods goods) {
+		this.goods = goods;
 	}
 	
 }
