@@ -8,4 +8,8 @@ public interface GoodsService {
 	Goods getById(int id);
 	List<Goods> getByCatagory2Id(int catagoryId);
 	void addGoods(Goods goods);
+	List<Goods> getByCatagory2Sellors(int catagoryId);//按销量降序排列
+	List<Goods> getByCatagory2PriceDown(int catagoryId);//按价格降序排列
+	List<Goods> getByCatagory2PriceUp(int catagoryId);//按价格升序排列
+	List<Goods> getByCatagory2ZongHe(int catagoryId);//按综合降序排列
 }

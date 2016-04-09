@@ -2,6 +2,7 @@ package com.csu.qxjh.goods.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,21 @@ public class GoodsCommentDaoImpl implements GoodsCommentDao{
 	}
 
 	@Override
-	public int selectGrade(int id) {
+	public int selectGrade(int goodsId, int start, int end) {
 		// TODO Auto-generated method stub
-		return 0;
+		String hql="select count(*) From goods_comment com where com.goods.id=? and com.goods_comment_grade between ? and ?";
+		Query query=getSession().createQuery(hql).setInteger(0, goodsId).setInteger(1, start).setInteger(2, end);
+		int amount=(Integer)query.uniqueResult();
+		return amount;
 	}
 
+	@Override
+	public void insert(GoodsComment goodsComment) {
+		// TODO Auto-generated method stub
+		getSession().save(goodsComment);
+	}
+
+
+
+	
 }

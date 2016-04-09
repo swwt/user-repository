@@ -46,9 +46,9 @@ public class GoodsDaoImpl implements GoodsDao{
 		// TODO Auto-generated method stub
 		String hql="";
 		if(sequence==0){//降序
-			hql="";
+			hql="From Goods s where s.goodsCatagory2.id=? order by s.goodsDetail.goods_detail_now_price DESC";
 		}else if(sequence==1){//升序
-			
+			hql="From Goods s where s.goodsCatagory2.id=? order by s.goodsDetail.goods_detail_now_price";
 		}
 		Query query=getSession().createQuery(hql).setInteger(0, goodsCatagoryId);
 		List<Goods>goodsList=query.list();
@@ -57,12 +57,11 @@ public class GoodsDaoImpl implements GoodsDao{
 	@Override
 	public List<Goods> selectByGoodsCatagory2BySells(int goodsCatagoryId) {
 		// TODO Auto-generated method stub
-		return null;
+		String hql="From Goods s where s.goodsCatagory2.id=? order by s.goodsOrders.size";
+		Query query=getSession().createQuery(hql).setInteger(0, goodsCatagoryId);
+		List<Goods>goodsList=query.list();
+		return goodsList;
 	}
-	@Override
-	public List<Goods> selectByGoodsCatagory2Bycomposite(int goodsCatagoryId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

@@ -28,7 +28,7 @@ public class GoodsComment {
 //	private int goods_comment_description_match;//描述相符（5颗星）
 //	private int goods_comment_service_attitude;//服务态度（5颗星）
 //	private int goods_comment_logistics_speed;//物流速度（5颗星）
-	private int goods_comment_grade;//评价等级（五颗星，一颗星代表差评，2，3颗星代表好评，,4,5颗星代表好评）
+	private int goods_comment_grade;//评价等级（五颗星，0,1颗星代表差评，2，3颗星代表好评，,4,5颗星代表好评）
 	private int goods_comment_view_status;//查看状态
 	private int goods_comment_anonymous;//是否匿名,0代表匿名,1代表不匿名显示
 	public GoodsComment() {

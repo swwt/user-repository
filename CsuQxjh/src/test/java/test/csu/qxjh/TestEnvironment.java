@@ -2,6 +2,7 @@ package test.csu.qxjh;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -15,10 +16,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.csu.qxjh.goods.dao.GoodsCommentDao;
+import com.csu.qxjh.goods.dao.GoodsDao;
+import com.csu.qxjh.goods.dao.GoodsDetailDao;
 import com.csu.qxjh.goods.dao.OfferPromotionFullcutproductsDao;
 import com.csu.qxjh.goods.pojo.Goods;
 import com.csu.qxjh.goods.pojo.GoodsCatagory1;
 import com.csu.qxjh.goods.pojo.GoodsCatagory2;
+import com.csu.qxjh.goods.pojo.GoodsComment;
+import com.csu.qxjh.goods.pojo.GoodsDetail;
 import com.csu.qxjh.goods.pojo.OfferPromotionFullcutproducts;
 import com.csu.qxjh.goods.service.GoodsCatagory1Service;
 import com.csu.qxjh.goods.service.GoodsCatagory2Service;
@@ -57,6 +63,39 @@ public class TestEnvironment {
     private SellorDao sellorDao;
     @Resource
     private GoodsOrderDao goodsOrderDao;
+    @Resource 
+    private GoodsDetailDao goodsDetailDao;
+    @Resource
+    private GoodsDao goodsDao;
+    @Resource
+    private GoodsCommentDao goodsCommentDao;
+    @Test
+    public void test15(){
+    	for(int i=0;i<30;i++){
+    		GoodsComment goodsComment=new GoodsComment();
+        	Random rand1 = new Random();
+        	int randNum1 = rand1.nextInt(5);
+        	goodsComment.setGoods_comment_grade(randNum1);
+        	goodsComment.setGoods(goodsService.getById((randNum1+1)%5));
+        	goodsCommentDao.insert(goodsComment);
+    	}
+    	
+    }
+    @Test
+    public void test14(){
+    	List <Goods> goodsList = goodsDao.selectByGoodsCatagory2BySells(10);
+    	for( int i = 0; i < goodsList.size(); i++ ){
+    		System.out.println(goodsList.get(i).getGoodsOrders().size());
+    	}
+    	
+    }
+    @Test
+    public void test13(){
+    	GoodsDetail goodsDetail=new GoodsDetail();
+    	goodsDetail.setGoods(goodsService.getById(5));
+    	goodsDetail.setGoods_detail_now_price(400.5555);
+    	goodsDetailDao.insert(goodsDetail);
+    }
     @Test
     public void test12(){
 //    	GoodsOrder goodsOrder=new GoodsOrder();

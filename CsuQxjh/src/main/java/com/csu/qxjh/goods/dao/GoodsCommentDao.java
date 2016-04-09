@@ -6,5 +6,6 @@ import com.csu.qxjh.goods.pojo.GoodsComment;
 
 public interface GoodsCommentDao {
 	List<GoodsComment> selectByGoodsId(int goodsId);//查询某商品的评论，按时间排序
-	int selectGrade(int id);//根据评价的几颗星查询对应的评价数量
+	int selectGrade(int goodsId, int start,int end);//根据评价大于小于几颗星查询商品对应的评价数量,包括start和end
+	void insert(GoodsComment goodsComment);//新加一条评价信息
 }
