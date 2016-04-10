@@ -91,6 +91,7 @@
 			mui.init({
 				swipeBack: false
 			});
+			
 			var mainWebView; //当前主webview
 			var navtitle;
 			var curTabItem; //当前被选中tabitem
@@ -110,6 +111,7 @@
 			
 			var loginView;
 			mui.plusReady(function() {
+				//alert(plus.webview.currentWebview().id);
 				//改变statusbar
 				plus.navigator.setStatusBarBackground('#41cea9');
 				navtitle = document.getElementById('nav-title');
@@ -390,6 +392,8 @@
 					var isBars = options.detail.isBars;
 					var barsIcon = options.detail.barsIcon;
 					var categoryID = options.detail.categoryID;
+					var product_id = options.detail.product_id;
+					//alert("--"+product_id);
 					console.log(id);
 					console.log(href);
 					console.log(aniShow);
@@ -429,7 +433,7 @@
 					} */
 					else if(id == 'Home/searchPage.html'){
 						var categoryID = options.detail.category_id;
-						alert('newWebView');
+//						alert('newWebView');
 //						alert(subSearchWebview.getURL()); 
 						mui.fire(parentSearchWebview, 'searchTemplateFire', {
 							id: id,
@@ -448,6 +452,7 @@
 						
 					}else if (~id.indexOf('.html')) {
 						if (!~id.indexOf('needtem.html')) {
+						
 							mui.openWindow({
 								url: href,
 								id: id,
@@ -465,6 +470,7 @@
 							//headerWebView.hide();如果在这里添加这个代码，会导致监听事件在下面contentwebview show之后又隐藏掉它
 							contentWebView.hide();
 							//像template-main传送事件让他更改标题
+							//alert("商品详情2");
 							console.log("账户管理页面：" + title);
 							mui.fire(headerWebView, 'templateFire', {
 								id: id,
@@ -473,7 +479,8 @@
 								target: href,
 								isBars: isBars,
 								barsIcon: barsIcon,
-								categoryID: categoryID
+								categoryID: categoryID,
+								product_id: product_id
 							});
 							//如果为展示category或者商品信息的页面，需要每次都重新加载，因为存在刷新页面信息的东西;
 							//再次加载页面显示的也是之前加载的页面信息，所以这里，在这个页面返回的时候将里面的数据清空

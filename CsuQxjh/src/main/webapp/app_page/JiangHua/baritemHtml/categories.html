@@ -31,6 +31,24 @@
 		</style>
 <!-- 商品分类ajax操作 -->
 <script type="text/javascript">  
+			function muiClick(){
+				mui('.special .specialIcon .mui-table-view').on('tap', 'a', function() {
+					//alert("监听事件2");
+					var anishow = getaniShow();
+					var item = this;
+					var itemID = this.getAttribute('href');
+					//alert(itemID);
+					mui.fire(parentWebview, 'newWebView', {
+						id: 'Home/searchPage.html',
+						href: '../Home/searchPage.html',
+						aniShow: anishow,
+						title: '商品搜索',
+						isBars: false,
+						barsIcon: '',
+						category_id: itemID
+					});
+				});
+			}
 			
 			function getCatagory(){//获取一级分类信息
 //				alert("请求数据");
@@ -64,7 +82,7 @@
 								//alert(JSON.stringify(userJSON));//将JSON对象转化为字符串
 								
 								getCatagory2(catagoryJSON); 
-								
+
 							}else{//获取失败，给出提醒
 								alert(data.message);
 							}
@@ -123,7 +141,7 @@
 							  		var hotCatagory2=hotJSON[i];
 							  		catory2Html=catory2Html+
 							  			"<li class=\"mui-table-view-cell mui-media mui-col-xs-4\">"+
-								  			"<a href=\"../Home/searchPage.html\">"+
+								  			"<a href=\""+hotCatagory2.id+"\">"+
 												"<img class=\"mui-media-object\" src=\""+host+hotCatagory2.goods_catagory_2_icon+"\">"+
 												"<div class=\"mui-media-body\">"+hotCatagory2.goods_catagory_2_name+"</div>"+
 											"</a>"+
@@ -199,7 +217,7 @@
 											var catagory2By1=catagory2JSON[i];
 											contentHtml=contentHtml
 														+"<li class=\"mui-table-view-cell mui-media mui-col-xs-4\">"+
-											  				"<a href=\"../Home/searchPage.html\">"+
+											  				"<a href=\""+catagory2By1.id+"\">"+
 																"<img class=\"mui-media-object\" src=\""+host+catagory2By1.goods_catagory_2_icon+"\">"+
 																"<div class=\"mui-media-body\">"+catagory2By1.goods_catagory_2_name+"</div>"+
 															"</a>"+
@@ -228,6 +246,9 @@
 									}else{//获取失败，给出提醒
 										alert(data.message);
 									}
+//									mui.plusReady(function() {//重新设置监听
+//										muiClick();
+//									});	
 								},
 								error:function(xhr,type,errorThrown){
 									//异常处理；
@@ -241,33 +262,6 @@
 //					 mui.plusReady(function(){
 //   					console.log("html!!!!!!："+document.getElementById("parentCatagory").outerHTML);
 //					});
-			}
-			function test(){
-				var createDiv=document.createElement("div");
-										createDiv.id="item"+2+"mobile";
-										createDiv.className="mui-control-content";
-										var imageHtml="<div class=\"banner\" id=\"specialImage\">"
-										+"<img src=\""+"http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory1_image/1.jpg"+"\" width=\"100%\">"
-										+"</div>";
-										var contentHtml="<div class=\"special\">"
-															+"<p>热门分类</p>"
-																+"<div class=\"specialIcon\">"
-																	+"<ul class=\"mui-table-view mui-grid-view\" id=\"hotCatagory\">";
-		
-											contentHtml=contentHtml
-														+"<li class=\"mui-table-view-cell mui-media mui-col-xs-4\">"+
-											  				"<a href=\"#\">"+
-																"<img class=\"mui-media-object\" src=\""+"http://192.168.1.104:8088/CsuQxjh/resource_goods_catagory2_image/1.jpg"+"\">"+
-																"<div class=\"mui-media-body\">"+"叶菜类1"+"</div>"+
-															"</a>"+
-														"</li>";
-										contentHtml=contentHtml
-															+"</ul>"
-														+"</div>"
-													+"</div>";
-													
-				createDiv.innerHTML=imageHtml+contentHtml;
-				document.getElementById("parentCatagory").appendChild(createDiv);
 			}
 			window.onload=getCatagory;			
 </script>
@@ -340,26 +334,12 @@
 			mui.init();
 			var currentWebview;
 			var parentWebview;
+			
 			mui.plusReady(function() {
 				currentWebview = plus.webview.currentWebview();
 				parentWebview = plus.webview.currentWebview().parent();
-				mui('.special .specialIcon .mui-table-view').on('tap', 'a', function() {
-					alert("监听事件1");
-					var anishow = getaniShow();
-					var item = this;
-					var itemID = this.getAttribute('href');
-					alert(itemID);
-					mui.fire(parentWebview, 'newWebView', {
-						id: 'Home/searchPage.html',
-						href: '../Home/searchPage.html',
-						aniShow: anishow,
-						title: '商品搜索',
-						isBars: false,
-						barsIcon: '',
-						category_id: itemID
-					});
-				});
-				 
+				
+				muiClick()
 //				mui('#segmentedControl').on('tap', 'a', function() {
 //					getCatagory();
 //				});

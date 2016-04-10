@@ -1,6 +1,7 @@
 package com.csu.qxjh.goods.pojo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class Goods {
 	private OfferPromotionFullsendproducts offerPromotionFullsendproducts;//与优惠促销 （满赠类的）一对一
 	private OfferPromotionDiscount offerPromotionDiscount;//与优惠促销（折扣类的）一对一
 	private OfferPromotionFullcutproducts OfferPromotionFullcutproducts;//与优惠促销（满减类的）一对一
-	private int goods_grade;//该商品评价率---通过计算而得（不存数据库）
+	private Map<String,Double> goods_grade;//该商品评价率(三个键对应的是good（好评），medium（中评），bad（差评）)---通过计算而得（不存数据库）(两位小数)
 	private Set<GoodsImage> images;//商品图片
 	private Set<GoodsOrder> goodsOrders;//对应的订单
 	private Set<Collection> collections;//对应我的收藏
@@ -72,6 +73,7 @@ public class Goods {
 	}
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="sellor_id")
+	@JsonIgnore
 	public Sellor getSellor() {
 		return sellor;
 	}
@@ -121,6 +123,7 @@ public class Goods {
 		this.goods_promotion_type = goods_promotion_type;
 	}
 	@OneToOne(fetch=FetchType.EAGER,mappedBy="goods")
+	@JsonIgnore
 	public OfferPromotionFullsendproducts getOfferPromotionFullsendproducts() {
 		return offerPromotionFullsendproducts;
 	}
@@ -128,6 +131,7 @@ public class Goods {
 		this.offerPromotionFullsendproducts = offerPromotionFullsendproducts;
 	}
 	@OneToOne(fetch=FetchType.EAGER ,mappedBy="goods")
+	@JsonIgnore
 	public OfferPromotionDiscount getOfferPromotionDiscount() {
 		return offerPromotionDiscount;
 	}
@@ -137,6 +141,7 @@ public class Goods {
 	
 	
 	@OneToOne(mappedBy="goods")
+	@JsonIgnore
 	public OfferPromotionFullcutproducts getOfferPromotionFullcutproducts() {
 		return OfferPromotionFullcutproducts;
 	}
@@ -157,7 +162,7 @@ public class Goods {
 	public void setGoods_on_sale_status(int goods_on_sale_status) {
 		this.goods_on_sale_status = goods_on_sale_status;
 	}
-	@OneToMany(fetch=FetchType.EAGER ,mappedBy="goods")
+	@OneToMany(fetch=FetchType.EAGER ,mappedBy="goods")	
 	public Set<GoodsComment> getGoodsComments() {
 		return goodsComments;
 	}
@@ -165,21 +170,24 @@ public class Goods {
 		this.goodsComments = goodsComments;
 	}
 
-	@Transient
-	public int getGoods_grade() {
-		return goods_grade;
-	}
-	public void setGoods_grade(int goods_grade) {
-		this.goods_grade = goods_grade;
-	}
+	
+	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="goods")
 	public Set<GoodsImage> getImages() {
 		return images;
 	}
+	
+	@Transient
+	public Map<String, Double> getGoods_grade() {
+		return goods_grade;
+	}
+	public void setGoods_grade(Map<String, Double> goods_grade) {
+		this.goods_grade = goods_grade;
+	}
 	public void setImages(Set<GoodsImage> images) {
 		this.images = images;
 	}
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="goods")
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="goods")	
 	public Set<GoodsOrder> getGoodsOrders() {
 		return goodsOrders;
 	}
@@ -188,13 +196,14 @@ public class Goods {
 	}
 	
 	@ManyToMany(mappedBy="goodsList")
+	@JsonIgnore
 	public Set<Collection> getCollections() {
 		return collections;
 	}
 	public void setCollections(Set<Collection> collections) {
 		this.collections = collections;
 	}
-	@OneToOne(fetch=FetchType.EAGER,mappedBy="goods")
+	@OneToOne(fetch=FetchType.EAGER,mappedBy="goods")	
 	public GoodsDetail getGoodsDetail() {
 		return goodsDetail;
 	}

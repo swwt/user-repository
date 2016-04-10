@@ -21,19 +21,20 @@ public class GoodsCommentDaoImpl implements GoodsCommentDao{
 		return sessionFactory.getCurrentSession();
 	}
 	
-	@Override
-	public List<GoodsComment> selectByGoodsId(int goodsId) {
-		//String hql="From GoodsComment"
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<GoodsComment> selectByGoodsId(int goodsId) {
+//		//String hql="From GoodsComment"
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public int selectGrade(int goodsId, int start, int end) {
 		// TODO Auto-generated method stub
-		String hql="select count(*) From goods_comment com where com.goods.id=? and com.goods_comment_grade between ? and ?";
+		String hql="select count(*) From GoodsComment com where com.goods.id=? and com.goods_comment_grade between ? and ?";
 		Query query=getSession().createQuery(hql).setInteger(0, goodsId).setInteger(1, start).setInteger(2, end);
-		int amount=(Integer)query.uniqueResult();
+		int amount=(int)((Long)query.uniqueResult()).longValue();
+		
 		return amount;
 	}
 

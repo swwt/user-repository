@@ -70,6 +70,19 @@ public class TestEnvironment {
     @Resource
     private GoodsCommentDao goodsCommentDao;
     @Test
+    public void test17(){
+    	
+    }
+    @Test
+    public void test16(){
+    	List<Goods> goodsList=goodsService.getByCatagory2ZongHe(10);
+    	//goodsList=goodsService.getByCatagory2PriceDown(10);
+    	for(int i=0;i<goodsList.size();i++){
+    		System.out.println(goodsList.get(i).getId()+":"+goodsList.get(i).getGoods_grade());
+    	}
+    	
+    }
+    @Test
     public void test15(){
     	for(int i=0;i<30;i++){
     		GoodsComment goodsComment=new GoodsComment();

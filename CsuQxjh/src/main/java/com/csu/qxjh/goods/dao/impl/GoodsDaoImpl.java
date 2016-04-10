@@ -57,7 +57,7 @@ public class GoodsDaoImpl implements GoodsDao{
 	@Override
 	public List<Goods> selectByGoodsCatagory2BySells(int goodsCatagoryId) {
 		// TODO Auto-generated method stub
-		String hql="From Goods s where s.goodsCatagory2.id=? order by s.goodsOrders.size";
+		String hql="From Goods s where s.goodsCatagory2.id=? order by s.goodsOrders.size DESC";
 		Query query=getSession().createQuery(hql).setInteger(0, goodsCatagoryId);
 		List<Goods>goodsList=query.list();
 		return goodsList;

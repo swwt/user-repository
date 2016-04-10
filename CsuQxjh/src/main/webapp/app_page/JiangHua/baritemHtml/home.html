@@ -450,8 +450,11 @@
 					var item = this;
 					var itemID = this.getAttribute('href');
 					var anishow = getaniShow();
+//					alert("商品详情");
 					console.log("mui.fire goodsIndex.html"+ itemID);
 					//弹入分类商品列表
+//					alert(currentWebview.id);
+//					alert(parentWebview.id);
 					mui.fire(parentWebview, 'newWebView', {
 						id: 'Home/goodsIndex-needtem.html',
 						href: 'Home/goodsIndex-needtem.html',

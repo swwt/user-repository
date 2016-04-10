@@ -577,7 +577,8 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"js/own.js",
-					"img/shuijiao.jpg"
+					"img/shuijiao.jpg",
+					"jsHostName/hostName.js"
 				],
 				"refer": [],
 				"priority": 0

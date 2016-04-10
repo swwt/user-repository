@@ -85,8 +85,8 @@
 				var href = options.detail.target;
 				var isBars = options.detail.isBars;
 				var barsIcon = options.detail.barsIcon;
-				categoryID = options.detail.categoryID;
-				
+				//categoryID = options.detail.categoryID;
+				var product_id=options.detail.product_id;
 				console.log("Template Html:"+href);
 				
 				if (isBars) {
@@ -114,6 +114,9 @@
 					}
 					self.show(aniShow);
 				}
+				mui.fire(contentWebview,'goodsIndexDetailPage',{
+						goodsID:product_id
+				});
 			},false);
 			
 			//接收子页面的获取categoryID的事件
