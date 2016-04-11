@@ -1,6 +1,7 @@
 package test.csu.qxjh;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -70,13 +71,22 @@ public class TestEnvironment {
     @Resource
     private GoodsCommentDao goodsCommentDao;
     @Test
-    public void test17(){
-    	
+    public void test17(){    	
+    	Goods goods=goodsService.getById(2);
+    	Set<GoodsComment> goodsComments=goods.getGoodsComments();
+		Iterator<GoodsComment> iterator=goodsComments.iterator();
+		while(iterator.hasNext()){
+			//System.out.println(iterator.next().getUser().getCollections());
+			iterator.next().getUser().setGoodsOrders(null);
+			iterator.next().getUser().setGoodsComments(null);
+			//iterator.next().getUser().setCollections(null);
+		}
+    	//System.out.println(goo);
     }
     @Test
     public void test16(){
     	List<Goods> goodsList=goodsService.getByCatagory2ZongHe(10);
-    	//goodsList=goodsService.getByCatagory2PriceDown(10);
+    	goodsList=goodsService.getByCatagory2PriceDown(10);
     	for(int i=0;i<goodsList.size();i++){
     		System.out.println(goodsList.get(i).getId()+":"+goodsList.get(i).getGoods_grade());
     	}

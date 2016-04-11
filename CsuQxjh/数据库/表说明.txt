@@ -59,3 +59,5 @@
 
 37.collection_goods收藏表与商品表多对多的关联表
 38.collection_store收藏表和店铺表多对多的关联表
+
+39.goods_price商品对应的价格表（一个商品有多种价格方式）

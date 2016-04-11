@@ -12,6 +12,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.csu.qxjh.goods.pojo.GoodsComment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /*
  * 用户（买家）
  */
@@ -36,6 +39,7 @@ public class User {
 	private String user_college;//学院
 	private Set<GoodsOrder> goodsOrders;//对应的订单（用户删除订单，只是修改订单中用户是否保存的状态，但是并不实际删除数据表中的订单记录）
 	private Set<Collection> collections;//用户的收藏表
+	private Set<GoodsComment> goodsComments;//该用户评论过的商品
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -180,6 +184,14 @@ public class User {
 	}
 	public void setCollections(Set<Collection> collections) {
 		this.collections = collections;
+	}
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
+	@JsonIgnore
+	public Set<GoodsComment> getGoodsComments() {
+		return goodsComments;
+	}
+	public void setGoodsComments(Set<GoodsComment> goodsComments) {
+		this.goodsComments = goodsComments;
 	}
 	
 	

@@ -72,17 +72,47 @@
 			
 		</style>
 		<script type="text/javascript">
+		function goodsAction(listenWhat){
+			mui.plusReady(function() {
+				currentWebview = plus.webview.currentWebview();
+				//parentWebview = plus.webview.currentWebview().parent();
+				parentWebview=plus.webview.getWebviewById("HBuilder");//获取index的webview
+				mui(listenWhat).on('tap', 'a', function() {
+					var item = this;
+					var itemID = this.getAttribute('href');
+					var anishow = getaniShow();
+//					alert("商品详情");
+					//console.log("mui.fire goodsIndex.html"+ itemID);
+					//弹入分类商品列表
+					//alert("商品id:"+itemID);
+					
+					//alert(parentWebview.id);
+					mui.fire(parentWebview, 'newWebView', {
+						id: 'Home/goodsIndex-needtem.html',
+						href: 'Home/goodsIndex-needtem.html',
+						aniShow: anishow,
+						title: '商品详情',
+						isBars: false,
+						barsIcon: '',
+						product_id: itemID
+					}, false);//product_id: itemID,
+				});
+			});
+		}
 			function getGoodsListByCategory2(catagory2_id){
+				
 				//------------获取综合排序的商品-----------
+				//alert(catagory2_id);
 				mui.ajax(host+'/goods/getByCatagory2ZongHe',{
 						data:{
 						 catagory2Id:catagory2_id
 						},
-						async: false,//设为同步请求
+						async: true,//设为异步请求
 						dataType:'json',//服务器返回json格式数据
 						type:'post',//HTTP请求类型
 						timeout:10000,//超时时间设置为10秒；
 						success:function(data){
+							//alert(data.message);
 							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
 							if(data.code==1){//表示获取成功
 								//alert(data.message);
@@ -90,7 +120,7 @@
 								var zongheHtml="";
 								for(var i=0;i<goodsJSON.length;i++){
 									var goodsJSONSon=goodsJSON[i];
-									var goodComment=goodsJSONSon.goods_grade.good*100;
+									var goodComment=goodsJSONSon.goods_grade.good;
 									//alert(goodsJSONSon.goodsComments);
 									zongheHtml=zongheHtml
 									+"<li class=\"result-item mui-table-view-cell mui-media\" style=\"margin-bottom: 0;\">"
@@ -100,7 +130,7 @@
 											+"<p class=\"item-info-des mui-ellipsis-2\">"+goodsJSONSon.goods_name+"</p>"
 											+"<p class='item-info-price' style=\"font-size: 14px;color:#DD524D\">￥<span class=\"item-info-price-detail\" style=\"\">"+goodsJSONSon.goodsDetail.goods_detail_now_price+"</span></p>"
 											+"<p class='' style=\"\">"
-												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsComments.length+"条评价</span>"
+												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsCommentNumber+"条评价</span>"
 												+"<span class=\"item-info-good-comment\">好评"+goodComment+"%</span>"
 											+"</p>"
 											+"</div>"
@@ -109,7 +139,7 @@
 								}
 								
 								document.getElementById("zonghe").innerHTML=zongheHtml;
-								
+								goodsAction('#item1mobile');
 							}else{//获取失败，给出提醒
 								alert(data.message);
 							}
@@ -117,6 +147,9 @@
 						error:function(xhr,type,errorThrown){ 
 							//异常处理；
 							//console.log(type);
+							alert(xhr);
+							alert(type);
+							alert(errorThrown);
 							alert("出现错误（请求响应超时）");
 						}
 					});
@@ -125,7 +158,7 @@
 						data:{
 						 catagory2Id:catagory2_id
 						},
-						async: false,//设为同步请求
+						async: true,//设为异步请求
 						dataType:'json',//服务器返回json格式数据
 						type:'post',//HTTP请求类型
 						timeout:10000,//超时时间设置为10秒；
@@ -137,7 +170,7 @@
 								var zongheHtml="";
 								for(var i=0;i<goodsJSON.length;i++){
 									var goodsJSONSon=goodsJSON[i];
-									var goodComment=goodsJSONSon.goods_grade.good*100;
+									var goodComment=goodsJSONSon.goods_grade.good;
 									//alert(goodsJSONSon.goodsComments);
 									zongheHtml=zongheHtml
 									+"<li class=\"result-item mui-table-view-cell mui-media\" style=\"margin-bottom: 0;\">"
@@ -147,8 +180,8 @@
 											+"<p class=\"item-info-des mui-ellipsis-2\">"+goodsJSONSon.goods_name+"</p>"
 											+"<p class='item-info-price' style=\"font-size: 14px;color:#DD524D\">￥<span class=\"item-info-price-detail\" style=\"\">"+goodsJSONSon.goodsDetail.goods_detail_now_price+"</span></p>"
 											+"<p class='' style=\"\">"
-												+"<span class=\"item-info-good-comment\">销量"+goodsJSONSon.goodsOrders.length+"件</span>"
-												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsComments.length+"条评价</span>"
+												+"<span class=\"item-info-good-comment\">销量"+goodsJSONSon.goodsSells+"件</span>"
+												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsCommentNumber+"条评价</span>"
 												+"<span class=\"item-info-good-comment\">好评"+goodComment+"%</span>"
 											
 											+"</p>"
@@ -158,7 +191,7 @@
 								}
 								
 								document.getElementById("sells").innerHTML=zongheHtml;
-								
+								goodsAction('#item2mobile');
 							}else{//获取失败，给出提醒
 								alert(data.message);
 							}
@@ -174,7 +207,7 @@
 						data:{
 						 catagory2Id:catagory2_id
 						},
-						async: false,//设为同步请求
+						async: true,//设为异步请求
 						dataType:'json',//服务器返回json格式数据
 						type:'post',//HTTP请求类型
 						timeout:10000,//超时时间设置为10秒；
@@ -186,7 +219,7 @@
 								var zongheHtml="";
 								for(var i=0;i<goodsJSON.length;i++){
 									var goodsJSONSon=goodsJSON[i];
-									var goodComment=goodsJSONSon.goods_grade.good*100;
+									var goodComment=goodsJSONSon.goods_grade.good;
 									//alert(goodsJSONSon.goodsComments);
 									zongheHtml=zongheHtml
 									+"<li class=\"result-item mui-table-view-cell mui-media\" style=\"margin-bottom: 0;\">"
@@ -196,8 +229,8 @@
 											+"<p class=\"item-info-des mui-ellipsis-2\">"+goodsJSONSon.goods_name+"</p>"
 											+"<p class='item-info-price' style=\"font-size: 14px;color:#DD524D\">￥<span class=\"item-info-price-detail\" style=\"\">"+goodsJSONSon.goodsDetail.goods_detail_now_price+"</span></p>"
 											+"<p class='' style=\"\">"
-												+"<span class=\"item-info-good-comment\">销量"+goodsJSONSon.goodsOrders.length+"件</span>"
-												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsComments.length+"条评价</span>"
+												+"<span class=\"item-info-good-comment\">销量"+goodsJSONSon.goodsSells+"件</span>"
+												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsCommentNumber+"条评价</span>"
 												+"<span class=\"item-info-good-comment\">好评"+goodComment+"%</span>"
 											
 											+"</p>"
@@ -207,7 +240,7 @@
 								}
 								
 								document.getElementById("price").innerHTML=zongheHtml;
-								
+								goodsAction('#item3mobile');
 							}else{//获取失败，给出提醒
 								alert(data.message);
 							}
@@ -315,35 +348,11 @@
 			
 		window.addEventListener('searchPageFire', function(options) {					
 			var categoryID = options.detail.categoryID;
-			alert("searchPage:"+categoryID);
+			//alert("searchPage:"+categoryID);
 			getGoodsListByCategory2(categoryID);
 		}, false);
 		
-		mui.plusReady(function() {
-				currentWebview = plus.webview.currentWebview();
-				//parentWebview = plus.webview.currentWebview().parent();
-				parentWebview=plus.webview.getWebviewById("HBuilder");//获取index的webview
-				mui('.search-result').on('tap', 'a', function() {
-					var item = this;
-					var itemID = this.getAttribute('href');
-					var anishow = getaniShow();
-//					alert("商品详情");
-					//console.log("mui.fire goodsIndex.html"+ itemID);
-					//弹入分类商品列表
-					alert("商品id:"+itemID);
-					
-					//alert(parentWebview.id);
-					mui.fire(parentWebview, 'newWebView', {
-						id: 'Home/goodsIndex-needtem.html',
-						href: 'Home/goodsIndex-needtem.html',
-						aniShow: anishow,
-						title: '商品详情',
-						isBars: false,
-						barsIcon: '',
-						product_id: itemID
-					}, false);//product_id: itemID,
-				});
-			});
+		
 		</script>
 	</body>
 

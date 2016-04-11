@@ -43,11 +43,13 @@ public class Goods {
 	private OfferPromotionFullsendproducts offerPromotionFullsendproducts;//与优惠促销 （满赠类的）一对一
 	private OfferPromotionDiscount offerPromotionDiscount;//与优惠促销（折扣类的）一对一
 	private OfferPromotionFullcutproducts OfferPromotionFullcutproducts;//与优惠促销（满减类的）一对一
-	private Map<String,Double> goods_grade;//该商品评价率(三个键对应的是good（好评），medium（中评），bad（差评）)---通过计算而得（不存数据库）(两位小数)
+	private Map<String,Integer> goods_grade;//该商品评价率(三个键对应的是good（好评），medium（中评），bad（差评）)---通过计算而得（不存数据库）(两位小数)
 	private Set<GoodsImage> images;//商品图片
 	private Set<GoodsOrder> goodsOrders;//对应的订单
 	private Set<Collection> collections;//对应我的收藏
 	private GoodsDetail goodsDetail;//商品详情
+	private int goodsCommentNumber;//评价数（该数值不存入数据库，运行时通过程序计算）
+	private int goodsSells;//销量（该数值不存入数据库，运行时通过程序计算）
 	public Goods() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -178,10 +180,10 @@ public class Goods {
 	}
 	
 	@Transient
-	public Map<String, Double> getGoods_grade() {
+	public Map<String, Integer> getGoods_grade() {
 		return goods_grade;
 	}
-	public void setGoods_grade(Map<String, Double> goods_grade) {
+	public void setGoods_grade(Map<String, Integer> goods_grade) {
 		this.goods_grade = goods_grade;
 	}
 	public void setImages(Set<GoodsImage> images) {
@@ -209,6 +211,20 @@ public class Goods {
 	}
 	public void setGoodsDetail(GoodsDetail goodsDetail) {
 		this.goodsDetail = goodsDetail;
+	}
+	@Transient
+	public int getGoodsCommentNumber() {
+		return goodsCommentNumber;
+	}
+	public void setGoodsCommentNumber(int goodsCommentNumber) {
+		this.goodsCommentNumber = goodsCommentNumber;
+	}
+	@Transient
+	public int getGoodsSells() {
+		return goodsSells;
+	}
+	public void setGoodsSells(int goodsSells) {
+		this.goodsSells = goodsSells;
 	}
 	
 	

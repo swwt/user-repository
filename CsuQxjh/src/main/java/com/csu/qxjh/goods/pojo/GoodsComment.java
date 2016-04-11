@@ -1,7 +1,10 @@
 package com.csu.qxjh.goods.pojo;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,7 +25,7 @@ public class GoodsComment {
 	private int id;//主键
 	private Goods goods;//所属商品
 //	private Goods goods_order_id;//
-	private User user;//与用户一对一关联
+	private User user;//所属用户
 	private String goods_comment_content;//评价内容
 	private String goods_comment_time;//评价时间
 //	private int goods_comment_description_match;//描述相符（5颗星）
@@ -31,6 +34,7 @@ public class GoodsComment {
 	private int goods_comment_grade;//评价等级（五颗星，0,1颗星代表差评，2，3颗星代表好评，,4,5颗星代表好评）
 	private int goods_comment_view_status;//查看状态
 	private int goods_comment_anonymous;//是否匿名,0代表匿名,1代表不匿名显示
+	private Set<GoodsCommentImage> images;//评价信息附带的图片
 	public GoodsComment() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -43,7 +47,7 @@ public class GoodsComment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="user_id")
 	public User getUser() {
 		return user;
@@ -115,6 +119,13 @@ public class GoodsComment {
 	}
 	public void setGoods(Goods goods) {
 		this.goods = goods;
+	}
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="goodsComment")
+	public Set<GoodsCommentImage> getImages() {
+		return images;
+	}
+	public void setImages(Set<GoodsCommentImage> images) {
+		this.images = images;
 	}
 	
 }

@@ -33,8 +33,7 @@ public class GoodsCommentDaoImpl implements GoodsCommentDao{
 		// TODO Auto-generated method stub
 		String hql="select count(*) From GoodsComment com where com.goods.id=? and com.goods_comment_grade between ? and ?";
 		Query query=getSession().createQuery(hql).setInteger(0, goodsId).setInteger(1, start).setInteger(2, end);
-		int amount=(int)((Long)query.uniqueResult()).longValue();
-		
+		int amount=(int)((Long)query.uniqueResult()).longValue();		
 		return amount;
 	}
 
@@ -42,6 +41,15 @@ public class GoodsCommentDaoImpl implements GoodsCommentDao{
 	public void insert(GoodsComment goodsComment) {
 		// TODO Auto-generated method stub
 		getSession().save(goodsComment);
+	}
+
+	@Override
+	public GoodsComment selectById(int id) {
+		// TODO Auto-generated method stub
+		String hql="From GoodsComment com where com.id=?";
+		Query query=getSession().createQuery(hql).setInteger(0, id);
+		GoodsComment goodsComment=(GoodsComment)query.uniqueResult();	
+		return goodsComment;
 	}
 
 

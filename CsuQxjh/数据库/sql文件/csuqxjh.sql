@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/4/8 20:06:10                            */
+/* Created on:     2016/4/11 17:20:19                           */
 /*==============================================================*/
 
 
@@ -9,6 +9,10 @@ drop table if exists admin;
 drop table if exists adminoperatelogs;
 
 drop table if exists collection;
+
+drop table if exists collection_goods;
+
+drop table if exists collection_store;
 
 drop table if exists coupon_sellor;
 
@@ -22,6 +26,8 @@ drop table if exists goods_catagory_2;
 
 drop table if exists goods_comment;
 
+drop table if exists goods_comment_image;
+
 drop table if exists goods_coupon;
 
 drop table if exists goods_detail;
@@ -31,6 +37,8 @@ drop table if exists goods_detail_image;
 drop table if exists goods_image;
 
 drop table if exists goods_order;
+
+drop table if exists goods_price;
 
 drop table if exists goods_sellor_feedback;
 
@@ -118,11 +126,34 @@ create table collection
 (
    id                   int not null comment '编号',
    user_id              varchar(50) comment '用户编号',
-   goods_id             int comment '商品编号',
    store_id             varchar(50) comment '店铺编号',
    collection_time      varchar(20) comment '收藏时间',
    primary key (id)
 );
+
+/*==============================================================*/
+/* Table: collection_goods                                      */
+/*==============================================================*/
+create table collection_goods
+(
+   collection_id        int not null comment 'collection的外键',
+   goods_id             int not null comment 'goods的晚间',
+   primary key (collection_id, goods_id)
+);
+
+alter table collection_goods comment '收藏与商品多对多的关联关系';
+
+/*==============================================================*/
+/* Table: collection_store                                      */
+/*==============================================================*/
+create table collection_store
+(
+   collection_id        int not null comment '收藏表外键',
+   sellor_id            int not null comment '卖家外键',
+   primary key (collection_id, sellor_id)
+);
+
+alter table collection_store comment '收藏和店铺多对多关联表';
 
 /*==============================================================*/
 /* Table: coupon_sellor                                         */
@@ -168,7 +199,6 @@ create table goods
    goods_name           varchar(50) comment '商品名称',
    goods_introduction   text comment '商品简介',
    goods_remark         text comment '备注',
-   goods_sales          int comment '销量',
    goods_time_last_update varchar(20) comment '商品最后修改时间',
    goods_number         int comment '商品库存',
    goods_promotion_type int comment '该商品是否有促销活动，且促销活动是什么类型',
@@ -217,14 +247,25 @@ create table goods_comment
    user_id              varchar(50) comment '用户编号',
    goods_comment_content text comment '评价内容',
    goods_comment_time   varchar(30) comment '评价时间',
-   goods_comment_description_match int comment '描述相符',
-   goods_comment_service_attitude int comment '服务态度',
-   goods_comment_logistics_speed int comment '物流速度',
-   goods_comment_grade  int comment '评价等级（好评，中评，差评）',
+   goods_comment_grade  int comment '评价等级（五颗星）',
    goods_comment_view_status int comment '查看状态',
    goods_comment_anonymous int comment '是否匿名',
    primary key (id)
 );
+
+/*==============================================================*/
+/* Table: goods_comment_image                                   */
+/*==============================================================*/
+create table goods_comment_image
+(
+   id                   int not null,
+   goods_comment_id     int comment '评价的id',
+   goods_comment_image_src varchar(100) comment '图片路径',
+   goods_comment_time   varchar(30) comment '上传时间',
+   primary key (id)
+);
+
+alter table goods_comment_image comment '评价表对应的图片';
 
 /*==============================================================*/
 /* Table: goods_coupon                                          */
@@ -311,9 +352,25 @@ create table goods_order
    promotion_gifs_amount int comment '赠品数量',
    promotion_name       varchar(100) comment '促销类型内容（对应的是offer_promotion_type中的优惠促销的中文表格名）',
    goods_order_pay_way  varchar(50) comment '支付方式',
-   goods_order          char(10) comment '送货方式',
+   goods_order_send_way varchar(50) comment '送货方式',
+   goods_order_user_use int comment '用户是否还保留记录',
    primary key (id)
 );
+
+/*==============================================================*/
+/* Table: goods_price                                           */
+/*==============================================================*/
+create table goods_price
+(
+   id                   int not null comment '编号',
+   goods_id             int comment '商品编号',
+   goods_price_specific decimal(10,3) comment '此时具体商品价格',
+   goods_price_description text comment '对应的描述',
+   goods_price_time     varchar(30) comment '最后修改时间',
+   primary key (id)
+);
+
+alter table goods_price comment '商品对应有多种价格形式';
 
 /*==============================================================*/
 /* Table: goods_sellor_feedback                                 */
@@ -437,12 +494,13 @@ create table news_comment
 /*==============================================================*/
 create table offer_promotion_discount
 (
-   id                   int comment '编号',
+   id                   int not null comment '编号',
    goods_id             int comment '商品编号',
    offer_promotion_discount_time_start varchar(20) comment '开始时间',
    offer_promotion_discount_time_end varchar(20) comment '结束时间',
    offer_promotion_discount_time_publish varchar(20) comment '发布时间',
-   offer_promotion_discount_amount decimal(10,3) comment '折扣是多少'
+   offer_promotion_discount_amount decimal(10,3) comment '折扣是多少',
+   primary key (id)
 );
 
 alter table offer_promotion_discount comment '折扣促销活动';

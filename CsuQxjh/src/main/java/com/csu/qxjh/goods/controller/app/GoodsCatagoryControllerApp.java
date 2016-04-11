@@ -35,7 +35,7 @@ public class GoodsCatagoryControllerApp {
 	private GoodsCatagory1Service goodsCatagory1Service;
 	
 	@ResponseBody
-	@RequestMapping("/getCatagory1All")//返回一级分类所有信息
+	@RequestMapping("/getCatagory1All")//返回一级分类所有信息,包括其下的二级分类
 	public Message getCatagory1All(){
 		System.out.println("get--------");
 		Message message=new Message();

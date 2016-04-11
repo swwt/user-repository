@@ -1,10 +1,14 @@
 package com.csu.qxjh.goods.pojo;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,6 +38,7 @@ public class GoodsDetail {
 	private String goods_detail_taste;//口味
 	private String goods_detail_category;//类别
 	private String goods_detail_time_last_update;//商品详情最后修改时间
+	private Set<GoodsDetailImage> images;//商品详情的图片
 	public GoodsDetail() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -166,6 +171,13 @@ public class GoodsDetail {
 	}
 	public void setGoods_detail_time_last_update(String goods_detail_time_last_update) {
 		this.goods_detail_time_last_update = goods_detail_time_last_update;
+	}
+	@OneToMany(mappedBy="goodsDetail",fetch=FetchType.EAGER)
+	public Set<GoodsDetailImage> getImages() {
+		return images;
+	}
+	public void setImages(Set<GoodsDetailImage> images) {
+		this.images = images;
 	}
 	
 	

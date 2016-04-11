@@ -48,7 +48,7 @@ public class GoodsCatagory2 {
 	//　　---> ManyToOne指定了多对一的关系，fetch=FetchType.LAZY属性表示在多的那一方通过延迟加载的方式加载对象(默认不是延迟加载)
 	@JoinColumn(name="goods_catagory_1_id")
 	//　　--->　　通过 JoinColumn 的name属性指定了外键的名称 rid　(注意：如果我们不通过JoinColum来指定外键的名称，系统会给我们声明一个名称)
-	
+	@JsonIgnore
 	public GoodsCatagory1 getGoodsCatagory1() {
 		return goodsCatagory1;
 	}
@@ -100,7 +100,7 @@ public class GoodsCatagory2 {
 		this.admin = admin;
 	}
 	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="goodsCatagory2")
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="goodsCatagory2")	
 	@JsonIgnore
 	public List<Goods> getGoodsList() {
 		return goodsList;

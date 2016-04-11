@@ -564,7 +564,9 @@
 					"img/yuantiao.jpg",
 					"css/style.css",
 					"img/cbd.jpg",
-					"Mine/register-needtem.html"
+					"Mine/register-needtem.html",
+					"jsHostName/hostName.js",
+					"js/own.js"
 				],
 				"refer": [],
 				"priority": 0

@@ -1,5 +1,6 @@
 package com.csu.qxjh.goods.service.impl;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -36,7 +37,11 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public Goods getById(int id) {
 		// TODO Auto-generated method stub
-		return goodsDao.selectById(id);
+		Goods goods=goodsDao.selectById(id);
+		List<Goods>goodsList=new ArrayList<>();
+		goodsList.add(goods);
+		goodsList=this.setGrade(goodsList);
+		return goods;
 	}
 
 	@Override
@@ -54,6 +59,8 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 	
 	public List<Goods> setGrade(List<Goods> goodsList){//设置商品的好评，差评，中评率
+		NumberFormat nFormat=NumberFormat.getNumberInstance(); 
+		nFormat.setMaximumFractionDigits(0);
 		List<Goods> goodsListNew=new ArrayList<>();
 		//System.out.println(goodsList.size());
 		for(int i=0;i<goodsList.size();i++){
@@ -62,15 +69,16 @@ public class GoodsServiceImpl implements GoodsService{
 			int mediumAmount=goodsCommentDao.selectGrade(goods.getId(),2, 3);
 			int goodAmount=goodsCommentDao.selectGrade(goods.getId(),4, 5);
 			double total=badAmount+mediumAmount+goodAmount;
-			Map<String ,Double> map=new HashMap<>();
+			Map<String ,Integer> map=new HashMap<>();
 			if(total!=0){				
-				map.put("bad", Double.valueOf(badAmount/total));
-				map.put("good", Double.valueOf(goodAmount/total));
-				map.put("medium", Double.valueOf(mediumAmount/total));
+				map.put("bad", Integer.parseInt(nFormat.format(badAmount/total*100)));
+				System.out.println(nFormat.format(badAmount/total));
+				map.put("good",Integer.parseInt(nFormat.format(goodAmount/total*100)));
+				map.put("medium", Integer.parseInt(nFormat.format(mediumAmount/total*100)));
 			}else{
-				map.put("bad", Double.valueOf(0.33));
-				map.put("good", Double.valueOf(0.33));
-				map.put("medium", Double.valueOf(0.33));
+				map.put("bad", 33);
+				map.put("good", 33);
+				map.put("medium",34);
 			}
 			
 			goods.setGoods_grade(map);
