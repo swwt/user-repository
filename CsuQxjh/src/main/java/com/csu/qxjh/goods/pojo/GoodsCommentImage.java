@@ -2,6 +2,7 @@ package com.csu.qxjh.goods.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -32,7 +33,7 @@ public class GoodsCommentImage {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="goods_comment_id")
 	@JsonIgnore
 	public GoodsComment getGoodsComment() {

@@ -114,7 +114,11 @@
 					}
 					self.show(aniShow);
 				}
-				mui.fire(contentWebview,'goodsIndexDetailPage',{
+				//alert(product_id);
+				mui.fire(contentWebview,'gongyiPage',{//公益详情
+						gongyiID:product_id
+				});
+				mui.fire(contentWebview,'goodsIndexDetailPage',{//商品详情
 						goodsID:product_id
 				});
 			},false);

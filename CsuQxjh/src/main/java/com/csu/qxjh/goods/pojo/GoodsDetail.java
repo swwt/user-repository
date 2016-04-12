@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -51,7 +52,7 @@ public class GoodsDetail {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)//实际是一对一
 	@JoinColumn(name="goods_id")
 	@JsonIgnore
 	public Goods getGoods() {

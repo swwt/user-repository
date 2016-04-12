@@ -50,14 +50,7 @@ public class GoodsControllerApp {
 	public Message getByCatagory2ZongHe(@RequestParam(value="catagory2Id")Integer  catagory2Id){
 		//System.out.println("getByCatagory2ZongHe-------"+catagory2Id);
 		Message message=new Message();		
-		List<Goods> goodsList=goodsService.getByCatagory2ZongHe(catagory2Id);
-		for(int i=0;i<goodsList.size();i++){
-			Goods goods=goodsList.get(i);
-			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
-			goods.setGoodsSells(goods.getGoodsOrders().size());
-			goods.setGoodsComments(null);
-			goods.setGoodsOrders(null);
-		}
+		List<Goods> goodsList=goodsService.getByCatagory2ZongHe(catagory2Id);		
 		message.setCode(1);
 		message.setMessage("获取成功");
 		message.setResult(goodsList);
@@ -68,13 +61,6 @@ public class GoodsControllerApp {
 	public Message getByCatagory2Sellors(@RequestParam(value="catagory2Id")Integer  catagory2Id){
 		Message message=new Message();		
 		List<Goods> goodsList=goodsService.getByCatagory2Sellors(catagory2Id);
-		for(int i=0;i<goodsList.size();i++){
-			Goods goods=goodsList.get(i);
-			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
-			goods.setGoodsSells(goods.getGoodsOrders().size());
-			goods.setGoodsComments(null);
-			goods.setGoodsOrders(null);
-		}
 		message.setCode(1);
 		message.setMessage("获取成功");
 		message.setResult(goodsList);
@@ -85,13 +71,6 @@ public class GoodsControllerApp {
 	public Message getByCatagory2PriceDown(@RequestParam(value="catagory2Id")Integer  catagory2Id){
 		Message message=new Message();		
 		List<Goods> goodsList=goodsService.getByCatagory2PriceDown(catagory2Id);
-		for(int i=0;i<goodsList.size();i++){
-			Goods goods=goodsList.get(i);
-			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
-			goods.setGoodsSells(goods.getGoodsOrders().size());
-			goods.setGoodsComments(null);
-			goods.setGoodsOrders(null);
-		}
 		message.setCode(1);
 		message.setMessage("获取成功");
 		message.setResult(goodsList);
@@ -102,13 +81,6 @@ public class GoodsControllerApp {
 	public Message getByCatagory2PriceUp(@RequestParam(value="catagory2Id")Integer  catagory2Id){
 		Message message=new Message();		
 		List<Goods> goodsList=goodsService.getByCatagory2PriceUp(catagory2Id);
-		for(int i=0;i<goodsList.size();i++){
-			Goods goods=goodsList.get(i);
-			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
-			goods.setGoodsSells(goods.getGoodsOrders().size());
-			goods.setGoodsComments(null);
-			goods.setGoodsOrders(null);
-		}
 		message.setCode(1);
 		message.setMessage("获取成功");
 		message.setResult(goodsList);

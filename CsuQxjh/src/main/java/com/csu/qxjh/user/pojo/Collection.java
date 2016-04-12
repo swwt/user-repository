@@ -3,6 +3,7 @@ package com.csu.qxjh.user.pojo;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -37,7 +38,7 @@ public class Collection {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	@JsonIgnore
 	public User getUser() {
@@ -46,20 +47,22 @@ public class Collection {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name = "collection_goods",
 	   joinColumns = @JoinColumn(name = "collection_id"),
 	   inverseJoinColumns = @JoinColumn(name = "goods_id"))
+	@JsonIgnore
 	public Set<Goods> getGoodsList() {
 		return goodsList;
 	}
 	public void setGoodsList(Set<Goods> goodsList) {
 		this.goodsList = goodsList;
 	}
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name = "collection_store",
 	   joinColumns = @JoinColumn(name = "collection_id"),
 	   inverseJoinColumns = @JoinColumn(name = "sellor_id"))
+	@JsonIgnore
 	public Set<Sellor> getSellorList() {
 		return sellorList;
 	}

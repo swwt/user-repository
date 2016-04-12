@@ -47,7 +47,7 @@ public class GoodsComment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	public User getUser() {
 		return user;
@@ -111,7 +111,7 @@ public class GoodsComment {
 	public void setGoods_comment_anonymous(int goods_comment_anonymous) {
 		this.goods_comment_anonymous = goods_comment_anonymous;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="goods_id")
 	@JsonIgnore
 	public Goods getGoods() {

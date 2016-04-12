@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -194,7 +195,7 @@ public class Sellor {
 	public void setSellor_store_time(String sellor_store_time) {
 		this.sellor_store_time = sellor_store_time;
 	}
-	@ManyToMany(mappedBy="sellorList")
+	@ManyToMany(mappedBy="sellorList",fetch=FetchType.LAZY)
 	public Set<Collection> getCollections() {
 		return collections;
 	}

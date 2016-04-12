@@ -99,6 +99,10 @@
 			mui.plusReady(function() {
 				//adaptive();
 			});
+			window.addEventListener('gongyiPage', function(options) {					
+				var gongyiID = options.detail.gongyiID;
+				alert("gongyiID:"+gongyiID);
+			}, false);
 		</script>
 	</body>
 

@@ -2,6 +2,7 @@ package com.csu.qxjh.user.service.impl;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,12 @@ public class UserServiceImpl implements UserService{
 	public User getByNamePassword(String user_login_name, String user_password) {
 		// TODO Auto-generated method stub
 		String password_MD5=new MD5Util().MD5(user_password);//先获取加密后的密码
-		return userDao.getByNamePassword(user_login_name, password_MD5);
+		User user=userDao.getByNamePassword(user_login_name, password_MD5);
+		user.setCollections(null);
+		user.setGoodsOrders(null);
+//		Hibernate.initialize(user.getCollections());--->解决session关闭，延迟加载异常
+//		Hibernate.initialize(user.getGoodsOrders());
+		return user;
 	}
 
 	public User getByName(String user_login_name) {

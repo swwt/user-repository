@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import javax.annotation.Resource;
 import javax.swing.plaf.synth.SynthStyle;
 
+import org.hibernate.Hibernate;
 import org.hibernate.engine.jdbc.spi.ResultSetReturn;
 import org.hibernate.engine.transaction.jta.platform.internal.SynchronizationRegistryBasedSynchronizationStrategy;
 import org.hibernate.id.SelectGenerator.SelectGeneratorDelegate;
@@ -63,6 +64,12 @@ public class GoodsServiceImpl implements GoodsService{
 		List<Goods>goodsList=new ArrayList<>();
 		goodsList.add(goods);
 		goodsList=this.setGrade(goodsList);
+		goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+		goods.setGoodsSells(goods.getGoodsOrders().size());
+		goods.setGoodsOrders(null);
+		//Hibernate.initialize(goods.getGoodsComments());
+		Hibernate.initialize(goods.getImages());
+		Hibernate.initialize(goods.getGoodsPrices());
 		return goods;
 	}
 
@@ -115,6 +122,15 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		List<Goods> goodsList=goodsDao.selectByGoodsCatagory2BySells(catagoryId);
 		goodsList=this.setGrade(goodsList);
+		for(int j=0;j<goodsList.size();j++){
+			Goods goods=goodsList.get(j);
+			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+			goods.setGoodsSells(goods.getGoodsOrders().size());
+			goods.setGoodsComments(null);
+			goods.setGoodsOrders(null);
+			Hibernate.initialize(goods.getImages());
+			Hibernate.initialize(goods.getGoodsPrices());
+		}
 		return goodsList;
 	}
 
@@ -123,6 +139,15 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		List<Goods> goodsList= goodsDao.selectByGoodsCatagory2ByPrice(catagoryId, 0);
 		goodsList=this.setGrade(goodsList);
+		for(int j=0;j<goodsList.size();j++){
+			Goods goods=goodsList.get(j);
+			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+			goods.setGoodsSells(goods.getGoodsOrders().size());
+			goods.setGoodsComments(null);
+			goods.setGoodsOrders(null);
+			Hibernate.initialize(goods.getImages());
+			Hibernate.initialize(goods.getGoodsPrices());
+		}
 		return goodsList;
 	}
 
@@ -131,13 +156,22 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		List<Goods> goodsList= goodsDao.selectByGoodsCatagory2ByPrice(catagoryId, 1);
 		goodsList=this.setGrade(goodsList);
+		for(int j=0;j<goodsList.size();j++){
+			Goods goods=goodsList.get(j);
+			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+			goods.setGoodsSells(goods.getGoodsOrders().size());
+			goods.setGoodsComments(null);
+			goods.setGoodsOrders(null);
+			Hibernate.initialize(goods.getImages());
+			Hibernate.initialize(goods.getGoodsPrices());
+		}
 		return goodsList;
 	}
 
 	@Override
 	public List<Goods> getByCatagory2ZongHe(int catagoryId) {//综合排序，按照销量和好评率
 		// TODO Auto-generated method stub
-		List<Goods> goodsList=goodsDao.selectByGoodsCatagory2(catagoryId);
+		List<Goods> goodsList=goodsDao.selectByGoodsCatagory2(catagoryId);		
 		goodsList=this.setGrade(goodsList);
 		Map<Double,Goods> map=new TreeMap<>(new MapKeyComparator());
 		List<Goods> goodsListNew=new ArrayList<>();		
@@ -168,6 +202,15 @@ public class GoodsServiceImpl implements GoodsService{
 			Goods goods=(Goods)i.next();
 //			System.out.println(goods.getId());
 			goodsListNew.add(goods);
+		}
+		for(int j=0;j<goodsListNew.size();j++){
+			Goods goods=goodsListNew.get(j);
+			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+			goods.setGoodsSells(goods.getGoodsOrders().size());
+			goods.setGoodsComments(null);
+			goods.setGoodsOrders(null);
+			Hibernate.initialize(goods.getImages());
+			Hibernate.initialize(goods.getGoodsPrices());
 		}
 		return goodsListNew;
 	}

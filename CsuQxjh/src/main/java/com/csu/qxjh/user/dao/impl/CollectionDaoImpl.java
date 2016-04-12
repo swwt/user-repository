@@ -1,5 +1,8 @@
 package com.csu.qxjh.user.dao.impl;
 
+
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,14 @@ public class CollectionDaoImpl implements CollectionDao{
 	public void insert(Collection collection) {
 		// TODO Auto-generated method stub
 		getSession().save(collection);
+	}
+	@Override
+	public Collection selectById(int id) {
+		// TODO Auto-generated method stub
+		String hql="From Collection coll where coll.id=?";
+		Query query=getSession().createQuery(hql).setInteger(0, id);
+		Collection collection=(Collection)query.uniqueResult();
+		return collection;
 	}
 
 }

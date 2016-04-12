@@ -274,7 +274,8 @@
 			"js/md5.js",
 			"index.html",
 			"img/cishanjia.png",
-			"test.html"
+			"test.html",
+			"jsHostName/hostName.js"
 		],
 		"refer": [
 			"index.html",

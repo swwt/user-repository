@@ -44,7 +44,7 @@ public class GoodsCatagory2 {
 		this.id = id;
 	}
 	
-	@ManyToOne(fetch=FetchType.EAGER)//EAGER，表示取出这条数据时，它关联的数据也同时取出放入内存中(防止延迟加载异常)
+	@ManyToOne(fetch=FetchType.LAZY)//EAGER，表示取出这条数据时，它关联的数据也同时取出放入内存中(防止延迟加载异常)
 	//　　---> ManyToOne指定了多对一的关系，fetch=FetchType.LAZY属性表示在多的那一方通过延迟加载的方式加载对象(默认不是延迟加载)
 	@JoinColumn(name="goods_catagory_1_id")
 	//　　--->　　通过 JoinColumn 的name属性指定了外键的名称 rid　(注意：如果我们不通过JoinColum来指定外键的名称，系统会给我们声明一个名称)
@@ -91,7 +91,7 @@ public class GoodsCatagory2 {
 		this.goods_catagory_2_type = goods_catagory_2_type;
 	}
 	//@Transient
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="admin_id")
 	@JsonIgnore
 	public Admin getAdmin() {
@@ -101,7 +101,7 @@ public class GoodsCatagory2 {
 		this.admin = admin;
 	}
 	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="goodsCatagory2")	
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="goodsCatagory2")	
 	@JsonIgnore
 	public List<Goods> getGoodsList() {
 		return goodsList;

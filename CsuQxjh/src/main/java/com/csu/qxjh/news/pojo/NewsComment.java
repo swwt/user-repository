@@ -2,6 +2,7 @@ package com.csu.qxjh.news.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -35,7 +36,7 @@ public class NewsComment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="news_id")
 	@JsonIgnore
 	public News getNews() {
@@ -58,7 +59,7 @@ public class NewsComment {
 	public void setNews_comment_time(String news_comment_time) {
 		this.news_comment_time = news_comment_time;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	public User getUser() {
 		return user;

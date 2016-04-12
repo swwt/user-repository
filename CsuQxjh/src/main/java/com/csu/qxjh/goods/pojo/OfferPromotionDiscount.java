@@ -2,6 +2,7 @@ package com.csu.qxjh.goods.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -63,7 +64,7 @@ public class OfferPromotionDiscount {
 	public void setOffer_promotion_discount_amount(double offer_promotion_discount_amount) {
 		this.offer_promotion_discount_amount = offer_promotion_discount_amount;
 	}
-	@OneToOne
+	@ManyToOne(fetch=FetchType.LAZY)//实际是一对一
 	@JoinColumn(name="goods_id")
 	@JsonIgnore
 	public Goods getGoods() {

@@ -40,9 +40,9 @@ public class Goods {
 	private int goods_on_sale_status;//该商品上架状态，-1代表下架，0代表未上架，1代表上架
 	private Set<GoodsComment> goodsComments;//与商品评价表一对多
 	private int goods_promotion_type;//该商品是否有促销活动，0代表没有，1代表有
-	private OfferPromotionFullsendproducts offerPromotionFullsendproducts;//与优惠促销 （满赠类的）一对一
-	private OfferPromotionDiscount offerPromotionDiscount;//与优惠促销（折扣类的）一对一
-	private OfferPromotionFullcutproducts OfferPromotionFullcutproducts;//与优惠促销（满减类的）一对一
+	private Set<OfferPromotionFullsendproducts> offerPromotionFullsendproducts;//与优惠促销 （满赠类的）实际是一对一
+	private Set<OfferPromotionDiscount> offerPromotionDiscount;//与优惠促销（折扣类的）实际是一对一
+	private Set<OfferPromotionFullcutproducts> OfferPromotionFullcutproducts;//与优惠促销（满减类的）实际是一对一
 	private Map<String,Integer> goods_grade;//该商品评价率(三个键对应的是good（好评），medium（中评），bad（差评）)---通过计算而得（不存数据库）(两位小数)
 	private Set<GoodsImage> images;//商品图片
 	private Set<GoodsOrder> goodsOrders;//对应的订单
@@ -63,7 +63,7 @@ public class Goods {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@ManyToOne()//EAGER，表示取出这条数据时，它关联的数据也同时取出放入内存中(防止延迟加载异常)
+	@ManyToOne(fetch=FetchType.LAZY)//EAGER，表示取出这条数据时，它关联的数据也同时取出放入内存中(防止延迟加载异常)
 	//　　---> ManyToOne指定了多对一的关系，fetch=FetchType.LAZY属性表示在多的那一方通过延迟加载的方式加载对象(默认不是延迟加载)
 	@JoinColumn(name="goods_catagory_2_id")
 	//　　--->　　通过 JoinColumn 的name属性指定了外键的名称 rid　(注意：如果我们不通过JoinColum来指定外键的名称，系统会给我们声明一个名称)
@@ -74,7 +74,7 @@ public class Goods {
 	public void setGoodsCatagory2(GoodsCatagory2 goodsCatagory2) {
 		this.goodsCatagory2 = goodsCatagory2;
 	}
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="sellor_id")
 	@JsonIgnore
 	public Sellor getSellor() {
@@ -125,32 +125,11 @@ public class Goods {
 	public void setGoods_promotion_type(int goods_promotion_type) {
 		this.goods_promotion_type = goods_promotion_type;
 	}
-	@OneToOne(fetch=FetchType.EAGER,mappedBy="goods")
-	@JsonIgnore
-	public OfferPromotionFullsendproducts getOfferPromotionFullsendproducts() {
-		return offerPromotionFullsendproducts;
-	}
-	public void setOfferPromotionFullsendproducts(OfferPromotionFullsendproducts offerPromotionFullsendproducts) {
-		this.offerPromotionFullsendproducts = offerPromotionFullsendproducts;
-	}
-	@OneToOne(fetch=FetchType.EAGER ,mappedBy="goods")
-	@JsonIgnore
-	public OfferPromotionDiscount getOfferPromotionDiscount() {
-		return offerPromotionDiscount;
-	}
-	public void setOfferPromotionDiscount(OfferPromotionDiscount offerPromotionDiscount) {
-		this.offerPromotionDiscount = offerPromotionDiscount;
-	}
+	/*
+	 * ---以下某些属性中，为了达到延迟加载的效果，使用的一对多，但业务中实际是一对一
+	 */
 	
-	
-	@OneToOne(mappedBy="goods")
-	@JsonIgnore
-	public OfferPromotionFullcutproducts getOfferPromotionFullcutproducts() {
-		return OfferPromotionFullcutproducts;
-	}
-	public void setOfferPromotionFullcutproducts(OfferPromotionFullcutproducts offerPromotionFullcutproducts) {
-		OfferPromotionFullcutproducts = offerPromotionFullcutproducts;
-	}
+
 	@Column
 	public int getGoods_check_status() {
 		return goods_check_status;
@@ -158,14 +137,40 @@ public class Goods {
 	public void setGoods_check_status(int goods_check_status) {
 		this.goods_check_status = goods_check_status;
 	}
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
+	@JsonIgnore
+	public Set<OfferPromotionFullsendproducts> getOfferPromotionFullsendproducts() {
+		return offerPromotionFullsendproducts;
+	}
+	public void setOfferPromotionFullsendproducts(Set<OfferPromotionFullsendproducts> offerPromotionFullsendproducts) {
+		this.offerPromotionFullsendproducts = offerPromotionFullsendproducts;
+	}
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
+	@JsonIgnore
+	public Set<OfferPromotionDiscount> getOfferPromotionDiscount() {
+		return offerPromotionDiscount;
+	}
+	public void setOfferPromotionDiscount(Set<OfferPromotionDiscount> offerPromotionDiscount) {
+		this.offerPromotionDiscount = offerPromotionDiscount;
+	}
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
+	@JsonIgnore
+	public Set<OfferPromotionFullcutproducts> getOfferPromotionFullcutproducts() {
+		return OfferPromotionFullcutproducts;
+	}
+	public void setOfferPromotionFullcutproducts(Set<OfferPromotionFullcutproducts> offerPromotionFullcutproducts) {
+		OfferPromotionFullcutproducts = offerPromotionFullcutproducts;
+	}
 	@Column
 	public int getGoods_on_sale_status() {
 		return goods_on_sale_status;
 	}
+
+
 	public void setGoods_on_sale_status(int goods_on_sale_status) {
 		this.goods_on_sale_status = goods_on_sale_status;
 	}
-	@OneToMany(fetch=FetchType.EAGER ,mappedBy="goods")	
+	@OneToMany(fetch=FetchType.LAZY ,mappedBy="goods")	
 	public Set<GoodsComment> getGoodsComments() {
 		return goodsComments;
 	}
@@ -175,7 +180,7 @@ public class Goods {
 
 	
 	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="goods")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")
 	public Set<GoodsImage> getImages() {
 		return images;
 	}
@@ -190,7 +195,7 @@ public class Goods {
 	public void setImages(Set<GoodsImage> images) {
 		this.images = images;
 	}
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="goods")	
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")	
 	public Set<GoodsOrder> getGoodsOrders() {
 		return goodsOrders;
 	}
@@ -198,7 +203,7 @@ public class Goods {
 		this.goodsOrders = goodsOrders;
 	}
 	
-	@ManyToMany(mappedBy="goodsList")
+	@ManyToMany(fetch=FetchType.LAZY,mappedBy="goodsList")
 	@JsonIgnore
 	public Set<Collection> getCollections() {
 		return collections;
@@ -206,7 +211,8 @@ public class Goods {
 	public void setCollections(Set<Collection> collections) {
 		this.collections = collections;
 	}
-	@OneToOne(fetch=FetchType.EAGER,mappedBy="goods")	
+	
+	@OneToOne(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
 	public GoodsDetail getGoodsDetail() {
 		return goodsDetail;
 	}
@@ -227,7 +233,7 @@ public class Goods {
 	public void setGoodsSells(int goodsSells) {
 		this.goodsSells = goodsSells;
 	}
-	@OneToMany(mappedBy="goods",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="goods",fetch=FetchType.LAZY)
 	public Set<GoodsPrice> getGoodsPrices() {
 		return goodsPrices;
 	}

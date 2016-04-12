@@ -25,7 +25,7 @@ public class User {
 	
 	private String id;//主键
 	private String user_name;//用户名(值与主键相同)
-	private String user_login_name;//登录名(用户登陆所使用的登录名)
+	private String user_login_name;//登录名(用户登陆所使用的登录名,登录名在此限制为不能是纯数字)
 	private String user_real_name;//真实姓名
 	private String user_nickname;//昵称
 	private String user_home_address;//联系地址
@@ -173,22 +173,21 @@ public class User {
 	public void setUser_college(String user_college) {
 		this.user_college = user_college;
 	}
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
 	public Set<GoodsOrder> getGoodsOrders() {
 		return goodsOrders;
 	}
 	public void setGoodsOrders(Set<GoodsOrder> goodsOrders) {
 		this.goodsOrders = goodsOrders;
 	}
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
-	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
 	public Set<Collection> getCollections() {
 		return collections;
 	}
 	public void setCollections(Set<Collection> collections) {
 		this.collections = collections;
 	}
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
 	@JsonIgnore
 	public Set<GoodsComment> getGoodsComments() {
 		return goodsComments;
@@ -196,7 +195,7 @@ public class User {
 	public void setGoodsComments(Set<GoodsComment> goodsComments) {
 		this.goodsComments = goodsComments;
 	}
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
 	@JsonIgnore
 	public Set<NewsComment> getNewsComments() {
 		return newsComments;

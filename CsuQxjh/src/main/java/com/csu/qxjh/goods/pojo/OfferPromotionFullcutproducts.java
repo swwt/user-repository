@@ -2,9 +2,11 @@ package com.csu.qxjh.goods.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -87,7 +89,7 @@ public class OfferPromotionFullcutproducts {
 	public void setOffer_promotion_fullcutproducts_money_reduce(double offer_promotion_fullcutproducts_money_reduce) {
 		this.offer_promotion_fullcutproducts_money_reduce = offer_promotion_fullcutproducts_money_reduce;
 	}
-	@OneToOne
+	@ManyToOne(fetch=FetchType.LAZY)//实际是一对一
 	@JoinColumn(name="goods_id")
 	@JsonIgnore
 	public Goods getGoods() {

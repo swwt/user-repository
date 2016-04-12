@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,9 @@ public class GoodsCatagory1ServiceImpl implements GoodsCatagory1Service{
 	public List<GoodsCatagory1> getAll() {
 		// TODO Auto-generated method stub
 		List<GoodsCatagory1> catagory1list=goodsCatagory1Dao.selectAll();
+		for(int i=0;i<catagory1list.size();i++){
+			Hibernate.initialize(catagory1list.get(i).getGoodsCatagory2List());//手动加载
+		}
 		return catagory1list;
 	}
 

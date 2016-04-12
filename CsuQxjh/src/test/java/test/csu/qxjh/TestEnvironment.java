@@ -41,6 +41,7 @@ import com.csu.qxjh.user.pojo.GoodsOrder;
 import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.service.UserService;
 import com.csu.qxjh.util.DateUtil;
+import com.csu.qxjh.util.MD5Util;
 
 
 //测试方法，以下几个注解都是必须的！
@@ -75,6 +76,10 @@ public class TestEnvironment {
     private GoodsCommentDao goodsCommentDao;
     @Resource
     private NewsDao newsDao;
+    @Test
+    public void test21(){
+    	goodsDao.selectByGoodsCatagory2(10);
+    }
     @Test
     public void test20(){
     	News news=newsDao.selectById(1);
@@ -247,10 +252,12 @@ public class TestEnvironment {
 	}
 	@Test
 	public void test1(){
-		User user=new User();
-		//user.setId("d1r12dwq12");
-		user.setUser_login_name("swwt");
-		user.setUser_password("123456");
-		userService.insert(user);
+//		User user=new User();
+//		//user.setId("d1r12dwq12");
+//		user.setUser_login_name("swwt");
+//		user.setUser_password("123456");
+//		userService.insert(user);
+		User user=userService.getByNamePassword("swwt","123456");
+		//System.out.println(user.getGoodsComments());
 	}
 }

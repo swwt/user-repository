@@ -180,7 +180,7 @@ public class News {
 		public void setNews_time_last_update(String news_time_last_update) {
 			this.news_time_last_update = news_time_last_update;
 		}
-		@ManyToOne
+		@ManyToOne(fetch=FetchType.LAZY)
 		@JoinColumn(name="admin_id")
 		@JsonIgnore
 		public Admin getAdmin() {
@@ -189,7 +189,7 @@ public class News {
 		public void setAdmin(Admin admin) {
 			this.admin = admin;
 		}
-		@OneToMany(fetch=FetchType.EAGER,mappedBy="news")		
+		@OneToMany(fetch=FetchType.LAZY,mappedBy="news")		
 		public Set<NewsComment> getNewsComments() {
 			return newsComments;
 		}

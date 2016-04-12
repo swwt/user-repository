@@ -35,7 +35,7 @@ public class GoodsDetailImage {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="goods_detail_id")
 	@JsonIgnore
 	public GoodsDetail getGoodsDetail() {

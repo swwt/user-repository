@@ -2,6 +2,7 @@ package com.csu.qxjh.user.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -30,7 +31,7 @@ public class GoodsOrder {
 //	private UserAddress address;//收货地址
 	private String goods_order_create_time;//下单时间
 	private int goods_order_deliver_status;//发货状态，0代表未发货，1代表已发货
-	private int goods_order_gain_status;//收货状态，0代表未收货，1代表已收货
+	private int goods_order_gain_status;//收货状态，0代表未收货，1代表已收货(只有收获了，该订单才能算是商品对应的销量的一部分)
 	private String goods_order_remark;//备注，买家留言
 	private int goods_order_evaluate_status;//是否评价，0代表已评价，1代表已收货
 	private int goods_order_payment_status;//是否付款，0代表已付款，1代表未付款
@@ -54,7 +55,7 @@ public class GoodsOrder {
 	public void setId(String id) {
 		this.id = id;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="goods_id")
 	@JsonIgnore
 	public Goods getGoods() {
@@ -63,7 +64,7 @@ public class GoodsOrder {
 	public void setGoods(Goods goods) {
 		this.goods = goods;
 	}
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	@JsonIgnore
 	public User getUser() {

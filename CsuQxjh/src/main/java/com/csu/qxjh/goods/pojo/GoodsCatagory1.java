@@ -77,7 +77,7 @@ public class GoodsCatagory1 {
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
 	}
-	@OneToMany(mappedBy="goodsCatagory1",fetch=FetchType.EAGER)//指定由谁来维护关联关系
+	@OneToMany(mappedBy="goodsCatagory1",fetch=FetchType.LAZY)//指定由谁来维护关联关系
 	//@JsonIgnore//------>防止返回json数据造成无限递归
 	//@LazyCollection(LazyCollectionOption.EXTRA)
 	//　　--->　　LazyCollection属性设置成EXTRA指定了当如果查询数据的个数时候，只会发出一条 count(*)的语句，提高性能

@@ -8,7 +8,12 @@
 
 		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
 		<link rel="stylesheet" type="text/css" href="../css/own.css" />
-
+ 		<script src="../jsHostName/hostName.js"></script>
+ 		<script src="../js/mui.min.js" charset="UTF-8"></script>
+		<script src="../js/own.js" charset="UTF-8"></script>
+		<script src="../js/ajax.js" charset="UTF-8"></script>
+		<script src="../js/arttmpl.js" charset="UTF-8"></script>
+		
 		<style type="text/css">
 			ul,
 			li {
@@ -57,6 +62,62 @@
 				padding-top: 7px;
 			}
 		</style>
+		<script type="text/javascript">
+			
+			function getNewsList(){
+				mui.ajax(host+'/news/getNewsList',{
+						data:{
+							
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+												
+							if(data.code==1){
+								alert(data.message);
+								var newsListJSON=data.result;
+								var newsListHtml="";
+								for(var i=0;i<newsListJSON.length;i++){
+									var news=newsListJSON[i];
+									var contentPreview=news.news_content; 
+									if(contentPreview.length>30){
+										contentPreview=contentPreview.substring(0,30)+"...";
+									}else{
+										contentPreview=contentPreview+"...";
+									}
+									newsListHtml=newsListHtml 
+										+"<li class=\"mui-table-view-cell mui-media\" style=\"height: 100px;\">"
+											+"<a href=\""+news.id+"\">"
+												+"<img class=\"mui-media-object mui-pull-left\" src=\""+host+news.news_image+"\" />"
+												+"<div class=\"mui-media-body\">"
+													+"<p class=\"itemName\">"+news.news_title+"</p>"
+													+"<p class=\"itemDes mui-ellipsis-2\">"+contentPreview+"</p>"
+													+"<p class=\"itemInfo\">"
+														+"<span class=\"itemTime\">"+news.news_time+"</span>"
+														+"<span class=\"itemReadNum\">  "+news.news_read_number+"阅读</span>"
+													+"</p>"
+												+"</div>"
+											+"</a>" 
+										+"</li>"; 
+								}
+								document.getElementById("xingyuandanList").innerHTML=newsListHtml;
+														
+	    						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();		
+								endPullupToRefresh();
+							}else{//登录失败，给出提醒
+								alert(data.message); 
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							//alert("出现错误");
+						}
+					});
+			}
+			window.onload=getNewsList;
+		</script>
 	</head>
 
 	<body>
@@ -70,11 +131,9 @@
 			</div>-->
 
 				<ul id="xingyuandanList" class="mui-table-view">
-					<li class="mui-table-view-cell mui-media">
-						<!--<div class="mui-slider-right mui-disabled">
-						<a class="mui-btn mui-btn-danger">删除</a>
-					</div>
-					<div class="mui-slider-handle"></div>-->
+					
+
+				<!--	<li class="mui-table-view-cell mui-media" style="height: 100px;">
 						<a href="#">
 							<img class="mui-media-object mui-pull-left" src="../img/xiaoningmeng.png" />
 							<div class="mui-media-body">
@@ -86,45 +145,14 @@
 								</p>
 							</div>
 						</a>
+				</li>--> 
 
-					</li>
-
-					<li class="mui-table-view-cell mui-media" style="height: 100px;">
-						<a href="#">
-							<img class="mui-media-object mui-pull-left" src="../img/xiaoningmeng.png" />
-							<div class="mui-media-body">
-								<p class="itemName">"小柠檬的大抱负</p>
-								<p class="itemDes mui-ellipsis-2">如果你在小镇的街头闲逛，会看到一个卖柠檬水喝曲奇饼干的小男孩。</p>
-								<p class="itemInfo">
-									<span class="itemTime">2016年3月22日</span>
-									<span class="itemReadNum">1202阅读</span>
-								</p>
-							</div>
-						</a>
-					</li>
-
-					<li class="mui-table-view-cell mui-media" style="height: 100px;">
-						<a href="#">
-							<img class="mui-media-object mui-pull-left" src="../img/cishanjia.png" />
-							<div class="mui-media-body">
-								<p class="itemName">"站着买菜的慈善家</p>
-								<p class="itemDes mui-ellipsis-2">她的行为感动了全世界，但她却浑然不知。</p>
-								<p class="itemInfo">
-									<span class="itemTime">2016年3月23日</span>
-									<span class="itemReadNum">2322阅读</span>
-								</p>
-							</div>
-						</a>
-					</li>
+	
 				</ul>
 			</div>
 
 		</div>
 
-		<script src="../js/mui.min.js" charset="UTF-8"></script>
-		<script src="../js/own.js" charset="UTF-8"></script>
-		<script src="../js/ajax.js" charset="UTF-8"></script>
-		<script src="../js/arttmpl.js" charset="UTF-8"></script>
 		<script type="text/javascript" charset="UTF-8">
 			mui.init({
 				swipeBack: false,
@@ -283,12 +311,12 @@
 			}
 
 			function pulldownRefresh() {
-				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				}, 1000);
+				getNewsList();
+				
 			}
 
 			function pullupRefresh() {
+				getNewsList();	
 				var copythis = this;
 				setTimeout(function() {
 					copythis.endPullupToRefresh(true | false);

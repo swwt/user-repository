@@ -116,7 +116,7 @@ public class Admin {
 	public void setAdmin_time(String admin_time) {
 		this.admin_time = admin_time;
 	}
-	@OneToMany(mappedBy="admin",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="admin",fetch=FetchType.LAZY)
 	@JsonIgnore
 	public Set<News> getNewsSet() {
 		return newsSet;
