@@ -75,8 +75,8 @@
 					</div>-->
 				</div>
 				<div class="goodTag" id="goodsInformation">
-				<!--	<span class="goods-name" style="color: #232326;font-size: 16px;">湖南湘西沅陵特产&nbsp;大山野生新鲜板栗&nbsp;生板栗&nbsp;毛栗子油栗500克</span>
-
+					<!--<span class="goods-name" style="color: #232326;font-size: 16px;">湖南湘西沅陵特产&nbsp;大山野生新鲜板栗&nbsp;生板栗&nbsp;毛栗子油栗500克</span>
+-->
 					<div class="goods-price-des" style="margin-top: 8px;">
 						<button type="button" class="mui-btn mui-btn-danger">11.90元/500g</button>
 						<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">20元/1kg</button>
@@ -87,7 +87,7 @@
 						<span class="mui-pull-right">
 							<button type="button" class="mui-btn mui-btn-outlined">降价通知</button>
 						</span>
-					</div>-->
+					</div>
 
 				</div>
 
@@ -133,10 +133,10 @@
 				<div class="goodTag">
 					<div id="goodSlider" class="mui-slider">
 						<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-							<!--<a class="mui-control-item" href="#item1mobile">商品介绍</a>
+							<a class="mui-control-item" href="#item1mobile">商品介绍</a>
 							<a class="mui-control-item" href="#item2mobile">规格参数</a>
 							<a class="mui-control-item" href="#item3mobile">包装售后</a>
-							<a class="mui-control-item" href="#item4mobile">评价(1005)</a>-->
+							<a class="mui-control-item" href="#item4mobile">评价(1005)</a>
 						</div>
 						<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
 						<div class="mui-slider-group">
@@ -192,7 +192,7 @@
 												</span>
 												<span class="CommentUser mui-pull-right">
 											评价用户名
-										</span>
+												</span>
 											</div>
 											<p class="commentContent mui-text-left"> 幸福就是可以一起睡觉幸福就是可以一起睡觉幸福就是可以一起睡觉幸福就是可以一起睡觉 </p>
 											<div class="commentPic mui-row">
@@ -205,6 +205,14 @@
 												<div class="mui-col-xs-3">
 													<img class="mui-media-object" src="../img/shuijiao.jpg">
 												</div>
+												<div class="mui-col-xs-3">
+													<img class="mui-media-object" src="../img/shuijiao.jpg">
+												</div>
+											</div>
+											<div class="mui-row">
+												<span class="CommentUser mui-pull-right">
+												<p>2016-04-04 12:12:12</p>
+												</span>
 											</div>
 										</div>
 										<div class="comment">
@@ -353,6 +361,7 @@
 								});
 								
 								//2.设置商品名称价格等基本信息
+								var goodsPrices=goodsJSON.goodsPrices;
 								var goodsInformationHtml=""
 														+"<span class=\"goods-name\" style=\"color: #232326;font-size: 16px;\">"
 														+goodsJSON.goods_name+"</span>"
@@ -472,7 +481,12 @@
 									goodsCommentHtml=goodsCommentHtml
 														+"</div>"
 														
-									
+									goodsCommentHtml=goodsCommentHtml					
+															+"<div class=\"mui-row\">"
+																+"<span class=\"CommentUser mui-pull-right\">"
+																+"<p>"+goodsComent.goods_comment_time+"</p>"
+																+"</span>"
+															+"</div>";
 								}																	
 								goodsCommentHtml=goodsCommentHtml													
 									+"</li>"

@@ -93,6 +93,7 @@ public class GoodsCatagory2 {
 	//@Transient
 	@ManyToOne
 	@JoinColumn(name="admin_id")
+	@JsonIgnore
 	public Admin getAdmin() {
 		return admin;
 	}

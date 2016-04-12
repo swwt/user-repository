@@ -50,6 +50,7 @@ public class Goods {
 	private GoodsDetail goodsDetail;//商品详情
 	private int goodsCommentNumber;//评价数（该数值不存入数据库，运行时通过程序计算）
 	private int goodsSells;//销量（该数值不存入数据库，运行时通过程序计算）
+	private Set<GoodsPrice> goodsPrices;//有多种价格情况
 	public Goods() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -225,6 +226,13 @@ public class Goods {
 	}
 	public void setGoodsSells(int goodsSells) {
 		this.goodsSells = goodsSells;
+	}
+	@OneToMany(mappedBy="goods",fetch=FetchType.EAGER)
+	public Set<GoodsPrice> getGoodsPrices() {
+		return goodsPrices;
+	}
+	public void setGoodsPrices(Set<GoodsPrice> goodsPrices) {
+		this.goodsPrices = goodsPrices;
 	}
 	
 	

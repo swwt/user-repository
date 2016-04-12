@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.csu.qxjh.goods.pojo.GoodsComment;
+import com.csu.qxjh.news.pojo.NewsComment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
@@ -40,6 +41,7 @@ public class User {
 	private Set<GoodsOrder> goodsOrders;//对应的订单（用户删除订单，只是修改订单中用户是否保存的状态，但是并不实际删除数据表中的订单记录）
 	private Set<Collection> collections;//用户的收藏表
 	private Set<GoodsComment> goodsComments;//该用户评论过的商品
+	private Set<NewsComment> newsComments;//该用户参加过的所有公益项目的评价
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -179,6 +181,7 @@ public class User {
 		this.goodsOrders = goodsOrders;
 	}
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
+	@JsonIgnore
 	public Set<Collection> getCollections() {
 		return collections;
 	}
@@ -192,6 +195,14 @@ public class User {
 	}
 	public void setGoodsComments(Set<GoodsComment> goodsComments) {
 		this.goodsComments = goodsComments;
+	}
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="user")
+	@JsonIgnore
+	public Set<NewsComment> getNewsComments() {
+		return newsComments;
+	}
+	public void setNewsComments(Set<NewsComment> newsComments) {
+		this.newsComments = newsComments;
 	}
 	
 	

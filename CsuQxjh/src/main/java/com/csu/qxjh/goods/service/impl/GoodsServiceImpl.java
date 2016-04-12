@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +27,7 @@ import com.csu.qxjh.goods.dao.GoodsDao;
 import com.csu.qxjh.goods.pojo.Goods;
 import com.csu.qxjh.goods.pojo.GoodsComment;
 import com.csu.qxjh.goods.service.GoodsService;
+import com.csu.qxjh.util.StringUtil;
 
 @Transactional(propagation=Propagation.REQUIRED)
 @Service
@@ -34,10 +36,30 @@ public class GoodsServiceImpl implements GoodsService{
 	private GoodsDao goodsDao;
 	@Resource
 	private GoodsCommentDao goodsCommentDao;
+	
+	public Set<GoodsComment> getCommentByTime(Set<GoodsComment> goodsComments){//将评价按时间来排序
+		Set<GoodsComment> goodsCommentList=new LinkedHashSet<>();
+		TreeMap<Long, GoodsComment> map=new TreeMap<>(new MapKeyTimeComparator());
+		Iterator<GoodsComment> iterator1=goodsComments.iterator();
+		while(iterator1.hasNext()){
+			GoodsComment goodsComment=iterator1.next();
+			String time=goodsComment.getGoods_comment_time();
+			String timeNew=StringUtil.dealDateString(time);
+			map.put(Long.parseLong(timeNew), goodsComment);
+		}
+		Iterator<GoodsComment> iterator2=map.values().iterator();
+		while(iterator2.hasNext()){
+			goodsCommentList.add(iterator2.next());
+		}
+		return goodsCommentList;
+	}
+	
 	@Override
 	public Goods getById(int id) {
 		// TODO Auto-generated method stub
 		Goods goods=goodsDao.selectById(id);
+		Set<GoodsComment> goodsComments=getCommentByTime(goods.getGoodsComments());
+		goods.setGoodsComments(goodsComments);
 		List<Goods>goodsList=new ArrayList<>();
 		goodsList.add(goods);
 		goodsList=this.setGrade(goodsList);
@@ -155,6 +177,15 @@ class MapKeyComparator implements Comparator<Double>{
 
 	@Override
 	public int compare(Double o1, Double o2) {
+		// TODO Auto-generated method stub
+		return -o1.compareTo(o2);
+	}
+	
+}
+class MapKeyTimeComparator implements Comparator<Long>{
+
+	@Override
+	public int compare(Long o1, Long o2) {
 		// TODO Auto-generated method stub
 		return -o1.compareTo(o2);
 	}

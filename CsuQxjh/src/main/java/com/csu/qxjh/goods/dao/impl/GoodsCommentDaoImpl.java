@@ -52,6 +52,12 @@ public class GoodsCommentDaoImpl implements GoodsCommentDao{
 		return goodsComment;
 	}
 
+	@Override
+	public void update(GoodsComment goodsComment) {
+		// TODO Auto-generated method stub
+		getSession().update(goodsComment);
+	}
+
 
 
 	

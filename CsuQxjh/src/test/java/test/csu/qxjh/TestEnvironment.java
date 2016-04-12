@@ -30,6 +30,8 @@ import com.csu.qxjh.goods.pojo.OfferPromotionFullcutproducts;
 import com.csu.qxjh.goods.service.GoodsCatagory1Service;
 import com.csu.qxjh.goods.service.GoodsCatagory2Service;
 import com.csu.qxjh.goods.service.GoodsService;
+import com.csu.qxjh.news.dao.NewsDao;
+import com.csu.qxjh.news.pojo.News;
 import com.csu.qxjh.sellor.dao.SellorDao;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.user.dao.CollectionDao;
@@ -38,6 +40,7 @@ import com.csu.qxjh.user.pojo.Collection;
 import com.csu.qxjh.user.pojo.GoodsOrder;
 import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.service.UserService;
+import com.csu.qxjh.util.DateUtil;
 
 
 //测试方法，以下几个注解都是必须的！
@@ -70,6 +73,36 @@ public class TestEnvironment {
     private GoodsDao goodsDao;
     @Resource
     private GoodsCommentDao goodsCommentDao;
+    @Resource
+    private NewsDao newsDao;
+    @Test
+    public void test20(){
+    	News news=newsDao.selectById(1);
+    	System.out.println(news);
+    }
+    @Test
+    public void test19(){
+    	Set<GoodsComment> goodsComments=goodsService.getById(1).getGoodsComments();
+    	Iterator<GoodsComment> iterator1=goodsComments.iterator();
+		while(iterator1.hasNext()){
+			System.out.println(iterator1.next().getGoods_comment_time());
+		}
+    }
+    @Test
+    public void test18(){
+    	for(int id=1;id<62;id++){
+    		try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		GoodsComment goodsComment=goodsCommentDao.selectById(id);
+    		goodsComment.setGoods_comment_time(DateUtil.getDate());
+    		//goodsCommentDao.update(goodsComment);
+    	}
+    	
+    }
     @Test
     public void test17(){    	
     	Goods goods=goodsService.getById(2);

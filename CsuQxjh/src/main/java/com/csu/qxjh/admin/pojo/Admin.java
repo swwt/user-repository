@@ -1,12 +1,19 @@
 package com.csu.qxjh.admin.pojo;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.csu.qxjh.news.pojo.News;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
  * 管理员
@@ -25,6 +32,7 @@ public class Admin {
 	private String admin_address;//联系地址
 	private int admin_degree;//管理员级别
 	private String admin_time;//管理员信息最后修改时间
+	private Set<News> newsSet;//审核管理过的公益项目 
 	public Admin() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -107,6 +115,14 @@ public class Admin {
 	}
 	public void setAdmin_time(String admin_time) {
 		this.admin_time = admin_time;
+	}
+	@OneToMany(mappedBy="admin",fetch=FetchType.EAGER)
+	@JsonIgnore
+	public Set<News> getNewsSet() {
+		return newsSet;
+	}
+	public void setNewsSet(Set<News> newsSet) {
+		this.newsSet = newsSet;
 	}
 	
 	
