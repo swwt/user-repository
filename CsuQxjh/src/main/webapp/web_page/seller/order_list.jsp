@@ -51,96 +51,53 @@
 								<thead>
 									<tr>
 										<th class="span2">订单编号</th>
-										<th class="span3"><span class="line"></span>订单日期</th>
+										<th class="span3"><span class="line"></span>下单日期</th>
 										<th class="span3"><span class="line"></span> 用户</th>
 										<th class="span3"><span class="line"></span> 订单状态</th>
 										<th class="span3"><span class="line"></span> 商品数量</th>
-										<th class="span3"><span class="line"></span> 订单总金额</th>
+										<th class="span3"><span class="line"></span> 操作</th>
 									</tr>
 								</thead>
 								<tbody>
 									<!-- row -->
 									<c:if test="${requestScope.data != null}">
-										<c:forEach var="user" items="${requestScope.data.users}"
+										<c:forEach var="goodsOrder" items="${requestScope.data.goodsOrders}"
 											varStatus="status">
 											<tr>
-												<td>${user.user_nickname }</td>
-												<td>${user.user_real_name }</td>
-												<td>${user.user_login_name }</td>
+												<td>${goodsOrder.id }</td>
+												<td>${goodsOrder.goods_order_create_time }</td>
+												<td>${goodsOrder.user.user_nickname }</td>
+												<td>
+													<c:choose>
+														<c:when test="${goodsOrder.goods_order_payment_status == 0}"><span class="label label-important">未支付</span></c:when>
+														<c:when test="${goodsOrder.goods_order_payment_status == 1}"><span class="label label-success">已支付</span></c:when>
+													</c:choose>
+													
+													<c:if test="${goodsOrder.goods_order_payment_status == 1}">
+														<c:choose>
+															<c:when test="${goodsOrder.goods_order_deliver_status == 0}"><span class="label label-warning">未发货</span></c:when>
+															<c:when test="${goodsOrder.goods_order_deliver_status == 1}"><span class="label label-info">已发货</span></c:when>
+														</c:choose>
+													</c:if>
+													
+													<c:if test="${goodsOrder.goods_order_deliver_status == 1}">
+														<c:choose>
+															<c:when test="${goodsOrder.goods_order_gain_status == 0}"><span class="label label-warning">未收货</span></c:when>
+															<c:when test="${goodsOrder.goods_order_gain_status == 1}"><span class="label label-info">已收货</span></c:when>
+														</c:choose>
+													</c:if>
+												</td>
+												<td>${goodsOrders.goods_order_amount }</td>
 												<td>
 													<button class="btn btn-success">下拉</button>
 												</td>
 											</tr>
 										</c:forEach>
 									</c:if>
-									<tr class="first">
-										<td><a href="#">#459</a></td>
-										<td>2015-6-6</td>
-										<td><a href="#">用户名</a></td>
-										<td><span class="label label-success">已支付</span> <span
-											class="label label-warning">未发货</span></td>
-										<td>3</td>
-										<td>￥ 3,500.00
-											<ul class="actions">
-												<li><i class="icon-check"></i></li>
-												<li class="last"><i class="table-delete"></i></li>
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#">#510</a></td>
-										<td>2015-6-6</td>
-										<td><a href="#">用户名</a></td>
-										<td><span class="label label-success">已支付</span> <span
-											class="label label-info">已发货</span></td>
-										<td>5</td>
-										<td>￥ 800.00
-											<ul class="actions">
-												<li><i class="icon-check"></i></li>
-												<li class="last"><i class="table-delete"></i></li>
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#">#590</a></td>
-										<td>2015-6-6</td>
-										<td><a href="#">用户名</a></td>
-										<td><span class="label label-important">未支付</span></td>
-										<td>2</td>
-										<td>￥ 1,350.00
-											<ul class="actions">
-												<li><i class="icon-check"></i></li>
-												<li class="last"><i class="table-delete"></i></li>
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#">#618</a></td>
-										<td>2015-6-6</td>
-										<td><a href="#">用户名</a></td>
-										<td><span class="label">已被取消</span></td>
-										<td>8</td>
-										<td>￥ 3,499.99
-											<ul class="actions">
-												<li><i class="icon-check"></i></li>
-												<li class="last"><i class="table-delete"></i></li>
-											</ul>
-										</td>
-									</tr>
 								</tbody>
 							</table>
 						</div>
-						<div class="pagination pull-right">
-							<ul>
-								<li><a href="#">&#8249;</a></li>
-								<li><a class="active" href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">&#8250;</a></li>
-							</ul>
-						</div>
+						<%@ include file="seller_pagination.jsp"%>
 					</div>
 				</div>
 				<!-- end users table -->

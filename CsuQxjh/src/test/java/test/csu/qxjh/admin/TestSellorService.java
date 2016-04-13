@@ -1,5 +1,6 @@
 package test.csu.qxjh.admin;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.csu.qxjh.sellor.dao.SellorDao;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.sellor.service.SellorService;
+import com.csu.qxjh.user.pojo.GoodsOrder;
 import com.csu.qxjh.user.pojo.User;
+import com.csu.qxjh.user.service.GoodsOrderSerice;
+import com.csu.qxjh.user.service.UserService;
+import com.csu.qxjh.util.DateUtil;
 import com.csu.qxjh.util.MD5Util;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,6 +33,12 @@ public class TestSellorService {
 
 	@Autowired
 	SellorService sellorService;
+	
+	@Autowired
+	GoodsOrderSerice goodsOrderService;
+	
+	@Autowired
+	UserService userService;
 
 	@Test
 	public void testInsert() {
@@ -72,6 +83,23 @@ public class TestSellorService {
 		System.out.println("pageIndex->" + map.get("pageIndex"));
 		System.out.println("pageCounts->" + map.get("pageCounts"));
 		System.out.println("key->" + map.get("key"));
+	}
+	
+	@Test
+	public void testInsertGoodsOrder(){
+		
+		User user = userService.getByName("hello man");
+		
+		GoodsOrder goodsOrder = new GoodsOrder();
+		goodsOrder.setUser(user);
+		goodsOrder.setGoods_order_create_time(DateUtil.getDate());
+		goodsOrder.setGoods_order_payment_status(0);
+		goodsOrder.setGoods_order_deliver_status(0);
+		goodsOrder.setGoods_order_gain_status(0);
+		
+		goodsOrder.setGoods_order_amount(3);
+		
+		goodsOrderService.insert(goodsOrder);
 	}
 
 }

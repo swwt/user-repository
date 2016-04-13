@@ -1,11 +1,13 @@
 package com.csu.qxjh.sellor.controller.pc;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.sellor.service.SellorService;
+import com.csu.qxjh.user.pojo.GoodsOrder;
+import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.service.GoodsOrderSerice;
 import com.csu.qxjh.util.MD5Util;
 import com.csu.qxjh.util.pojo.Message;
@@ -81,9 +85,7 @@ public class SellorController {
 		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(targetPageIndex, key);
 		request.setAttribute("data", data);
 		request.setAttribute("basePath", basePath);
-		if (request == null) {
-			System.out.println("request is null");
-		}
+		
 		return "/web_page/seller/order_list";
 	}
 

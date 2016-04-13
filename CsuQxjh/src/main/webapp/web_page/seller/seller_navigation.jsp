@@ -22,7 +22,7 @@
                     <i class="icon-chevron-down"></i>
                 </a>
                 <ul class="submenu">
-                    <li><a href="order-list.html">所有订单</a></li>
+                    <li><a href="/pc_sellor/order_list">所有订单</a></li>
                     <li><a href="pay-list.html"  >已支付订单</a></li>
                 </ul>
             </li>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -68,6 +69,11 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice{
 		result.put("pageCounts", pageCounts);
 		result.put("key", key);
 		result.put("goodsOrders", goodsOrders);
+		
+		for (GoodsOrder goodsOrder : goodsOrders) {
+			Hibernate.initialize(goodsOrder.getUser());
+			Hibernate.initialize(goodsOrder.getGoods());
+		}
 		
 		return result;
 	}

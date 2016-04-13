@@ -187,6 +187,7 @@ public class User {
 //		this.newsComments = newsComments;
 //	}
 	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+	@JsonIgnore
 	public Set<ShoppingCart> getShoppingCarts() {
 		return shoppingCarts;
 	}
