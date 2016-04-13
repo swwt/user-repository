@@ -1,5 +1,6 @@
 package com.csu.qxjh.user.pojo;
 
+import java.beans.Transient;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -40,31 +41,11 @@ public class User {
 	private String user_college;//学院
 	private Set<GoodsOrder> goodsOrders;//对应的订单（用户删除订单，只是修改订单中用户是否保存的状态，但是并不实际删除数据表中的订单记录）
 	private Set<Collection> collections;//用户的收藏表
-	private Set<GoodsComment> goodsComments;//该用户评论过的商品
-	private Set<NewsComment> newsComments;//该用户参加过的所有公益项目的评价
+//	private Set<GoodsComment> goodsComments;//该用户评论过的商品
+//	private Set<NewsComment> newsComments;//该用户参加过的所有公益项目的评价
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public User(String id, String user_name, String user_login_name, String user_real_name, String user_nickname,
-			String user_home_address, String user_phone, int user_sex, String user_password, String user_birthday,
-			String user_head_image, String user_email, String user_type, String user_number, String user_college) {
-		super();
-		this.id = id;
-		this.user_name = user_name;
-		this.user_login_name = user_login_name;
-		this.user_real_name = user_real_name;
-		this.user_nickname = user_nickname;
-		this.user_home_address = user_home_address;
-		this.user_phone = user_phone;
-		this.user_sex = user_sex;
-		this.user_password = user_password;
-		this.user_birthday = user_birthday;
-		this.user_head_image = user_head_image;
-		this.user_email = user_email;
-		this.user_type = user_type;
-		this.user_number = user_number;
-		this.user_college = user_college;
 	}
 	@Id//指定主键UUID生成
 	@GenericGenerator(name="systemUUID",strategy="uuid")
@@ -187,22 +168,22 @@ public class User {
 	public void setCollections(Set<Collection> collections) {
 		this.collections = collections;
 	}
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
-	@JsonIgnore
-	public Set<GoodsComment> getGoodsComments() {
-		return goodsComments;
-	}
-	public void setGoodsComments(Set<GoodsComment> goodsComments) {
-		this.goodsComments = goodsComments;
-	}
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
-	@JsonIgnore
-	public Set<NewsComment> getNewsComments() {
-		return newsComments;
-	}
-	public void setNewsComments(Set<NewsComment> newsComments) {
-		this.newsComments = newsComments;
-	}
+//	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
+//	@JsonIgnore
+//	public Set<GoodsComment> getGoodsComments() {
+//		return goodsComments;
+//	}
+//	public void setGoodsComments(Set<GoodsComment> goodsComments) {
+//		this.goodsComments = goodsComments;
+//	}
+//	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
+//	@JsonIgnore
+//	public Set<NewsComment> getNewsComments() {
+//		return newsComments;
+//	}
+//	public void setNewsComments(Set<NewsComment> newsComments) {
+//		this.newsComments = newsComments;
+//	}
 	
 	
 

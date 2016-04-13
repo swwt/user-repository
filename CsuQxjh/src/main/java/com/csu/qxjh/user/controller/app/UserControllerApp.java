@@ -54,6 +54,8 @@ public class UserControllerApp {
 			if(user_2!=null){
 				message.setCode(1);
 				message.setMessage("登陆成功");
+				user_2.setCollections(null);
+				user_2.setGoodsOrders(null);
 				message.setResult(user_2);
 				session.setAttribute("user", user_2);//登陆成功放入session
 				

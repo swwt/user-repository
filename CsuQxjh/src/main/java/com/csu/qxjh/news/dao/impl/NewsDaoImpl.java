@@ -31,8 +31,8 @@ public class NewsDaoImpl implements NewsDao {
 	@Override
 	public News selectById(int id) {
 		// TODO Auto-generated method stub
-		String hql="From News new where new.id=?";
-		News news=(News)getSession().createQuery(hql).setInteger(0, id);
+		String hql="From News news where news.id=?";
+		News news=(News)getSession().createQuery(hql).setInteger(0, id).uniqueResult();
 		return news;
 	}
 

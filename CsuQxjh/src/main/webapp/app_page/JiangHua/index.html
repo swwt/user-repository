@@ -433,6 +433,7 @@
 					} */
 					else if(id == 'Home/searchPage.html'){
 						var categoryID = options.detail.category_id;
+						var listType=options.detail.listType;//判断是搜索还是二级分类下的商品展示
 //						alert('newWebView');
 //						alert(subSearchWebview.getURL()); 
 						mui.fire(parentSearchWebview, 'searchTemplateFire', {
@@ -441,7 +442,8 @@
 							target: href,
 							isBars: false,
 							barsIcon: '',
-							categoryID: categoryID
+							categoryID: categoryID,
+							listType:listType
 						});
 						
 						if(mui.os.ios ||　mui.os.android && parseFloat(mui.os.version) < 4.4){

@@ -316,7 +316,8 @@
 			"img/dianzan.png",
 			"img/paihangbang.png",
 			"img/xiaoningmeng.png",
-			"img/3.jpg"
+			"img/3.jpg",
+			"jsHostName/hostName.js"
 		]
 	},
 	"Mine/message-center-needtem.html": {

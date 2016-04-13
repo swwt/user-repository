@@ -22,7 +22,7 @@ public class NewsComment {
 	private News news;//所属新闻
 	private String news_comment_content;//评价内容
 	private String news_comment_time;//评价时间
-	private User user;//用户编号
+	private User user;//评论的用户
 	private int news_comment_type;//是否匿名 0表示匿名，1表示不匿名
 	public NewsComment() {
 		super();
@@ -59,7 +59,7 @@ public class NewsComment {
 	public void setNews_comment_time(String news_comment_time) {
 		this.news_comment_time = news_comment_time;
 	}
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	public User getUser() {
 		return user;

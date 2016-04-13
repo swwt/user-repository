@@ -39,8 +39,6 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		String password_MD5=new MD5Util().MD5(user_password);//先获取加密后的密码
 		User user=userDao.getByNamePassword(user_login_name, password_MD5);
-		user.setCollections(null);
-		user.setGoodsOrders(null);
 //		Hibernate.initialize(user.getCollections());--->解决session关闭，延迟加载异常
 //		Hibernate.initialize(user.getGoodsOrders());
 		return user;
