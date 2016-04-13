@@ -51,7 +51,7 @@
 						<div class="row-fluid head filter-block">
 							<div class="pull-right">
 								<input id="searchKey" type="text" class="search order-search"
-								onkeydown='if(event.keyCode==13){searchByLoginName()}' placeholder="搜索会员" 
+								onkeydown='if(event.keyCode==13){searchByLoginName()}' placeholder="根据登陆名查询用户" 
 								<c:if test="${!empty requestScope.data.key}">
 									value = "${requestScope.data.key}"
 								</c:if>
@@ -78,7 +78,7 @@
 												<td>${user.user_real_name }</td>
 												<td>${user.user_login_name }</td>
 												<td>
-													<button class="btn btn-success">冻结</button>
+													<button class="btn btn-success">下拉</button>
 												</td>
 											</tr>
 										</c:forEach>
@@ -86,23 +86,9 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="pagination pull-right">
-							<ul>
-								<li><a href="javascript:previousPage()">&#8249;</a></li>
-
-								<c:forEach begin="${requestScope.data.startAndEnd.start }"
-									end="${requestScope.data.startAndEnd.end }" varStatus="status">
-									<li
-										<c:if test="${status.index == requestScope.data.pageIndex}"> class="active" </c:if>>
-										<a
-										href="/pc_user/pageQueryUsers?targetPageIndex=${status.index }&key=${requestScope.data.key}">
-											${status.index} </a>
-									</li>
-								</c:forEach>
-
-								<li><a href="javascript:nextPage()">&#8250;</a></li>
-							</ul>
-						</div>
+						
+						<%@ include file="admin-pagination.jsp"%>
+						
 					</div>
 				</div>
 				<!-- end users table -->
@@ -116,42 +102,6 @@
 	<script src="${pageContext.request.contextPath}/web_page/administrator/js/jquery-latest.js"></script>
 	<script src="${pageContext.request.contextPath}/web_page/administrator/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/web_page/administrator/js/theme.js"></script>
-	<script type="text/javascript">
-		function previousPage() {
-	        if ( (${requestScope.data.pageIndex}) <= 1) {
-	            var url = "/pc_user/pageQueryUsers?targetPageIndex="+1;
-	        }
-	        else {
-	            var url = "/pc_user/pageQueryUsers?targetPageIndex="+${requestScope.data.pageIndex-1};
-	        }
-	        if (${!empty requestScope.data.key}) {
-	            url +=("&key=${requestScope.data.key}");
-	        }
-	        window.location.href = url;
-	    }
-		
-		function nextPage(){
-			if ( (${requestScope.data.pageIndex >= requestScope.data.pageCounts})) {
-	            var url = "/pc_user/pageQueryUsers?targetPageIndex="+${requestScope.data.pageCounts};
-	        }
-	        else {
-	            var url = "/pc_user/pageQueryUsers?targetPageIndex="+${requestScope.data.pageIndex+1};
-	        }
-	        if (${!empty requestScope.data.key}) {
-	            url +=("&key=${requestScope.data.key}");
-	        }
-	        window.location.href = url;
-		}
-		function searchByLoginName(){
-		        var url = "/pc_user/pageQueryUsers?targetPageIndex=1";
-		        if ($("#searchKey").val().trim() != "") {
-		            url += "&key=" + $("#searchKey").val();
-		            window.location.href = url;
-		        }
-		        else{
-		        	return;
-		        }
-		}
-	</script>
+	
 </body>
 </html>

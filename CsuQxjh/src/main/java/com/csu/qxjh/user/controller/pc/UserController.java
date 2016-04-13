@@ -28,8 +28,11 @@ public class UserController {
 	public String pageQueryUsers(@RequestParam(value = "targetPageIndex",defaultValue="1") int targetPageIndex,
 			@RequestParam(value = "key",defaultValue="") String key) {
 
+		final String basePath = "/pc_user/pageQueryUsers";
+		
 		Map<String, Object> data = userService.fuzzyPageQuery(targetPageIndex, key);
 		request.setAttribute("data", data);
+		request.setAttribute("basePath", basePath);
 		if (request == null) {
 			System.out.println("request is null");
 		}

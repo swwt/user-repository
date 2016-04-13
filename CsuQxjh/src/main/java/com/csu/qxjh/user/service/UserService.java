@@ -12,7 +12,7 @@ public interface UserService {
 	User getByPhone(String user_phone);//根据手机号查询用户
 	User getByPhonePassword(String user_phone,String user_password);//根据手机号和密码查询用户
 	
-	/**分页，根据用户名模糊查询
+	/**分页，根据用户登陆名模糊查询
 	 * @param pageIndex 目标页
 	 * @param key 用户名
 	 * @return map中有5个对象

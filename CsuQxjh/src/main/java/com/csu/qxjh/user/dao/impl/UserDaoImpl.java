@@ -1,8 +1,5 @@
 package com.csu.qxjh.user.dao.impl;
 
-
-
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

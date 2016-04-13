@@ -46,4 +46,9 @@ public class AdminController {
 		session.invalidate();
 		return "/web_page/administrator/signin";
 	}
+	
+	@RequestMapping("/signin")
+	public String adminLogin() {
+		return "/web_page/administrator/signin";
+	}
 }

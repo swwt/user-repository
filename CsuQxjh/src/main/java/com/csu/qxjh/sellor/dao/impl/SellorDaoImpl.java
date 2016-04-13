@@ -5,12 +5,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.csu.qxjh.sellor.dao.SellorDao;
 import com.csu.qxjh.sellor.pojo.Sellor;
+import com.csu.qxjh.util.base.BaseDaoImpl;
 
+@Transactional
 @Repository
-public class SellorDaoImpl implements SellorDao{
+public class SellorDaoImpl extends BaseDaoImpl<Sellor> implements SellorDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -19,11 +22,12 @@ public class SellorDaoImpl implements SellorDao{
 	}
 	@Override
 	public Sellor selectById(String id) {
+		return (Sellor) getSession().get(Sellor.class, id);
+	}
+	@Override
+	public void insert(Sellor sellor) {
 		// TODO Auto-generated method stub
-		String hql="From Sellor where id=?";
-		Query query=getSession().createQuery(hql).setString(0, id);
-		Sellor sellor=(Sellor)query.uniqueResult();
-		return sellor;
+		getSession().save(sellor);
 	}
 
 }

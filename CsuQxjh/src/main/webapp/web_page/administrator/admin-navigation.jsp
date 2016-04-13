@@ -25,12 +25,12 @@
             <li>
                 <a class="dropdown-toggle" href="#">
                     <i class="icon-group"></i>
-                    <span>用户管理</span>
+                    <span>角色管理</span>
                     <i class="icon-chevron-down"></i>
                 </a>
                 <ul class="submenu">
-                    <li><a href="/pc_user/pageQueryUsers">会员管理</a></li>
-                    <li><a href="seller-manager.html">商家管理</a></li>
+                    <li><a href="/pc_user/pageQueryUsers">用户管理</a></li>
+                    <li><a href="/pc_sellor/pageQuerySellors">商家管理</a></li>
                     <li><a href="seller-ask.html">卖家审核</a></li>
                 </ul>
             </li>
