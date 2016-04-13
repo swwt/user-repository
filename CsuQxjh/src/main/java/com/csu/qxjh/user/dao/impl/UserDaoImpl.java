@@ -12,10 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.csu.qxjh.user.dao.UserDao;
 import com.csu.qxjh.user.pojo.User;
+import com.csu.qxjh.util.base.BaseDaoImpl;
 
 @Transactional
 @Repository
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;

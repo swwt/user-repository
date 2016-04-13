@@ -1,8 +1,9 @@
 package com.csu.qxjh.user.dao;
 
 import com.csu.qxjh.user.pojo.User;
+import com.csu.qxjh.util.base.BaseDao;
 
-public interface UserDao {
+public interface UserDao extends BaseDao<User> {
 	void update(User user);//更新用户信息
 	User getById(String id);//根据主键获取用户
 	void insert(User user);//插入一条用户信息

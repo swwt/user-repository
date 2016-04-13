@@ -1,141 +1,27 @@
-<%@page import="com.csu.qxjh.admin.pojo.Admin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	Admin admin = (Admin)session.getAttribute("admin");
-	if(admin==null) response.sendRedirect("/web_page/administrator/signin.jsp");
-%>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>情系江华后台管理系统</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/web_page/administrator/css/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="/web_page/administrator/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="/web_page/administrator/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
-    <link href="/web_page/administrator/css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
-    <link href="/web_page/administrator/css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/web_page/administrator/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/web_page/administrator/css/elements.css" />
-    <link rel="stylesheet" type="text/css" href="/web_page/administrator/css/icons.css" />
-    <link rel="stylesheet" href="/web_page/administrator/css/compiled/index.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/web_page/administrator/css/compiled/tables.css" type="text/css" media="screen" />
+    <link href="${pageContext.request.contextPath}/web_page/administrator/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/web_page/administrator/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/web_page/administrator/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/web_page/administrator/css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/web_page/administrator/css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web_page/administrator/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web_page/administrator/css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web_page/administrator/css/icons.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/web_page/administrator/css/compiled/index.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/web_page/administrator/css/compiled/tables.css" type="text/css" media="screen" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 
-    <!-- navbar -->
-    <div class="navbar navbar-inverse">
-        <div class="navbar-inner">
-            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-            <a class="brand" href="index.html"><img src="/web_page/administrator/img/logo.png"/></a>
-
-            <ul class="nav pull-right">                
-                <li class="hidden-phone">
-                    <input class="search" type="text" />
-                </li>
-                <li class="settings hidden-phone">
-                    <a href="signin.html" role="button">
-                        <i class="icon-share-alt"></i>
-                    </a>
-                </li>
-            </ul>            
-        </div>
-    </div>
-    <div id="sidebar-nav">
-        <ul id="dashboard-menu">
-            <li class="active">
-                <div class="pointer">
-                    <div class="arrow"></div>
-                    <div class="arrow_border"></div>
-                </div>
-                <a href="index.html">
-                    <i class="icon-home"></i>
-                    <span>起始页</span>
-                </a>
-            </li>            
-            <li>
-                <div class="pointer">
-                    <div class="arrow"></div>
-                    <div class="arrow_border"></div>
-                </div>
-                <a href="index-manager.html">
-                    <i class="icon-signal"></i>
-                    <span>首页管理</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-toggle" href="#">
-                    <i class="icon-group"></i>
-                    <span>用户管理</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="user-manager.html">会员管理</a></li>
-                    <li><a href="seller-manager.html">商家管理</a></li>
-                    <li><a href="seller-ask.html">卖家审核</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle" href="#">
-                    <i class="icon-edit"></i>
-                    <span>订单管理</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="order-list.html">订单列表</a></li>
-                    <li><a href="pay-list.html">已完成订单</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle ui-elements" href="#">
-                    <i class="icon-tasks"></i>
-                    <span>商品管理</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="goods.html">商品列表</a></li>
-                    <li><a href="goods-ask.html">商品审核</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle ui-elements" href="#">
-                    <i class="icon-flag"></i>
-                    <span>公益管理</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="welfare.html">公益列表</a></li>
-                    <li><a href="new-welfare.html">添加公益</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle ui-elements" href="#">
-                    <i class="icon-code-fork"></i>
-                    <span>站点管理</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="web-manager.html">站点信息</a></li>
-                    <li><a href="new-manager.html">添加管理员</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="log.html">
-                    <i class="icon-cog"></i>
-                    <span>历史纪录</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!-- end sidebar -->
-
-
+	<%@ include file="admin-navbar.jsp"%>
+	<%@ include file="admin-navigation.jsp"%>
+	
 	<!-- main container -->
     <div class="content">
         <div class="container-fluid">
@@ -352,14 +238,14 @@
 
 
 	<!-- scripts -->
-    <script src="/web_page/administrator/js/jquery-latest.js"></script>
-    <script src="/web_page/administrator/js/bootstrap.min.js"></script>
-    <script src="/web_page/administrator/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <script src="/web_page/administrator/js/jquery.knob.js"></script>
-    <script src="/web_page/administrator/js/jquery.flot.js"></script>
-    <script src="/web_page/administrator/js/jquery.flot.stack.js"></script>
-    <script src="/web_page/administrator/js/jquery.flot.resize.js"></script>
-    <script src="/web_page/administrator/js/theme.js"></script>
+    <script src="${pageContext.request.contextPath}/web_page/administrator/js/jquery-latest.js"></script>
+    <script src="${pageContext.request.contextPath}/web_page/administrator/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/web_page/administrator/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script src="${pageContext.request.contextPath}/web_page/administrator/js/jquery.knob.js"></script>
+    <script src="${pageContext.request.contextPath}/web_page/administrator/js/jquery.flot.js"></script>
+    <script src="${pageContext.request.contextPath}/web_page/administrator/js/jquery.flot.stack.js"></script>
+    <script src="${pageContext.request.contextPath}/web_page/administrator/js/jquery.flot.resize.js"></script>
+    <script src="${pageContext.request.contextPath}/web_page/administrator/js/theme.js"></script>
     <script type="text/javascript">
         $(function () {
 

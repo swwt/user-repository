@@ -1,5 +1,11 @@
+<%@page import="com.csu.qxjh.admin.pojo.Admin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	/* 如果已经登陆，跳转到主页面 */
+	Admin admin = (Admin)session.getAttribute("admin");
+	if(admin!=null) response.sendRedirect("${pageContext.request.contextPath}/web_page/administrator/index.jsp");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="login-bg">
 <head>
@@ -8,20 +14,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- bootstrap -->
-<link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
-<link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
-<link href="css/bootstrap/bootstrap-overrides.css" type="text/css"
+<link href="${pageContext.request.contextPath}/web_page/administrator/css/bootstrap/bootstrap.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/web_page/administrator/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/web_page/administrator/css/bootstrap/bootstrap-overrides.css" type="text/css"
 	rel="stylesheet" />
 <!-- global styles -->
-<link rel="stylesheet" type="text/css" href="css/layout.css" />
-<link rel="stylesheet" type="text/css" href="css/elements.css" />
-<link rel="stylesheet" type="text/css" href="css/icons.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web_page/administrator/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web_page/administrator/css/elements.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web_page/administrator/css/icons.css" />
 
 <!-- libraries -->
-<link rel="stylesheet" type="text/css" href="css/lib/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web_page/administrator/css/lib/font-awesome.css" />
 
 <!-- this page specific styles -->
-<link rel="stylesheet" href="css/compiled/signin.css" type="text/css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/web_page/administrator/css/compiled/signin.css" type="text/css"
 	media="screen" />
 
 <!-- open sans font -->
@@ -41,26 +47,26 @@
 	<div class="bg-switch visible-desktop">
 		<div class="bgs">
 			<a href="#" data-img="landscape.jpg" class="bg active"> <img
-				src="img/bgs/landscape.jpg" />
+				src="${pageContext.request.contextPath}/web_page/administrator/img/bgs/landscape.jpg" />
 			</a> <a href="#" data-img="blueish.jpg" class="bg"> <img
-				src="img/bgs/blueish.jpg" />
+				src="${pageContext.request.contextPath}/web_page/administrator/img/bgs/blueish.jpg" />
 			</a> <a href="#" data-img="7.jpg" class="bg"> <img
-				src="img/bgs/7.jpg" />
+				src="${pageContext.request.contextPath}/web_page/administrator/img/bgs/7.jpg" />
 			</a> <a href="#" data-img="8.jpg" class="bg"> <img
-				src="img/bgs/8.jpg" />
+				src="${pageContext.request.contextPath}/web_page/administrator/img/bgs/8.jpg" />
 			</a> <a href="#" data-img="9.jpg" class="bg"> <img
-				src="img/bgs/9.jpg" />
+				src="${pageContext.request.contextPath}/web_page/administrator/img/bgs/9.jpg" />
 			</a> <a href="#" data-img="10.jpg" class="bg"> <img
-				src="img/bgs/10.jpg" />
+				src="${pageContext.request.contextPath}/web_page/administrator/img/bgs/10.jpg" />
 			</a> <a href="#" data-img="11.jpg" class="bg"> <img
-				src="img/bgs/11.jpg" />
+				src="${pageContext.request.contextPath}/web_page/administrator/img/bgs/11.jpg" />
 			</a>
 		</div>
 	</div>
 
 
 	<div class="row-fluid login-wrapper">
-		<a href="index.html"> <img class="logo" src="img/logo-white.png" />
+		<a href="index.html"> <img class="logo" src="${pageContext.request.contextPath}/web_page/administrator/img/logo-white.png" />
 		</a>
 
 		<div class="span4 box">
@@ -104,9 +110,9 @@
 	</div>
 	
 	<!-- scripts -->
-	<script src="js/jquery-latest.js"></script>
-	<script src="js/bootstrap.min.js"></script> 
-	<script src="js/theme.js"></script>
+	<script src="${pageContext.request.contextPath}/web_page/administrator/js/jquery-latest.js"></script>
+	<script src="${pageContext.request.contextPath}/web_page/administrator/js/bootstrap.min.js"></script> 
+	<script src="${pageContext.request.contextPath}/web_page/administrator/js/theme.js"></script>
 
 	<!-- pre load bg imgs -->
 	<script type="text/javascript">
