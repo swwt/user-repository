@@ -125,8 +125,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		Session session = getSessionFactory().openSession();
 		Table annotation = entityClass.getAnnotation(Table.class);
 		if (annotation != null) {
-			String hql = getHQL(entityClass, conditions, isDesc,false);
-//			System.out.println(hql);
+			String hql = getHQL(entityClass, conditions, isDesc, false, false);
+			// System.out.println(hql);
 			Query query = session.createQuery(hql.toString());
 			query.setFirstResult((start - 1) * length);
 			query.setMaxResults(length);
@@ -147,7 +147,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		Session session = getSessionFactory().openSession();
 		Table annotation = entityClass.getAnnotation(Table.class);
 		if (annotation != null) {
-			String hql = getHQL(entityClass, conditions, false,false);
+			String hql = getHQL(entityClass, conditions, false, false, true);
 
 			Query query = session.createQuery(hql.toString());
 
@@ -168,9 +168,13 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		Session session = getSessionFactory().openSession();
 		Table annotation = entityClass.getAnnotation(Table.class);
 
-		String hql = getHQL(entityClass, conditions, isDesc, true);
-//		System.out.println(hql.toString());
+		String hql = getHQL(entityClass, conditions, isDesc, true, false);
+		// System.out.println(hql.toString());
 		Query query = session.createQuery(hql.toString());
+		
+		query.setFirstResult((start - 1) * length);
+		query.setMaxResults(length);
+		
 		tList = query.list();
 		session.close();
 
@@ -185,9 +189,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		Session session = getSessionFactory().openSession();
 		Table annotation = entityClass.getAnnotation(Table.class);
 
-		String hql = getHQL(entityClass, conditions, false, true);
-
-//		System.out.println(hql.toString());
+		String hql = getHQL(entityClass, conditions, false, true, true);
+		// System.out.println(hql.toString());
 		Query query = session.createQuery(hql.toString());
 		result = Integer.parseInt(query.uniqueResult().toString());
 		session.close();
@@ -195,12 +198,20 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return result;
 	}
 
-	private String getHQL(Class<T> entityClass, Map<String, String> conditions, boolean isDesc, boolean isFuzzy) {
-		StringBuffer hql = new StringBuffer("From ");
+	private String getHQL(Class<T> entityClass, Map<String, String> conditions, boolean isDesc, boolean isFuzzy,
+			boolean isCount) {
+
+		StringBuffer hql = new StringBuffer();
+
+		if (isCount) {
+			hql.append("select count(id) ");
+		}
+
+		hql.append(" from ");
 		/* 获取实体类映射的表名 */
 		hql.append(entityClass.getName() + " ");
 		/* 如果查询的条件存在 */
-		if (conditions.size() > 0) {
+		if (conditions != null && conditions.size() > 0) {
 			hql.append("where ");
 			Set<String> fields = conditions.keySet();
 			Iterator<String> iterator = fields.iterator();
@@ -211,10 +222,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 				/* 是否为模糊查询 */
 				if (isFuzzy) {
 					hql.append(" like ");
+					hql.append("'%" + conditions.get(field) + "%'");
 				} else {
 					hql.append("=");
+					hql.append("'" + conditions.get(field) + "'");
 				}
-				hql.append("'" + conditions.get(field) + "'");
 				if (iterator.hasNext()) {
 					hql.append(" and ");
 				}
@@ -222,9 +234,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 
 		if (isDesc) {
-			hql.append(" desc");
+			hql.append(" order by id desc");
 		}
-//		System.out.println(hql);
+		System.out.println(hql);
 		return hql.toString();
 	}
 }

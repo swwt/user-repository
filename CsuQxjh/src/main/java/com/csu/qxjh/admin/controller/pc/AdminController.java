@@ -23,10 +23,10 @@ import com.csu.qxjh.util.pojo.Message;
 public class AdminController {
 	@Autowired
 	AdminService adminService;
-	
+
 	@Autowired
 	HttpServletRequest request;
-	
+
 	@Autowired
 	HttpSession session;
 
@@ -35,9 +35,20 @@ public class AdminController {
 	public Message adminLogin(@RequestParam(value = "admin_login_name") String adminLoginName,
 			@RequestParam(value = "admin_password") String adminPassword) {
 		Message message = adminService.adminLogin(adminLoginName, MD5Util.MD5(adminPassword));
-		if (message.getCode()==Message.LOGIN_SUCCESS) {
+		if (message.getCode() == Message.LOGIN_SUCCESS) {
 			session.setAttribute("admin", message.getResult());
 		}
 		return message;
+	}
+
+	@RequestMapping("/logout")
+	public String adminLogout() {
+		session.invalidate();
+		return "/web_page/administrator/signin";
+	}
+	
+	@RequestMapping("/signin")
+	public String adminLogin() {
+		return "/web_page/administrator/signin";
 	}
 }
