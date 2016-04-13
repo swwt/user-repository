@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.csu.qxjh.news.dao.NewsCommentDao;
 import com.csu.qxjh.news.pojo.News;
 import com.csu.qxjh.news.pojo.NewsComment;
+import com.csu.qxjh.news.service.NewsCommentService;
 import com.csu.qxjh.news.service.NewsService;
 import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.util.pojo.Message;
@@ -26,6 +28,8 @@ import com.csu.qxjh.util.pojo.Message;
 public class NewsControllerApp {
 	@Resource
 	private NewsService newsService;
+	@Resource
+	private NewsCommentService newsCommentService;
 	
 	@ResponseBody//获取所有的公益新闻列表
 	@RequestMapping("/getNewsList")
@@ -63,5 +67,59 @@ public class NewsControllerApp {
 		return message;
 	}
 	
+	@ResponseBody//添加阅读量(加一)
+	@RequestMapping("/updateNewsReadNumber")
+	public Message updateNewsReadNumber(@RequestParam(value="newsId")Integer newsId){
+		Message message=new Message();
+		message.setMessage("添加阅读量成功");
+		message.setCode(1);
+		News news=newsService.selectById(newsId);
+		int oldNumber=news.getNews_read_number();
+		news.setNews_read_number(oldNumber+1);
+		newsService.updateNews(news);
+		return message;
+	}
 	
+	@ResponseBody//添加赞数量(加一)
+	@RequestMapping("/updateNewsPraiseNumber")
+	public Message updateNewsPraiseNumber(@RequestParam(value="newsId")Integer newsId){
+		Message message=new Message();
+		message.setMessage("添加赞数量成功");
+		message.setCode(1);
+		News news=newsService.selectById(newsId);
+		int oldNumber=news.getNews_praise();
+		news.setNews_praise(oldNumber+1);
+		newsService.updateNews(news);
+		return message;
+	}
+	
+
+	@ResponseBody//添加该公益项目对应的评价
+	@RequestMapping("/addNewsComment")
+	public Message addNewsComment(@RequestParam(value="newsId")Integer newsId,
+			@RequestParam(value="commentContent")String commentContent,@RequestParam(value="userId") String userId){
+		Message message=new Message();
+		message.setMessage("添加评论成功");
+		message.setCode(1);
+		NewsComment newsComment=new NewsComment();
+		newsComment.setNews_comment_content(commentContent);
+		User user=new User();
+		user.setId(userId);
+		News news=new News();
+		news.setId(newsId);
+		newsComment.setUser(user);
+		newsComment.setNews(news);
+		newsCommentService.insert(newsComment);
+		return message;
+	}
 }
+
+
+
+
+
+
+
+
+
+

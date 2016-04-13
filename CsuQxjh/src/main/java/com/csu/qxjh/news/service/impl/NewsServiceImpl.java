@@ -60,9 +60,14 @@ public class NewsServiceImpl implements NewsService{
 		return newsCommentList;
 	}
 
+	@Override
+	public void updateNews(News news) {
+		// TODO Auto-generated method stub
+		newsDao.update(news);
+	}
+
 }
 class MapKeyTimeComparator implements Comparator<Long>{
-
 	@Override
 	public int compare(Long o1, Long o2) {
 		// TODO Auto-generated method stub

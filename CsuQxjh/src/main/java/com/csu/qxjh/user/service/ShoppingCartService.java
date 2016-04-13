@@ -1,5 +1,7 @@
 package com.csu.qxjh.user.service;
 
-public interface ShoppingCartService {
+import com.csu.qxjh.user.pojo.ShoppingCart;
 
+public interface ShoppingCartService {
+	void addShoppongCart(ShoppingCart shoppingCart);
 }

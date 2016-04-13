@@ -35,5 +35,10 @@ public class NewsDaoImpl implements NewsDao {
 		News news=(News)getSession().createQuery(hql).setInteger(0, id).uniqueResult();
 		return news;
 	}
+	@Override
+	public void update(News news) {
+		// TODO Auto-generated method stub
+		getSession().update(news);
+	}
 
 }

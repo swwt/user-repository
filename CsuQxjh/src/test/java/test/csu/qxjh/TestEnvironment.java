@@ -34,6 +34,7 @@ import com.csu.qxjh.news.dao.NewsCommentDao;
 import com.csu.qxjh.news.dao.NewsDao;
 import com.csu.qxjh.news.pojo.News;
 import com.csu.qxjh.news.pojo.NewsComment;
+import com.csu.qxjh.news.service.NewsCommentService;
 import com.csu.qxjh.news.service.NewsService;
 import com.csu.qxjh.news.service.impl.NewsServiceImpl;
 import com.csu.qxjh.sellor.dao.SellorDao;
@@ -84,7 +85,20 @@ public class TestEnvironment {
     @Resource
     private NewsService newsService;
     @Resource
-    private NewsCommentDao newsCommentDao;
+    private NewsCommentService newsCommentService;
+    @Test
+    public void test26(){
+    	
+    }
+    @Test
+    public void test25(){
+    	NewsComment newsComment=new NewsComment();
+    	newsComment.setNews_comment_content("测试");
+    	News news=new News();
+    	news.setId(1);
+    	newsComment.setNews(news);
+    	newsCommentService.insert(newsComment);
+    }
     @Test
     public void test24(){
 //    	List<Goods> goodsList=goodsService.getByNameOrderBySellors("白菜");
@@ -99,15 +113,15 @@ public class TestEnvironment {
     public void test23(){
     	newsService.selectById(1);
     }
-    @Test
-    public void test22(){
-    	NewsComment newsComment=new NewsComment();
-    	newsComment.setNews_comment_time("2016-04-10 12:12:12");
-    	newsComment.setNews_comment_content("这是真实的故事2");
-    	newsComment.setUser(userService.getUserById("402881e853dcd3ae0153dcd3b1680000"));
-    	newsComment.setNews(newsDao.selectById(2));
-    	newsCommentDao.insert(newsComment);
-    }
+//    @Test
+//    public void test22(){
+//    	NewsComment newsComment=new NewsComment();
+//    	newsComment.setNews_comment_time("2016-04-10 12:12:12");
+//    	newsComment.setNews_comment_content("这是真实的故事2");
+//    	newsComment.setUser(userService.getUserById("402881e853dcd3ae0153dcd3b1680000"));
+//    	newsComment.setNews(newsDao.selectById(2));
+//    	newsCommentDao.insert(newsComment);
+//    }
     @Test
     public void test21(){
     	goodsDao.selectByGoodsCatagory2(10);
@@ -210,10 +224,10 @@ public class TestEnvironment {
 //    	goodsList.add(goodsService.getById(1));
 //    	goodsList.add(goodsService.getById(2));
 //    	collection.setGoodsList(goodsList);
-    	Set <Sellor> sellorList=new HashSet<>();
-    	sellorList.add(sellorDao.selectById("wefh3298fu3932h98h"));
-    	collection.setSellorList(sellorList);
-    	collectionDao.insert(collection);
+//    	Set <Sellor> sellorList=new HashSet<>();
+//    	sellorList.add(sellorDao.selectById("wefh3298fu3932h98h"));
+//    	collection.setSellorList(sellorList);
+//    	collectionDao.insert(collection);
     }
     @Test
     public void test10(){

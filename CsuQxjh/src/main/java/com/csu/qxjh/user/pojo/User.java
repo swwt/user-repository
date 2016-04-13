@@ -43,6 +43,8 @@ public class User {
 	private Set<Collection> collections;//用户的收藏表
 //	private Set<GoodsComment> goodsComments;//该用户评论过的商品
 //	private Set<NewsComment> newsComments;//该用户参加过的所有公益项目的评价
+	private Set<ShoppingCart> shoppingCarts;//购物车信息
+	private Set<UserAddress> userAddresses;//收货地址
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -184,9 +186,19 @@ public class User {
 //	public void setNewsComments(Set<NewsComment> newsComments) {
 //		this.newsComments = newsComments;
 //	}
-	
-	
-
-	
+	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+	public Set<ShoppingCart> getShoppingCarts() {
+		return shoppingCarts;
+	}
+	public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
+		this.shoppingCarts = shoppingCarts;
+	}
+	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+	public Set<UserAddress> getUserAddresses() {
+		return userAddresses;
+	}
+	public void setUserAddresses(Set<UserAddress> userAddresses) {
+		this.userAddresses = userAddresses;
+	}	
 	
 }

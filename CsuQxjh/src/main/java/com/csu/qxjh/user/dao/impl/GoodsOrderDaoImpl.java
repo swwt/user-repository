@@ -21,5 +21,17 @@ public class GoodsOrderDaoImpl implements GoodsOrderDao{
 		// TODO Auto-generated method stub
 		getSession().save(goodsOrder);
 	}
+	@Override
+	public void uddate(GoodsOrder goodsOrder) {
+		// TODO Auto-generated method stub
+		getSession().update(goodsOrder);
+	}
+	@Override
+	public GoodsOrder selectById(String id) {
+		// TODO Auto-generated method stub
+		String hql="From GoodsOrder goodsOrder where goodsOrder.id=?";
+		GoodsOrder goodsOrder=(GoodsOrder)getSession().createQuery(hql).uniqueResult();
+		return goodsOrder;
+	}
 
 }
