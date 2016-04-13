@@ -33,9 +33,9 @@ public class GoodsOrder {
 	private int goods_order_deliver_status;//发货状态，0代表未发货，1代表已发货
 	private int goods_order_gain_status;//收货状态，0代表未收货，1代表已收货(只有收获了，该订单才能算是商品对应的销量的一部分)
 	private String goods_order_remark;//备注，买家留言
-	private int goods_order_evaluate_status;//是否评价，0代表已评价，1代表已收货
-	private int goods_order_payment_status;//是否付款，0代表已付款，1代表未付款
-	private int goods_order_gift_type;//是否有赠品，0代表有，1代表没有
+	private int goods_order_evaluate_status;//是否评价，0代表未评价，1代表已评价
+	private int goods_order_payment_status;//是否付款，0代表未付款，1代表已付款
+	private int goods_order_gift_type;//是否有赠品，0代表没有，1代表有
 //	private PromotionGifs promotionGifs;//赠品
 	private int promotion_gifs_amount;//赠品数量
 	private String promotion_name;//促销类型内容（对应的是offer_promotion_type中的优惠促销的中文表格名）

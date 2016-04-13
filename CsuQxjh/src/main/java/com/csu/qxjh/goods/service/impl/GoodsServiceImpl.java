@@ -65,8 +65,7 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsList.add(goods);
 		goodsList=this.setGrade(goodsList);
 		goods.setGoodsCommentNumber(goods.getGoodsComments().size());
-		goods.setGoodsSells(goods.getGoodsOrders().size());
-		goods.setGoodsOrders(null);
+		goods.setGoodsSells(goods.getGoodsOrders().size());		
 		//Hibernate.initialize(goods.getGoodsComments());
 		Hibernate.initialize(goods.getImages());
 		Hibernate.initialize(goods.getGoodsPrices());
@@ -126,8 +125,6 @@ public class GoodsServiceImpl implements GoodsService{
 			Goods goods=goodsList.get(j);
 			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
 			goods.setGoodsSells(goods.getGoodsOrders().size());
-			goods.setGoodsComments(null);
-			goods.setGoodsOrders(null);
 			Hibernate.initialize(goods.getImages());
 			Hibernate.initialize(goods.getGoodsPrices());
 		}
@@ -143,8 +140,6 @@ public class GoodsServiceImpl implements GoodsService{
 			Goods goods=goodsList.get(j);
 			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
 			goods.setGoodsSells(goods.getGoodsOrders().size());
-			goods.setGoodsComments(null);
-			goods.setGoodsOrders(null);
 			Hibernate.initialize(goods.getImages());
 			Hibernate.initialize(goods.getGoodsPrices());
 		}
@@ -160,8 +155,6 @@ public class GoodsServiceImpl implements GoodsService{
 			Goods goods=goodsList.get(j);
 			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
 			goods.setGoodsSells(goods.getGoodsOrders().size());
-			goods.setGoodsComments(null);
-			goods.setGoodsOrders(null);
 			Hibernate.initialize(goods.getImages());
 			Hibernate.initialize(goods.getGoodsPrices());
 		}
@@ -207,8 +200,96 @@ public class GoodsServiceImpl implements GoodsService{
 			Goods goods=goodsListNew.get(j);
 			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
 			goods.setGoodsSells(goods.getGoodsOrders().size());
-			goods.setGoodsComments(null);
-			goods.setGoodsOrders(null);
+			Hibernate.initialize(goods.getImages());
+			Hibernate.initialize(goods.getGoodsPrices());
+		}
+		return goodsListNew;
+	}
+
+	@Override
+	public List<Goods> getByNameOrderBySellors(String name) {
+		// TODO Auto-generated method stub
+		List<Goods> goodsList=goodsDao.selectByNameOrderBySells(name);
+		goodsList=this.setGrade(goodsList);
+		for(int j=0;j<goodsList.size();j++){
+			Goods goods=goodsList.get(j);
+			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+			goods.setGoodsSells(goods.getGoodsOrders().size());
+			Hibernate.initialize(goods.getImages());
+			Hibernate.initialize(goods.getGoodsPrices());
+		}
+		return goodsList;
+	}
+
+	@Override
+	public List<Goods> getByNameOrderByPriceDown(String name) {
+		// TODO Auto-generated method stub
+		List<Goods> goodsList= goodsDao.selectByNameOrderByPrice(name, 0);
+		goodsList=this.setGrade(goodsList);
+		for(int j=0;j<goodsList.size();j++){
+			Goods goods=goodsList.get(j);
+			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+			goods.setGoodsSells(goods.getGoodsOrders().size());
+			Hibernate.initialize(goods.getImages());
+			Hibernate.initialize(goods.getGoodsPrices());
+		}
+		return goodsList;
+	}
+
+	@Override
+	public List<Goods> getByNameOrderByPriceUp(String name) {
+		// TODO Auto-generated method stub
+		List<Goods> goodsList= goodsDao.selectByNameOrderByPrice(name, 1);
+		goodsList=this.setGrade(goodsList);
+		for(int j=0;j<goodsList.size();j++){
+			Goods goods=goodsList.get(j);
+			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+			goods.setGoodsSells(goods.getGoodsOrders().size());
+			Hibernate.initialize(goods.getImages());
+			Hibernate.initialize(goods.getGoodsPrices());
+		}
+		return goodsList;
+	}
+
+	@Override
+	public List<Goods> getByNameOrderByZongHe(String name) {
+		// TODO Auto-generated method stub
+		List<Goods> goodsList=goodsDao.selectByName(name);	
+		goodsList=this.setGrade(goodsList);
+		Map<Double,Goods> map=new TreeMap<>(new MapKeyComparator());
+		List<Goods> goodsListNew=new ArrayList<>();		
+		for(int i=0;i<goodsList.size();i++){
+			Goods goods=goodsList.get(i);
+			//System.out.println(goods.getId()+":"+goods.getGoods_grade());
+			double weight=(goods.getGoods_grade().get("good")+goods.getGoods_grade().get("medium"))*(goods.getGoodsOrders().size());
+			//System.out.println(goods.getId()+":"+weight);
+			Goods goods_old=map.get(weight);
+			if(goods_old!=null){
+					//System.out.println(goods_old.getId());
+					weight=weight+0.00001;
+					while(true){						
+						if(map.get(weight)==null){
+							break;
+						}
+						weight=weight+0.00001;
+					}
+					map.put(weight, goods);
+			}else{
+				map.put(weight, goods);
+			}
+			
+		}
+		//System.out.println(map.size());
+		Iterator i=map.values().iterator();
+		while(i.hasNext()){
+			Goods goods=(Goods)i.next();
+//			System.out.println(goods.getId());
+			goodsListNew.add(goods);
+		}
+		for(int j=0;j<goodsListNew.size();j++){
+			Goods goods=goodsListNew.get(j);
+			goods.setGoodsCommentNumber(goods.getGoodsComments().size());
+			goods.setGoodsSells(goods.getGoodsOrders().size());
 			Hibernate.initialize(goods.getImages());
 			Hibernate.initialize(goods.getGoodsPrices());
 		}

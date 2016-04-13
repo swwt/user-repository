@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="news")
 public class News {
 		private int id;//主键
-		private String news_title;//项目主体
+		private String news_title;//项目主题
 		private String news_introduction;//项目简介
 		private String news_time;//项目发起时间
 		private String news_time_end;//项目截止时间

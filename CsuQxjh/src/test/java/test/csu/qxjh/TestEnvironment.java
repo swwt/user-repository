@@ -30,12 +30,18 @@ import com.csu.qxjh.goods.pojo.OfferPromotionFullcutproducts;
 import com.csu.qxjh.goods.service.GoodsCatagory1Service;
 import com.csu.qxjh.goods.service.GoodsCatagory2Service;
 import com.csu.qxjh.goods.service.GoodsService;
+import com.csu.qxjh.news.dao.NewsCommentDao;
 import com.csu.qxjh.news.dao.NewsDao;
 import com.csu.qxjh.news.pojo.News;
+import com.csu.qxjh.news.pojo.NewsComment;
+import com.csu.qxjh.news.service.NewsCommentService;
+import com.csu.qxjh.news.service.NewsService;
+import com.csu.qxjh.news.service.impl.NewsServiceImpl;
 import com.csu.qxjh.sellor.dao.SellorDao;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.user.dao.CollectionDao;
 import com.csu.qxjh.user.dao.GoodsOrderDao;
+import com.csu.qxjh.user.dao.UserDao;
 import com.csu.qxjh.user.pojo.Collection;
 import com.csu.qxjh.user.pojo.GoodsOrder;
 import com.csu.qxjh.user.pojo.User;
@@ -76,6 +82,46 @@ public class TestEnvironment {
     private GoodsCommentDao goodsCommentDao;
     @Resource
     private NewsDao newsDao;
+    @Resource
+    private NewsService newsService;
+    @Resource
+    private NewsCommentService newsCommentService;
+    @Test
+    public void test26(){
+    	
+    }
+    @Test
+    public void test25(){
+    	NewsComment newsComment=new NewsComment();
+    	newsComment.setNews_comment_content("测试");
+    	News news=new News();
+    	news.setId(1);
+    	newsComment.setNews(news);
+    	newsCommentService.insert(newsComment);
+    }
+    @Test
+    public void test24(){
+//    	List<Goods> goodsList=goodsService.getByNameOrderBySellors("白菜");
+    	List<Goods> goodsList=goodsService.getByNameOrderByPriceUp("白菜");
+    	for(int i=0;i<goodsList.size();i++){
+//    		System.out.println(goodsList.get(i).getGoods_name()+":"+goodsList.get(i).getGoodsSells());
+    		System.out.println(goodsList.get(i).getGoods_name()+":"+goodsList.get(i).getGoodsDetail().getGoods_detail_now_price());
+//    		System.out.println(goodsList.get(i).getGoods_name()+":"+goodsList.get(i).getGoodsSells());
+    	}
+    }
+    @Test
+    public void test23(){
+    	newsService.selectById(1);
+    }
+//    @Test
+//    public void test22(){
+//    	NewsComment newsComment=new NewsComment();
+//    	newsComment.setNews_comment_time("2016-04-10 12:12:12");
+//    	newsComment.setNews_comment_content("这是真实的故事2");
+//    	newsComment.setUser(userService.getUserById("402881e853dcd3ae0153dcd3b1680000"));
+//    	newsComment.setNews(newsDao.selectById(2));
+//    	newsCommentDao.insert(newsComment);
+//    }
     @Test
     public void test21(){
     	goodsDao.selectByGoodsCatagory2(10);
@@ -116,7 +162,7 @@ public class TestEnvironment {
 		while(iterator.hasNext()){
 			//System.out.println(iterator.next().getUser().getCollections());
 			iterator.next().getUser().setGoodsOrders(null);
-			iterator.next().getUser().setGoodsComments(null);
+			
 			//iterator.next().getUser().setCollections(null);
 		}
     	//System.out.println(goo);
@@ -178,10 +224,10 @@ public class TestEnvironment {
 //    	goodsList.add(goodsService.getById(1));
 //    	goodsList.add(goodsService.getById(2));
 //    	collection.setGoodsList(goodsList);
-    	Set <Sellor> sellorList=new HashSet<>();
-    	sellorList.add(sellorDao.selectById("wefh3298fu3932h98h"));
-    	collection.setSellorList(sellorList);
-    	collectionDao.insert(collection);
+//    	Set <Sellor> sellorList=new HashSet<>();
+//    	sellorList.add(sellorDao.selectById("wefh3298fu3932h98h"));
+//    	collection.setSellorList(sellorList);
+//    	collectionDao.insert(collection);
     }
     @Test
     public void test10(){

@@ -75,7 +75,7 @@
 						success:function(data){
 												
 							if(data.code==1){
-								alert(data.message);
+								//alert(data.message);
 								var newsListJSON=data.result;
 								var newsListHtml="";
 								for(var i=0;i<newsListJSON.length;i++){
@@ -104,8 +104,8 @@
 								document.getElementById("xingyuandanList").innerHTML=newsListHtml;
 														
 	    						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();		
-								endPullupToRefresh();
-							}else{//登录失败，给出提醒
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+							}else{//
 								alert(data.message); 
 							}
 						},
@@ -311,16 +311,25 @@
 			}
 
 			function pulldownRefresh() {
-				getNewsList();
-				
+				if(plus.networkinfo.getCurrentType()==1){
+						alert("当前没有网络");
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();										
+					}else{
+						getNewsList(); 
+				}				
 			}
 
 			function pullupRefresh() {
-				getNewsList();	
-				var copythis = this;
-				setTimeout(function() {
-					copythis.endPullupToRefresh(true | false);
-				});
+				if(plus.networkinfo.getCurrentType()==1){
+						alert("当前没有网络");
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+					}else{
+						getNewsList();
+				}
+//				var copythis = this;
+//				setTimeout(function() {
+//					copythis.endPullupToRefresh(true | false);
+//				});
 			}
 		</script>
 

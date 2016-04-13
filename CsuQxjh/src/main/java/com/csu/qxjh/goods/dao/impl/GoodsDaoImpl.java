@@ -62,6 +62,36 @@ public class GoodsDaoImpl implements GoodsDao{
 		List<Goods>goodsList=query.list();
 		return goodsList;
 	}
+	@Override
+	public List<Goods> selectByNameOrderByPrice(String name, int sequence) {
+		// TODO Auto-generated method stub
+		String hql="";
+		if(sequence==0){//降序
+			hql="From Goods s where s.goods_name like ? order by s.goodsDetail.goods_detail_now_price DESC";
+		}else if(sequence==1){//升序
+			hql="From Goods s where s.goods_name like ? order by s.goodsDetail.goods_detail_now_price";
+		}
+		Query query=getSession().createQuery(hql).setString(0, "%"+name+"%");
+		List<Goods>goodsList=query.list();
+		return goodsList;
+	}
+	@Override
+	public List<Goods> selectByNameOrderBySells(String name) {
+		// TODO Auto-generated method stub
+		String hql="From Goods s where s.goods_name like ? order by s.goodsOrders.size DESC";
+		Query query=getSession().createQuery(hql).setString(0, "%"+name+"%");
+		List<Goods>goodsList=query.list();
+		return goodsList;
+	}
+	@Override
+	public List<Goods> selectByName(String name) {
+		// TODO Auto-generated method stub
+		String hql="From Goods s where s.goods_name=?";
+		Query query=getSession().createQuery(hql).setString(0, "%"+name+"%");
+		List<Goods>goodsList=query.list();
+		return goodsList;
+	}
+	
 
 
 }

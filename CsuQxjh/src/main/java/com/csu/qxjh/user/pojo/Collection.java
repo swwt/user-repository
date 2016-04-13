@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Collection {
 	private int id;//主键
 	private User user;//所属用户
-	private Set<Goods> goodsList;//收藏的商品（商品与收藏多对多）
-	private Set<Sellor> sellorList;//收藏的店铺，通过卖家信息可获得店铺信息（因为一个卖家只有一个店铺）（店铺与收藏多对多）
+	private Goods goods;//收藏的商品
+	private Sellor sellor;//收藏的店铺，通过卖家信息可获得店铺信息(因为一个卖家只有一个店铺)
 	public Collection() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -47,30 +47,20 @@ public class Collection {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name = "collection_goods",
-	   joinColumns = @JoinColumn(name = "collection_id"),
-	   inverseJoinColumns = @JoinColumn(name = "goods_id"))
-	@JsonIgnore
-	public Set<Goods> getGoodsList() {
-		return goodsList;
+	@ManyToOne
+	@JoinColumn(name="goods_id")
+	public Goods getGoods() {
+		return goods;
 	}
-	public void setGoodsList(Set<Goods> goodsList) {
-		this.goodsList = goodsList;
+	public void setGoods(Goods goods) {
+		this.goods = goods;
 	}
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name = "collection_store",
-	   joinColumns = @JoinColumn(name = "collection_id"),
-	   inverseJoinColumns = @JoinColumn(name = "sellor_id"))
-	@JsonIgnore
-	public Set<Sellor> getSellorList() {
-		return sellorList;
+	@ManyToOne
+	@JoinColumn(name="sellor_id")
+	public Sellor getSellor() {
+		return sellor;
 	}
-	public void setSellorList(Set<Sellor> sellorList) {
-		this.sellorList = sellorList;
+	public void setSellor(Sellor sellor) {
+		this.sellor = sellor;
 	}
-//	
-
-	
-	
 }

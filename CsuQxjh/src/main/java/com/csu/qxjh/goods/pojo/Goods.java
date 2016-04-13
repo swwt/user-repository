@@ -33,16 +33,16 @@ public class Goods {
 	private Sellor sellor;//与卖家多对一
 	private String goods_name;//商品名字
 	private String goods_introduction;//商品简介
-	private String goods_remark;//备注
+	private String goods_remark;//备注,即买家留言
 	private String goods_time_last_update;//该商品最后修改时间
 	private int goods_number;//该商品库存
 	private int goods_check_status;//该商品审核状态，0代表未审核，1代表审核
 	private int goods_on_sale_status;//该商品上架状态，-1代表下架，0代表未上架，1代表上架
 	private Set<GoodsComment> goodsComments;//与商品评价表一对多
 	private int goods_promotion_type;//该商品是否有促销活动，0代表没有，1代表有
-	private Set<OfferPromotionFullsendproducts> offerPromotionFullsendproducts;//与优惠促销 （满赠类的）实际是一对一
-	private Set<OfferPromotionDiscount> offerPromotionDiscount;//与优惠促销（折扣类的）实际是一对一
-	private Set<OfferPromotionFullcutproducts> OfferPromotionFullcutproducts;//与优惠促销（满减类的）实际是一对一
+//	private Set<OfferPromotionFullsendproducts> offerPromotionFullsendproducts;//与优惠促销 （满赠类的）实际是一对一
+//	private Set<OfferPromotionDiscount> offerPromotionDiscount;//与优惠促销（折扣类的）实际是一对一
+//	private Set<OfferPromotionFullcutproducts> OfferPromotionFullcutproducts;//与优惠促销（满减类的）实际是一对一
 	private Map<String,Integer> goods_grade;//该商品评价率(三个键对应的是good（好评），medium（中评），bad（差评）)---通过计算而得（不存数据库）(两位小数)
 	private Set<GoodsImage> images;//商品图片
 	private Set<GoodsOrder> goodsOrders;//对应的订单
@@ -137,30 +137,30 @@ public class Goods {
 	public void setGoods_check_status(int goods_check_status) {
 		this.goods_check_status = goods_check_status;
 	}
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
-	@JsonIgnore
-	public Set<OfferPromotionFullsendproducts> getOfferPromotionFullsendproducts() {
-		return offerPromotionFullsendproducts;
-	}
-	public void setOfferPromotionFullsendproducts(Set<OfferPromotionFullsendproducts> offerPromotionFullsendproducts) {
-		this.offerPromotionFullsendproducts = offerPromotionFullsendproducts;
-	}
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
-	@JsonIgnore
-	public Set<OfferPromotionDiscount> getOfferPromotionDiscount() {
-		return offerPromotionDiscount;
-	}
-	public void setOfferPromotionDiscount(Set<OfferPromotionDiscount> offerPromotionDiscount) {
-		this.offerPromotionDiscount = offerPromotionDiscount;
-	}
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
-	@JsonIgnore
-	public Set<OfferPromotionFullcutproducts> getOfferPromotionFullcutproducts() {
-		return OfferPromotionFullcutproducts;
-	}
-	public void setOfferPromotionFullcutproducts(Set<OfferPromotionFullcutproducts> offerPromotionFullcutproducts) {
-		OfferPromotionFullcutproducts = offerPromotionFullcutproducts;
-	}
+//	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
+//	@JsonIgnore
+//	public Set<OfferPromotionFullsendproducts> getOfferPromotionFullsendproducts() {
+//		return offerPromotionFullsendproducts;
+//	}
+//	public void setOfferPromotionFullsendproducts(Set<OfferPromotionFullsendproducts> offerPromotionFullsendproducts) {
+//		this.offerPromotionFullsendproducts = offerPromotionFullsendproducts;
+//	}
+//	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
+//	@JsonIgnore
+//	public Set<OfferPromotionDiscount> getOfferPromotionDiscount() {
+//		return offerPromotionDiscount;
+//	}
+//	public void setOfferPromotionDiscount(Set<OfferPromotionDiscount> offerPromotionDiscount) {
+//		this.offerPromotionDiscount = offerPromotionDiscount;
+//	}
+//	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")//实际是一对一	
+//	@JsonIgnore
+//	public Set<OfferPromotionFullcutproducts> getOfferPromotionFullcutproducts() {
+//		return OfferPromotionFullcutproducts;
+//	}
+//	public void setOfferPromotionFullcutproducts(Set<OfferPromotionFullcutproducts> offerPromotionFullcutproducts) {
+//		OfferPromotionFullcutproducts = offerPromotionFullcutproducts;
+//	}
 	@Column
 	public int getGoods_on_sale_status() {
 		return goods_on_sale_status;
@@ -203,8 +203,7 @@ public class Goods {
 		this.goodsOrders = goodsOrders;
 	}
 	
-	@ManyToMany(fetch=FetchType.LAZY,mappedBy="goodsList")
-	@JsonIgnore
+	@Transient
 	public Set<Collection> getCollections() {
 		return collections;
 	}

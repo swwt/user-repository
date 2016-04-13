@@ -32,5 +32,6 @@ public class CollectionDaoImpl implements CollectionDao{
 		Collection collection=(Collection)query.uniqueResult();
 		return collection;
 	}
-
+	
+	
 }

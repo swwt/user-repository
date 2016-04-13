@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/4/12 11:18:24                           */
+/* Created on:     2016/4/13 21:16:49                           */
 /*==============================================================*/
 
 
@@ -9,10 +9,6 @@ drop table if exists admin;
 drop table if exists adminoperatelogs;
 
 drop table if exists collection;
-
-drop table if exists collection_goods;
-
-drop table if exists collection_store;
 
 drop table if exists coupon_sellor;
 
@@ -126,34 +122,10 @@ create table collection
 (
    id                   int not null comment '编号',
    user_id              varchar(50) comment '用户编号',
-   store_id             varchar(50) comment '店铺编号',
+   sellor_id            varchar(50) comment '店铺编号',
    collection_time      varchar(20) comment '收藏时间',
    primary key (id)
 );
-
-/*==============================================================*/
-/* Table: collection_goods                                      */
-/*==============================================================*/
-create table collection_goods
-(
-   collection_id        int not null comment 'collection的外键',
-   goods_id             int not null comment 'goods的晚间',
-   primary key (collection_id, goods_id)
-);
-
-alter table collection_goods comment '收藏与商品多对多的关联关系';
-
-/*==============================================================*/
-/* Table: collection_store                                      */
-/*==============================================================*/
-create table collection_store
-(
-   collection_id        int not null comment '收藏表外键',
-   sellor_id            int not null comment '卖家外键',
-   primary key (collection_id, sellor_id)
-);
-
-alter table collection_store comment '收藏和店铺多对多关联表';
 
 /*==============================================================*/
 /* Table: coupon_sellor                                         */

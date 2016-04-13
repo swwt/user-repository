@@ -252,6 +252,161 @@
 						}
 					});
 			}
+			
+			//------------------------------------------------------------------------------------------------------
+			function getGoodsListBySearch(search_name){
+				
+				//------------获取综合排序的商品-----------
+				//alert(catagory2_id);
+				mui.ajax(host+'/goods/getByNameOrderByZongHe',{
+						data:{
+						 name:search_name
+						},
+						async: true,//设为异步请求
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//alert(data.message);
+							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
+							if(data.code==1){//表示获取成功
+								//alert(data.message);
+								goodsJSON=data.result;
+								var zongheHtml="";
+								for(var i=0;i<goodsJSON.length;i++){
+									var goodsJSONSon=goodsJSON[i];
+									var goodComment=goodsJSONSon.goods_grade.good;
+									//alert(goodsJSONSon.goodsComments);
+									zongheHtml=zongheHtml
+									+"<li class=\"result-item mui-table-view-cell mui-media\" style=\"margin-bottom: 0;\">"
+										+"<a href=\""+goodsJSONSon.id+"\">"
+											+"<img class=\"item-info-img mui-media-object mui-pull-left\" src=\""+host+goodsJSONSon.images[0].goods_image_src+"\">"
+											+"<div class=\"mui-media-body\" style=\"\">"
+											+"<p class=\"item-info-des mui-ellipsis-2\">"+goodsJSONSon.goods_name+"</p>"
+											+"<p class='item-info-price' style=\"font-size: 14px;color:#DD524D\">￥<span class=\"item-info-price-detail\" style=\"\">"+goodsJSONSon.goodsDetail.goods_detail_now_price+"</span></p>"
+											+"<p class='' style=\"\">"
+												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsCommentNumber+"条评价</span>"
+												+"<span class=\"item-info-good-comment\">好评"+goodComment+"%</span>"
+											+"</p>"
+											+"</div>"
+										+"</a>"
+									+"</li>";
+								}
+								
+								document.getElementById("zonghe").innerHTML=zongheHtml;
+								goodsAction('#item1mobile');
+							}else{//获取失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){ 
+							//异常处理；
+							//console.log(type);
+							alert(xhr);
+							alert(type);
+							alert(errorThrown);
+							alert("出现错误（请求响应超时）");
+						}
+					});
+					//------------获取销量排序的商品-----------
+				mui.ajax(host+'/goods/getByNameOrderBySellors',{
+						data:{
+						 name:search_name
+						},
+						async: true,//设为异步请求
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
+							if(data.code==1){//表示获取成功
+								//alert(data.message);
+								goodsJSON=data.result;
+								var zongheHtml="";
+								for(var i=0;i<goodsJSON.length;i++){
+									var goodsJSONSon=goodsJSON[i];
+									var goodComment=goodsJSONSon.goods_grade.good;
+									//alert(goodsJSONSon.goodsComments);
+									zongheHtml=zongheHtml
+									+"<li class=\"result-item mui-table-view-cell mui-media\" style=\"margin-bottom: 0;\">"
+										+"<a href=\""+goodsJSONSon.id+"\">"
+											+"<img class=\"item-info-img mui-media-object mui-pull-left\" src=\""+host+goodsJSONSon.images[0].goods_image_src+"\">"
+											+"<div class=\"mui-media-body\" style=\"\">"
+											+"<p class=\"item-info-des mui-ellipsis-2\">"+goodsJSONSon.goods_name+"</p>"
+											+"<p class='item-info-price' style=\"font-size: 14px;color:#DD524D\">￥<span class=\"item-info-price-detail\" style=\"\">"+goodsJSONSon.goodsDetail.goods_detail_now_price+"</span></p>"
+											+"<p class='' style=\"\">"
+												+"<span class=\"item-info-good-comment\">销量"+goodsJSONSon.goodsSells+"件</span>"
+												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsCommentNumber+"条评价</span>"
+												+"<span class=\"item-info-good-comment\">好评"+goodComment+"%</span>"
+											
+											+"</p>"
+											+"</div>"
+										+"</a>"
+									+"</li>";
+								}
+								
+								document.getElementById("sells").innerHTML=zongheHtml;
+								goodsAction('#item2mobile');
+							}else{//获取失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){ 
+							//异常处理；
+							//console.log(type);
+							alert("出现错误（请求响应超时）");
+						}
+					});
+				//-------获取价格排序商品-------------
+				mui.ajax(host+'/goods/getByNameOrderByPriceUp',{
+						data:{
+						 name:search_name
+						},
+						async: true,//设为异步请求
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
+							if(data.code==1){//表示获取成功
+							//	alert(data.message);
+								goodsJSON=data.result;
+								var zongheHtml="";
+								for(var i=0;i<goodsJSON.length;i++){
+									var goodsJSONSon=goodsJSON[i];
+									var goodComment=goodsJSONSon.goods_grade.good;
+									//alert(goodsJSONSon.goodsComments);
+									zongheHtml=zongheHtml
+									+"<li class=\"result-item mui-table-view-cell mui-media\" style=\"margin-bottom: 0;\">"
+										+"<a href=\""+goodsJSONSon.id+"\">"
+											+"<img class=\"item-info-img mui-media-object mui-pull-left\" src=\""+host+goodsJSONSon.images[0].goods_image_src+"\">"
+											+"<div class=\"mui-media-body\" style=\"\">"
+											+"<p class=\"item-info-des mui-ellipsis-2\">"+goodsJSONSon.goods_name+"</p>"
+											+"<p class='item-info-price' style=\"font-size: 14px;color:#DD524D\">￥<span class=\"item-info-price-detail\" style=\"\">"+goodsJSONSon.goodsDetail.goods_detail_now_price+"</span></p>"
+											+"<p class='' style=\"\">"
+												+"<span class=\"item-info-good-comment\">销量"+goodsJSONSon.goodsSells+"件</span>"
+												+"<span class=\"item-info-comment\">"+goodsJSONSon.goodsCommentNumber+"条评价</span>"
+												+"<span class=\"item-info-good-comment\">好评"+goodComment+"%</span>"
+											
+											+"</p>"
+											+"</div>"
+										+"</a>"
+									+"</li>";
+								}
+								
+								document.getElementById("price").innerHTML=zongheHtml;
+								goodsAction('#item3mobile');
+							}else{//获取失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){ 
+							//异常处理；
+							//console.log(type);
+							alert("出现错误（请求响应超时）");
+						}
+					});
+			}
 		</script>
 	</head>
 
@@ -343,13 +498,21 @@
 		<script type="application/javascript" src="../js/own.js"></script>
 		<script type="application/javascript">
 		 mui.init({
-				swipeBack: false
+				swipeBack: false 
 			});
 			
 		window.addEventListener('searchPageFire', function(options) {					
 			var categoryID = options.detail.categoryID;
+			var listType=options.detail.listType;//判断是搜索还是二级分类下的商品展示
+			//alert(listType);
+			if(listType=='byCategoty2List'){ 
+				
+				getGoodsListByCategory2(categoryID);//二级分类下的商品展示
+			}else{
+				getGoodsListBySearch(categoryID);//商品搜索
+			}
 			//alert("searchPage:"+categoryID);
-			getGoodsListByCategory2(categoryID);
+			//getGoodsListByCategory2(categoryID);
 		}, false);
 		
 		

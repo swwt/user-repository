@@ -1,5 +1,6 @@
 package com.csu.qxjh.sellor.pojo;
 
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -195,7 +197,7 @@ public class Sellor {
 	public void setSellor_store_time(String sellor_store_time) {
 		this.sellor_store_time = sellor_store_time;
 	}
-	@ManyToMany(mappedBy="sellorList",fetch=FetchType.LAZY)
+	@Transient
 	public Set<Collection> getCollections() {
 		return collections;
 	}

@@ -47,6 +47,7 @@
 			}
 			
 		</style>
+	
 	</head>
 
 	<body>
@@ -94,6 +95,7 @@
 				
 				// 为搜索模板页面添加 newWebviewForSearch事件
 				window.addEventListener('newWebviewForSearch', function(options){
+					//alert("newWebviewForSearch");
 					var id = options.detail.id;
 					var href = options.detail.href;
 					var aniShow = options.detail.aniShow;
@@ -138,6 +140,21 @@
 				
 				//为rightbars添加事件
 				messageCenterDiv.addEventListener('tap', function() {
+					var anishow = getaniShow();
+					var item = this;
+					//var itemID = this.getAttribute('href');
+					var name=document.getElementById("search").value;
+					//alert(itemID);
+//					mui.fire(parentWebview, 'newWebView', {
+//						id: 'Home/searchPage.html',
+//						href: '../Home/searchPage.html',
+//						aniShow: anishow,
+//						title: '商品搜索',
+//						isBars: false,
+//						barsIcon: '',
+//						category_id: name 
+//					});
+					//alert("tap");
 					mui.fire(self, 'newWebviewForSearch',{
 						id:'Mine/message-center-needtem.html',
 						href:'Mine/message-center-needtem.html',
@@ -149,11 +166,13 @@
 				}, false);
 				//接收templateFire事件
 				window.addEventListener('searchTemplateFire', function(options) {
+					//alert("searchTempleFire");
 					var id = options.detail.id;
 					var aniShow = options.detail.aniShow;
 					var href = options.detail.target;
 					var isBars = options.detail.isBars;
 					var barsIcon = options.detail.barsIcon;
+					var listType=options.detail.listType;//判断是搜索还是二级分类下的商品展示
 					categoryID = options.detail.categoryID;
 					console.log(" SearchTemplate Html:" + href);
 					if (mui.os.android && aniShow && parseFloat(mui.os.version) >= 4.4) {
@@ -164,11 +183,13 @@
 						self.show(aniShow);
 					}
 					mui.fire(subSearchWebview,'searchPageFire',{
-						categoryID:categoryID
+						categoryID:categoryID,
+						listType:listType
 					});
 				}, false);
 				//接收子页面的获取categoryID的事件
 				window.addEventListener('getCategoryID', function(e) {
+					//alert("getCatagory");
 					console.log('收到获取productID的事件');
 					if (subSearchWebview == null) {
 						subSearchWebview = self.children()[0];
@@ -223,7 +244,24 @@
 			}
 			
 		</script>
-
+		<script type="text/javascript">
+/*				mui('').on('tap', 'a', function() {
+					//alert("监听事件2");
+					var anishow = getaniShow();
+					var item = this;
+					var itemID = this.getAttribute('href');
+					//alert(itemID);
+					mui.fire(parentWebview, 'newWebView', {
+						id: 'Home/searchPage.html',
+						href: '../Home/searchPage.html',
+						aniShow: anishow,
+						title: '商品搜索',
+						isBars: false,
+						barsIcon: '',
+						category_id: itemID
+					});
+				});*/
+		</script>
 	</body>
 
 </html>
