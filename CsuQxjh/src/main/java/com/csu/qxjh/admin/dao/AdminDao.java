@@ -5,7 +5,7 @@ import com.csu.qxjh.util.base.BaseDao;
 
 public interface AdminDao extends BaseDao<Admin> {
 
-	public boolean isLonginNameExist(String adminLoginName);
+	public boolean isLoginNameExist(String adminLoginName);
 
 	public Admin adminLogin(String adminLoginName, String adminPassword);
 }

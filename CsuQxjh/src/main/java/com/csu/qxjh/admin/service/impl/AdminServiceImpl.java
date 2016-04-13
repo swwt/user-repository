@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService {
 	public Message adminLogin(String adminLoginName, String adminPassword) {
 
 		Message message = new Message();
-		if (adminDao.isLonginNameExist(adminLoginName)) {
+		if (adminDao.isLoginNameExist(adminLoginName)) {
 			Admin admin = adminDao.adminLogin(adminLoginName, adminPassword);
 			if (admin != null) {
 				message.setMessage(PropertiesUtils.get(admin_login_success));

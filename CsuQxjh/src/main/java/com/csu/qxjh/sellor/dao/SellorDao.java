@@ -10,4 +10,8 @@ public interface SellorDao extends BaseDao<Sellor> {
 	 * @param sellor 卖家实例对象
 	 */
 	public void insert(Sellor sellor);
+	
+	public boolean isLoginNameExist(String sellor_login_name);
+	
+	public Sellor sellorLogin(String sellor_login_name,String sellor_password);
 }

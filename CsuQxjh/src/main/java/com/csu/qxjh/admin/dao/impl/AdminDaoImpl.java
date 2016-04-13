@@ -32,7 +32,7 @@ public class AdminDaoImpl extends BaseDaoImpl<Admin> implements AdminDao {
 	}
 
 	@Override
-	public boolean isLonginNameExist(String adminLoginName) {
+	public boolean isLoginNameExist(String adminLoginName) {
 		
 		Map<String, String> conditions = new HashMap<>();
 		conditions.put(this.ADMIN_LOGIN_NAME, adminLoginName);

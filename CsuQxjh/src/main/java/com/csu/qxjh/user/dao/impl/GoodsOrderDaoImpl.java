@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.csu.qxjh.user.dao.GoodsOrderDao;
 import com.csu.qxjh.user.pojo.GoodsOrder;
+import com.csu.qxjh.util.base.BaseDaoImpl;
 
 @Repository
-public class GoodsOrderDaoImpl implements GoodsOrderDao{
+public class GoodsOrderDaoImpl extends BaseDaoImpl<GoodsOrder> implements GoodsOrderDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
