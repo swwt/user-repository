@@ -88,6 +88,26 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice{
 		// TODO Auto-generated method stub
 		return goodsOrderDao.selectById(id);
 	}
+	@Override
+	public List<GoodsOrder> getOrderByNoPay(String userId) {
+		// TODO Auto-generated method stub
+		return goodsOrderDao.selectOrderByNoPay(userId);
+	}
+	@Override
+	public List<GoodsOrder> getOrderByNoGet(String userId) {
+		// TODO Auto-generated method stub
+		return goodsOrderDao.selectOrderByNoGet(userId);
+	}
+	@Override
+	public List<GoodsOrder> getOrderByNoComment(String userId) {
+		// TODO Auto-generated method stub
+		return goodsOrderDao.selectOrderByNoComment(userId);
+	}
+	@Override
+	public List<GoodsOrder> getOrderByComplete(String userId) {
+		// TODO Auto-generated method stub
+		return goodsOrderDao.selectOrderByComplete(userId);
+	}
 	
 	
 }

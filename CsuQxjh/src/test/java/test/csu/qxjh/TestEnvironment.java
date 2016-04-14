@@ -44,7 +44,9 @@ import com.csu.qxjh.user.dao.GoodsOrderDao;
 import com.csu.qxjh.user.dao.UserDao;
 import com.csu.qxjh.user.pojo.Collection;
 import com.csu.qxjh.user.pojo.GoodsOrder;
+import com.csu.qxjh.user.pojo.ShoppingCart;
 import com.csu.qxjh.user.pojo.User;
+import com.csu.qxjh.user.service.ShoppingCartService;
 import com.csu.qxjh.user.service.UserService;
 import com.csu.qxjh.util.DateUtil;
 import com.csu.qxjh.util.MD5Util;
@@ -86,9 +88,18 @@ public class TestEnvironment {
     private NewsService newsService;
     @Resource
     private NewsCommentService newsCommentService;
+    @Resource
+    private ShoppingCartService shoppingCartService; 
+    @Test
+    public void test27(){
+    	shoppingCartService.getShoppingCart("402881e853dcd3ae0153dcd3b1680000");
+    }
     @Test
     public void test26(){
-    	
+    	ShoppingCart shoppingCart=new ShoppingCart();
+    	shoppingCart.setUser(userService.getUserById("402881e853dcd3ae0153dcd3b1680000"));
+    	shoppingCart.setGoods(goodsService.getById(1));
+    	shoppingCartService.addShoppongCart(shoppingCart);
     }
     @Test
     public void test25(){

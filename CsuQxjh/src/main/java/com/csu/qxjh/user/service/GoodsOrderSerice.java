@@ -1,5 +1,6 @@
 package com.csu.qxjh.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.csu.qxjh.user.pojo.GoodsOrder;
@@ -19,4 +20,8 @@ public interface GoodsOrderSerice {
 	void insert(GoodsOrder goodsOrder);//添加一条订单信息
 	void deleteGoodsUserType(GoodsOrder goodsOrder);//用户删除订单信息（注意不是真正删除数据库数据，只是修改数据）
 	GoodsOrder getById(String id);
+	List<GoodsOrder> getOrderByNoPay(String userId);//查询用户待付款的订单
+	List<GoodsOrder> getOrderByNoGet(String userId);//查询用户待收获的订单
+	List<GoodsOrder> getOrderByNoComment(String userId);//查询用户待评价的订单
+	List<GoodsOrder> getOrderByComplete(String userId);//查询用户交易完成的订单
 }
