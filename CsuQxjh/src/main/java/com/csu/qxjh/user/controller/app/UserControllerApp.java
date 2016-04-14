@@ -1,9 +1,11 @@
 package com.csu.qxjh.user.controller.app;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.hibernate.engine.transaction.jta.platform.internal.SynchronizationRegistryBasedSynchronizationStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,9 +20,11 @@ import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.user.dao.CollectionDao;
 import com.csu.qxjh.user.pojo.Collection;
 import com.csu.qxjh.user.pojo.GoodsOrder;
+import com.csu.qxjh.user.pojo.ShoppingCart;
 import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.service.CollectionService;
 import com.csu.qxjh.user.service.GoodsOrderSerice;
+import com.csu.qxjh.user.service.ShoppingCartService;
 import com.csu.qxjh.user.service.UserService;
 import com.csu.qxjh.user.service.impl.GoodsOrderServiceImpl;
 import com.csu.qxjh.util.StringUtil;
@@ -39,6 +43,8 @@ public class UserControllerApp {
 	private CollectionService collectionService;
 	@Resource
 	private GoodsOrderSerice goodsOrderSerice;
+	@Resource
+	private ShoppingCartService shoppingCartService;
 	/*
 	 * 买家登陆(用户名或者手机号都可以登录)
 	 */
@@ -118,7 +124,58 @@ public class UserControllerApp {
 		collection.setSellor(sellor);
 		return message;
 	}
+		
+	@ResponseBody
+	@RequestMapping("/addCollectionGoods")//用户收藏商品
+	public Message addCollectionGoods(@RequestParam(value="goodsId")Integer goodsId){
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("收藏店铺成功");
+		Collection collection=new Collection();
+		Goods goods=new Goods();
+		goods.setId(goodsId);
+		collection.setGoods(goods);
+		return message;
+	}
 	
+	@ResponseBody
+	@RequestMapping("/addShoppingCart")//用户添加购物车
+	public Message addShoppingCart(@RequestParam(value="goodsId")Integer goodsId,
+			@RequestParam(value="userId")String userId,@RequestParam(value="amount")Integer amount){
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("添加购物车成功");
+		User user=new User();
+		Goods goods=new Goods();
+		goods.setId(goodsId);
+		user.setId(userId);
+		ShoppingCart shoppingCart=new ShoppingCart();
+		shoppingCart.setGoods(goods);
+		shoppingCart.setUser(user);
+		shoppingCartService.addShoppongCart(shoppingCart);
+		return message;
+	}
+	@ResponseBody
+	@RequestMapping("/getShoppingCart")//用户获取购物车信息
+	public Message getShoppingCart(@RequestParam(value="userId")String userId){
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("获取购物车成功");
+		List<ShoppingCart> shoppingCarts=shoppingCartService.getShoppingCart(userId);
+		message.setResult(shoppingCarts);
+		return message;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/test")//用户获取购物车信息
+	public Message test(){
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("获取购物车成功");
+		message.setResult(null);
+		System.out.println(shoppingCartService.getShoppingCart("402881e853dcd3ae0153dcd3b1680000").get(0).getUser().getId());
+		return message;
+	}
 }
 
 

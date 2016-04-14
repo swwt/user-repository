@@ -18,7 +18,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.sellor.service.SellorService;
 import com.csu.qxjh.user.pojo.GoodsOrder;
-import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.service.GoodsOrderSerice;
 import com.csu.qxjh.util.MD5Util;
 import com.csu.qxjh.util.pojo.Message;
@@ -87,6 +86,13 @@ public class SellorController {
 		request.setAttribute("basePath", basePath);
 		
 		return "/web_page/seller/order_list";
+	}
+
+	@ResponseBody
+	@RequestMapping("/testYan")
+	public GoodsOrder testYan(){
+		GoodsOrder goodsOrder = (GoodsOrder) goodsOrderService.fuzzyPageQuery(1, null);
+		return goodsOrder;
 	}
 	
 }
