@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.sellor.service.SellorService;
 import com.csu.qxjh.user.pojo.GoodsOrder;
+import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.service.GoodsOrderSerice;
 import com.csu.qxjh.util.MD5Util;
 import com.csu.qxjh.util.pojo.Message;
@@ -77,22 +78,50 @@ public class SellorController {
 	}
 
 	@RequestMapping("/order_list")
-	public String orderList(@RequestParam(value = "targetPageIndex",defaultValue="1") int targetPageIndex,
-			@RequestParam(value = "key",defaultValue="") String key) {
+	public String orderList(@RequestParam(value = "targetPageIndex", defaultValue = "1") int targetPageIndex,
+			@RequestParam(value = "key", defaultValue = "") String key,
+			@RequestParam(value = "payment_status", defaultValue = "-1") int payment_status,
+			@RequestParam(value = "deliver_status", defaultValue = "-1") int deliver_status,
+			@RequestParam(value = "gain_status", defaultValue = "-1") int gain_status) {
 		final String basePath = "/pc_sellor/order_list";
 
-		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(targetPageIndex, key);
+		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(targetPageIndex, key, payment_status,
+				deliver_status, gain_status);
+
+		data.put("payment_status", payment_status);
+		data.put("deliver_status", deliver_status);
+		data.put("gain_status", gain_status);
+
 		request.setAttribute("data", data);
 		request.setAttribute("basePath", basePath);
-		
+
+		List<GoodsOrder> goodsOrders = (List<GoodsOrder>) data.get("goodsOrders");
+		for (GoodsOrder goodsOrder : goodsOrders) {
+			User user = goodsOrder.getUser();
+			System.out.println(user.toString());
+		}
+
 		return "/web_page/seller/order_list";
+	}
+
+	/**
+	 * 标记订单为已经发货状态
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/markAsSendOut")
+	public Message markAsSendOut(@RequestParam(value="orderId")String orderId) {
+		Message message = null;
+		message = goodsOrderService.markAsSendOut(orderId);
+		return message;
 	}
 
 	@ResponseBody
 	@RequestMapping("/testYan")
-	public GoodsOrder testYan(){
-		GoodsOrder goodsOrder = (GoodsOrder) goodsOrderService.fuzzyPageQuery(1, null);
+	public GoodsOrder testYan() {
+		GoodsOrder goodsOrder = goodsOrderService.getById("297e8373540fee2101540fee2a290000");
 		return goodsOrder;
 	}
-	
+
 }

@@ -39,29 +39,29 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Override
 	public Serializable save(T entity) {
 		Session session = getSessionFactory().getCurrentSession();
-		Transaction transaction = session.beginTransaction();
+//		Transaction transaction = session.beginTransaction();
 		Serializable result = session.save(entity);
-		transaction.commit();
-		session.close();
+//		transaction.commit();
+//		session.close();
 		return result;
 	}
 
 	@Override
 	public void update(T entity) {
 		Session session = getSessionFactory().getCurrentSession();
-		Transaction transaction = session.beginTransaction();
+//		Transaction transaction = session.beginTransaction();
 		session.update(entity);
-		transaction.commit();
-		session.close();
+//		transaction.commit();
+//		session.close();
 	}
 
 	@Override
 	public void delete(T entity) {
 		Session session = getSessionFactory().getCurrentSession();
-		Transaction transaction = session.beginTransaction();
+//		Transaction transaction = session.beginTransaction();
 		session.delete(entity);
-		transaction.commit();
-		session.close();
+//		transaction.commit();
+//		session.close();
 	}
 
 	@Override
@@ -71,13 +71,13 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 		T t = (T) session.get(entityClass, id);
 		if (t != null) {
-			Transaction transaction = session.beginTransaction();
+//			Transaction transaction = session.beginTransaction();
 			session.delete(t);
-			transaction.commit();
+//			transaction.commit();
 		} else {
 			System.out.println("数据不存在，删除不成功！");
 		}
-		session.close();
+//		session.close();
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		} else {
 			System.out.println("找不到实体类所映射的表名，查询失败！");
 		}
-		session.close();
+//		session.close();
 		return tList;
 	}
 
@@ -112,7 +112,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		} else {
 			System.out.println("找不到实体类所映射的表名，查询失败！");
 		}
-		session.close();
+//		session.close();
 		return result;
 	}
 
@@ -135,7 +135,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			System.out.println("找不到实体类所映射的表名，查询失败！");
 		}
 
-		session.close();
+//		session.close();
 		return tList;
 	}
 
@@ -156,7 +156,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			System.out.println("找不到实体类所映射的表名，查询失败！");
 		}
 
-		session.close();
+//		session.close();
 		return result;
 	}
 
@@ -176,7 +176,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		query.setMaxResults(length);
 		
 		tList = query.list();
-		session.close();
+//		session.close();
 
 		return tList;
 	}
@@ -193,7 +193,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		// System.out.println(hql.toString());
 		Query query = session.createQuery(hql.toString());
 		result = Integer.parseInt(query.uniqueResult().toString());
-		session.close();
+//		session.close();
 
 		return result;
 	}

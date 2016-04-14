@@ -45,6 +45,16 @@ public class User {
 //	private Set<NewsComment> newsComments;//该用户参加过的所有公益项目的评价
 	private Set<ShoppingCart> shoppingCarts;//购物车信息
 	private Set<UserAddress> userAddresses;//收货地址
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", user_name=" + user_name + ", user_login_name=" + user_login_name
+				+ ", user_real_name=" + user_real_name + ", user_nickname=" + user_nickname + ", user_home_address="
+				+ user_home_address + ", user_phone=" + user_phone + ", user_sex=" + user_sex + ", user_password="
+				+ user_password + ", user_birthday=" + user_birthday + ", user_head_image=" + user_head_image
+				+ ", user_email=" + user_email + ", user_type=" + user_type + ", user_number=" + user_number
+				+ ", user_college=" + user_college + "]";
+	}
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub

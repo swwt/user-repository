@@ -57,7 +57,6 @@ public class GoodsOrder {
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="goods_id")
-	@JsonIgnore
 	public Goods getGoods() {
 		return goods;
 	}
@@ -66,7 +65,6 @@ public class GoodsOrder {
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
-	@JsonIgnore
 	public User getUser() {
 		return user;
 	}

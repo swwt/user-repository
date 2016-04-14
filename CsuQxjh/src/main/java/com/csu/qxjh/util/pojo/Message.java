@@ -15,6 +15,9 @@ public class Message {
 	public static int PASSWORD_ERROR = 1;
 	public static int LOGIN_SUCCESS = 2;
 	
+	public static int ORDER_NOT_EXIST = 3;
+	public static int ORDER_STATUS_TURN_TO_DELIVER = 4;
+	
 	private int code; //
 	private String message ;
 	private Object result;

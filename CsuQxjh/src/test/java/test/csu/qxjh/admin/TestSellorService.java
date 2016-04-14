@@ -3,7 +3,9 @@ package test.csu.qxjh.admin;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +35,10 @@ public class TestSellorService {
 
 	@Autowired
 	SellorService sellorService;
-	
+
 	@Autowired
 	GoodsOrderSerice goodsOrderService;
-	
+
 	@Autowired
 	UserService userService;
 
@@ -84,22 +86,34 @@ public class TestSellorService {
 		System.out.println("pageCounts->" + map.get("pageCounts"));
 		System.out.println("key->" + map.get("key"));
 	}
-	
+
 	@Test
-	public void testInsertGoodsOrder(){
-		
-		User user = userService.getByName("hello man");
-		
+	public void testInsertGoodsOrder() {
+
+		Map<String, Object> data = userService.fuzzyPageQuery(1, null);
+		List<User> users = (List<User>) data.get("users");
+
 		GoodsOrder goodsOrder = new GoodsOrder();
-		goodsOrder.setUser(user);
+		goodsOrder.setUser(users.get((int) (Math.random() * 8)));
 		goodsOrder.setGoods_order_create_time(DateUtil.getDate());
-		goodsOrder.setGoods_order_payment_status(0);
+		goodsOrder.setGoods_order_payment_status(1);
 		goodsOrder.setGoods_order_deliver_status(0);
-		goodsOrder.setGoods_order_gain_status(0);
-		
-		goodsOrder.setGoods_order_amount(3);
-		
+		goodsOrder.setGoods_order_gain_status(-1);
+
+		goodsOrder.setGoods_order_amount((int) (Math.random() * 10));
+
 		goodsOrderService.insert(goodsOrder);
 	}
 
+	@Test
+	public void testQueryGoodsorderByStatus() {
+		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(1, null, -1, -1, 1);
+		List<GoodsOrder> goodsOrders = (List<GoodsOrder>) data.get("goodsOrders");
+		for (GoodsOrder goodsOrder : goodsOrders) {
+			System.out.println(goodsOrder.getGoods_order_payment_status());
+			System.out.println(goodsOrder.getGoods_order_deliver_status());
+			System.out.println(goodsOrder.getGoods_order_gain_status());
+			System.out.println("--------");
+		}
+	}
 }
