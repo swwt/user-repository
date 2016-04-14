@@ -88,5 +88,5 @@ public class SellorController {
 		
 		return "/web_page/seller/order_list";
 	}
-
+	
 }
