@@ -32,7 +32,7 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 
 	@Override
 	public Map<String, Object> fuzzyPageQuery(int param_targetPageIndex, String param_key, int payment_status,
-			int deliver_status, int gain_status) {
+			int deliver_status, int gain_status,String sellor_id) {
 		// TODO Auto-generated method stub
 
 		/* 模糊查询的字段名称 */
@@ -49,24 +49,26 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 
 		int recordCounts = -1;
 
+		Map<String, String> conditions = new HashMap<>();
+		conditions.put("sellor_id", sellor_id);
+		String[] orderConditions = { "goods_order_create_time" };
 		if (payment_status != -1 || deliver_status != -1 || gain_status != -1) {
-			Map<String, String> conditions = new HashMap<>();
+			
 			
 			if (payment_status != -1) conditions.put("goods_order_payment_status", payment_status+"");
 			if (deliver_status != -1) conditions.put("goods_order_deliver_status", deliver_status+"");
 			if (gain_status != -1) conditions.put("goods_order_gain_status", gain_status+"");
 			
-			goodsOrders = goodsOrderDao.pageQuery(GoodsOrder.class, conditions, pageIndex, pageSize, true);
+			goodsOrders = goodsOrderDao.pageQuery(GoodsOrder.class, conditions, pageIndex, pageSize, orderConditions,true);
 			recordCounts = goodsOrderDao.pageQueryCounts(GoodsOrder.class, conditions);
 		}
 		/* 如果查询关键为空 */
 		else if (key == null || key.equals("")) {
-			goodsOrders = goodsOrderDao.pageQuery(GoodsOrder.class, null, pageIndex, pageSize, true);
+			goodsOrders = goodsOrderDao.pageQuery(GoodsOrder.class, conditions, pageIndex, pageSize, orderConditions,true);
 			recordCounts = goodsOrderDao.pageQueryCounts(GoodsOrder.class, null);
 		} else {
-			Map<String, String> conditions = new HashMap<>();
 			conditions.put(field_name, key);
-			goodsOrders = goodsOrderDao.pageFuzzyQuery(GoodsOrder.class, conditions, pageIndex, pageSize, true);
+			goodsOrders = goodsOrderDao.pageFuzzyQuery(GoodsOrder.class, conditions, pageIndex, pageSize, orderConditions,true);
 			recordCounts = goodsOrderDao.pageFuzzyQueryCounts(GoodsOrder.class, conditions);
 		}
 

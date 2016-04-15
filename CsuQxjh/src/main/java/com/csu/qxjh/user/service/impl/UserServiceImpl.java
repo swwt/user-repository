@@ -93,15 +93,16 @@ public class UserServiceImpl implements UserService {
 		List<User> users = null;
 
 		int recordCounts = -1;
-
+		String[] orderConditions = { "id" };
 		/* 如果查询关键为空 */
 		if (key == null || key.equals("")) {
-			users = userDao.pageQuery(User.class, null, pageIndex, pageSize, true);
+			
+			users = userDao.pageQuery(User.class, null, pageIndex, pageSize, orderConditions,true);
 			recordCounts = userDao.pageQueryCounts(User.class, null);
 		} else {
 			Map<String, String> conditions = new HashMap<>();
 			conditions.put(field_name, key);
-			users = userDao.pageFuzzyQuery(User.class, conditions, pageIndex, pageSize, true);
+			users = userDao.pageFuzzyQuery(User.class, conditions, pageIndex, pageSize, orderConditions,true);
 			recordCounts = userDao.pageFuzzyQueryCounts(User.class, conditions);
 		}
 

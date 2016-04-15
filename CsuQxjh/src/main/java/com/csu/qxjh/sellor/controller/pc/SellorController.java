@@ -85,8 +85,10 @@ public class SellorController {
 			@RequestParam(value = "gain_status", defaultValue = "-1") int gain_status) {
 		final String basePath = "/pc_sellor/order_list";
 
+		Sellor sellor = (Sellor) session.getAttribute("sellor");
+		
 		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(targetPageIndex, key, payment_status,
-				deliver_status, gain_status);
+				deliver_status, gain_status,sellor.getId());
 
 		data.put("payment_status", payment_status);
 		data.put("deliver_status", deliver_status);
@@ -95,11 +97,11 @@ public class SellorController {
 		request.setAttribute("data", data);
 		request.setAttribute("basePath", basePath);
 
-		List<GoodsOrder> goodsOrders = (List<GoodsOrder>) data.get("goodsOrders");
+		/*List<GoodsOrder> goodsOrders = (List<GoodsOrder>) data.get("goodsOrders");
 		for (GoodsOrder goodsOrder : goodsOrders) {
 			User user = goodsOrder.getUser();
 			System.out.println(user.toString());
-		}
+		}*/
 
 		return "/web_page/seller/order_list";
 	}

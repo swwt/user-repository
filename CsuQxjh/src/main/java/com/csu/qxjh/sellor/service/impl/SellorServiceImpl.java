@@ -51,15 +51,16 @@ public class SellorServiceImpl implements SellorService{
 		List<Sellor> sellors = null;
 
 		int recordCounts = -1;
-
+		String[] orderConditions = { "id" };
 		/* 如果查询关键为空 */
 		if (key == null || key.equals("")) {
-			sellors = sellorDao.pageQuery(Sellor.class, null, pageIndex, pageSize, true);
+			
+			sellors = sellorDao.pageQuery(Sellor.class, null, pageIndex, pageSize, orderConditions,true);
 			recordCounts = sellorDao.pageQueryCounts(Sellor.class, null);
 		} else {
 			Map<String, String> conditions = new HashMap<>();
 			conditions.put(field_name, key);
-			sellors = sellorDao.pageFuzzyQuery(Sellor.class, conditions, pageIndex, pageSize, true);
+			sellors = sellorDao.pageFuzzyQuery(Sellor.class, conditions, pageIndex, pageSize, orderConditions,true);
 			recordCounts = sellorDao.pageFuzzyQueryCounts(Sellor.class, conditions);
 		}
 

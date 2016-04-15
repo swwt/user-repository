@@ -118,14 +118,14 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	@Override
 	public List<T> pageQuery(Class<T> entityClass, Map<String, String> conditions, int start, int length,
-			boolean isDesc) {
+			String[] orderConditions ,boolean isDesc) {
 
 		List<T> tList = null;
 
 		Session session = getSessionFactory().openSession();
 		Table annotation = entityClass.getAnnotation(Table.class);
 		if (annotation != null) {
-			String hql = getHQL(entityClass, conditions, isDesc, false, false);
+			String hql = getHQL(entityClass, conditions, isDesc, false, false,orderConditions);
 			// System.out.println(hql);
 			Query query = session.createQuery(hql.toString());
 			query.setFirstResult((start - 1) * length);
@@ -147,7 +147,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		Session session = getSessionFactory().openSession();
 		Table annotation = entityClass.getAnnotation(Table.class);
 		if (annotation != null) {
-			String hql = getHQL(entityClass, conditions, false, false, true);
+			String hql = getHQL(entityClass, conditions, false, false, true,null);
 
 			Query query = session.createQuery(hql.toString());
 
@@ -162,13 +162,13 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	@Override
 	public List<T> pageFuzzyQuery(Class<T> entityClass, Map<String, String> conditions, int start, int length,
-			boolean isDesc) {
+			String[] orderConditions ,boolean isDesc) {
 		List<T> tList = null;
 
 		Session session = getSessionFactory().openSession();
 		Table annotation = entityClass.getAnnotation(Table.class);
 
-		String hql = getHQL(entityClass, conditions, isDesc, true, false);
+		String hql = getHQL(entityClass, conditions, isDesc, true, false,orderConditions);
 		// System.out.println(hql.toString());
 		Query query = session.createQuery(hql.toString());
 		
@@ -189,7 +189,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		Session session = getSessionFactory().openSession();
 		Table annotation = entityClass.getAnnotation(Table.class);
 
-		String hql = getHQL(entityClass, conditions, false, true, true);
+		String hql = getHQL(entityClass, conditions, false, true, true,null);
 		// System.out.println(hql.toString());
 		Query query = session.createQuery(hql.toString());
 		result = Integer.parseInt(query.uniqueResult().toString());
@@ -199,7 +199,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	private String getHQL(Class<T> entityClass, Map<String, String> conditions, boolean isDesc, boolean isFuzzy,
-			boolean isCount) {
+			boolean isCount,String[] orderConditions) {
 
 		StringBuffer hql = new StringBuffer();
 
@@ -233,8 +233,18 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			}
 		}
 
+		if (orderConditions!=null && orderConditions.length>0) {
+			hql.append(" order by ");
+			for(int i=0; i< orderConditions.length; i++){
+				hql.append(orderConditions[i]);
+				if (i!=orderConditions.length-1) {
+					hql.append(",");
+				}
+			}
+		}
+		
 		if (isDesc) {
-			hql.append(" order by id desc");
+			hql.append(" desc");
 		}
 		System.out.println(hql);
 		return hql.toString();

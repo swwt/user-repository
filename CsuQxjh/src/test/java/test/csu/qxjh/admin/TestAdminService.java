@@ -24,7 +24,7 @@ public class TestAdminService {
 
 	@Test
 	public void testLogin() {
-		Message message = adminService.adminLogin("xxxxxx", "xxxxx");
+		Message message = adminService.adminLogin("xxxxxx", MD5Util.MD5("xxxxxx"));
 		System.out.println(message.toString());
 	}
 

@@ -53,7 +53,8 @@
 								<div class="btn-group pull-right">
 									<select id="select_status" onchange="queryBuStatus()"
 										style="margin-right: 1vw">
-										<option selected="selected">全部</option>
+										<option>&nbsp;</option>
+										<option>全部</option>
 										<option>未支付</option>
 										<option>已支付</option>
 										<option>未发货</option>
@@ -137,8 +138,6 @@
 														<option selected="selected">操作选项</option>
 														<option value="1">标记为已发货</option>
 														<option value="2">查看详细信息</option>
-														<option value="3">Fast</option>
-														<option value="4">Faster</option>
 												</select>
 												<td>
 											</tr>
@@ -280,26 +279,27 @@
 			var gain_status = -1;
 
 			var index = select.selectedIndex;
-			if (index == 1) {
+			
+			if (index == 2) {
 				payment_status = 0;
-			}
-			else if (index == 2) {
-				payment_status = 1;
 			}
 			else if (index == 3) {
 				payment_status = 1;
-				deliver_status = 0;
 			}
 			else if (index == 4) {
 				payment_status = 1;
-				deliver_status = 1;
+				deliver_status = 0;
 			}
 			else if (index == 5) {
 				payment_status = 1;
 				deliver_status = 1;
-				gain_status = 0;
 			}
 			else if (index == 6) {
+				payment_status = 1;
+				deliver_status = 1;
+				gain_status = 0;
+			}
+			else if (index == 7) {
 				payment_status = 1;
 				deliver_status = 1;
 				gain_status = 1;
