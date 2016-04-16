@@ -52,5 +52,10 @@ public class UserAddressServiceImpl implements UserAddressService{
 		// TODO Auto-generated method stub
 		return userAddressDao.getByDefaultByUserId(userId);
 	}
+	@Override
+	public List<UserAddress> getByNotDefaultByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return userAddressDao.getByNotDefaultByUserId(userId);
+	}
 
 }

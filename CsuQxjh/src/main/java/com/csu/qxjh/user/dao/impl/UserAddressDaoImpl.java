@@ -46,4 +46,12 @@ public class UserAddressDaoImpl implements UserAddressDao{
 		UserAddress userAddress=(UserAddress)getSession().createQuery(hql).setString(0, userId).uniqueResult();
 		return userAddress;
 	}
+
+	@Override
+	public List<UserAddress> getByNotDefaultByUserId(String userId) {
+		// TODO Auto-generated method stub
+		String hql="From UserAddress address where address.user.id=? and user_address_type!=1";
+		List<UserAddress> userAddresses=(List<UserAddress>)getSession().createQuery(hql).setString(0, userId).list();
+		return userAddresses;
+	}
 }

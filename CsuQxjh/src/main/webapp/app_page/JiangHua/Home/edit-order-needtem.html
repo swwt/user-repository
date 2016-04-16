@@ -28,7 +28,7 @@
 		<div class="mui-content">
 
 			<ul id="list" class="mui-table-view " style="margin-top: 3px;">
-				<li class="mui-table-view-cell" style="padding-left: 10px;border-bottom: 2px dotted#999999;">
+				<!--<li class="mui-table-view-cell" style="padding-left: 10px;border-bottom: 2px dotted#999999;">
 					<a id="select-address" class="mui-navigate-right" href="#">
 						<div style="font-size: 16px;margin-left:0.7em;margin-top: 4px;color: #232326;">
 							<span style="margin-left: 1em;margin-right: 1em;"></span>
@@ -83,7 +83,7 @@
 							<span >运费</span>
 							<span style="float: right;color:#F23030">+&nbsp;￥ 0.00</span>
 						</div>
-				</li>
+				</li>-->
 			</ul>
 
 		</div>
@@ -94,7 +94,7 @@
 			</div>
 			
 			<div style="width: 65%;height: 45px;line-height: 45px;float:left;text-align: right;padding-right: 0.5em;color: #F23030;">
-				实付款：￥<span>236.00</span>
+				实付款：￥<span id="realMoney">236.00</span>
 			</span>
 			
 		</div>
@@ -110,7 +110,8 @@
 			var aniShow;
 			var selectAddressDiv;
 			
-			mui.plusReady(function() {
+			function addEvent(){
+				mui.plusReady(function() {
 				aniShow = getaniShow();
 				commitOrderDiv = document.querySelector("#commitOrderBtn");
 				selectAddressDiv =document.querySelector('#select-address');
@@ -158,6 +159,8 @@
 				}, false);
 				
 			});
+			}
+			
 			window.addEventListener('edit_order_page', function(options) {				
 				var orderStr = options.detail.cartData;
 				var dingdanMoneyTotal = options.detail.dingdanMoneyTotal;
@@ -178,7 +181,7 @@
 	function getOrder(goodsIdStr,dingdanMoneyTotal){
 			mui.ajax(host+'/user/getGoodsOrders',{
 						data:{
-							goodsIdStr:goodsIdStr,//用户id							
+							goodsIdStr:goodsIdStr					
 						},
 						dataType:'json',//服务器返回json格式数据
 						type:'post',//HTTP请求类型
@@ -227,6 +230,8 @@
 										+"</div>"
 									+"</li>";
 								document.getElementById("list").innerHTML=addressOrderHtml;
+								document.getElementById("realMoney").innerHTML=dingdanMoneyTotal;
+								addEvent();
 							}else{//登录失败，给出提醒
 								alert(data.message);
 							}
@@ -242,6 +247,7 @@
 					});
 		}
 		function getAddress(goodsIdStr,dingdanMoneyTotal){
+			addressOrderHtml="";
 			mui.ajax(host+'/userInformation/getDefaultAddress',{
 						data:{
 							userId:userId//用户id

@@ -266,7 +266,7 @@ public class UserControllerApp {
 		for(int i=0;i<goodsIds.length;i++){
 			String goodsId=goodsIds[i];
 			GoodsOrder goodsOrder=goodsOrderSerice.getById(goodsId);
-//			goodsOrder.setUser(null);
+			goodsOrder.setUser(null);
 			Goods goods=new Goods();
 			Goods goodsOld=goodsOrder.getGoods();
 //			goodsOld.setGoodsComments(null);
@@ -275,7 +275,8 @@ public class UserControllerApp {
 			goods.setGoods_name(goodsOld.getGoods_name());
 			goods.setImages(goodsOld.getImages());
 //			goods.setGoodsComments(null);
-			goodsOrder.setGoodsClone(goods);			
+			goodsOrder.setGoodsClone(goods);	
+			goodsOrder.setGoods(null);
 			goodsOrderList.add(goodsOrder);
 		}
 		Message message=new Message();

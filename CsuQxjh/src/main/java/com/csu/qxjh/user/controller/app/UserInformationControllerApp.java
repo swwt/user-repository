@@ -90,6 +90,16 @@ public class UserInformationControllerApp {
 		message.setResult(userAddress);
 		return message;
 	}
+	@ResponseBody
+	@RequestMapping("/getNotDefaultAddress")
+	public Message getNotDefaultAddress(@RequestParam("userId") String userId){
+		Message message = new Message();
+		message.setCode(1);
+		message.setMessage("获取成功");
+		List<UserAddress> userAddresses=userAddressService.getByNotDefaultByUserId(userId);
+		message.setResult(userAddresses);
+		return message;
+	}
 }
 
 

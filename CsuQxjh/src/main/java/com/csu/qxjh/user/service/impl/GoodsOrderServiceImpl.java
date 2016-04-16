@@ -97,7 +97,7 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 	
 	
 	@Override
-	public void insert(GoodsOrder goodsOrder) {
+	public void insert(GoodsOrder goodsOrder){
 		goodsOrder.setGoods_order_create_time(DateUtil.getDate());
 		goodsOrder.setGoods_order_user_use(1);// 用户保留订单
 		// TODO Auto-generated method stub
@@ -114,7 +114,7 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 	public GoodsOrder getById(String id) {
 		// TODO Auto-generated method stub
 		GoodsOrder goodsOrder=goodsOrderDao.selectById(id);
-		//Hibernate.initialize(goodsOrder.getGoods());
+		Hibernate.initialize(goodsOrder.getGoods());
 		return goodsOrder;
 	}
 
