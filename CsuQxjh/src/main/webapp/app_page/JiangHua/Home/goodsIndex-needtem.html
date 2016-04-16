@@ -517,7 +517,8 @@
 								var goodsPrices=goodsJSON.goodsPrices;
 								if(goodsPrices.length>0){
 									price=goodsPrices[0].goods_price_specific;
-								}								
+								}	
+								priceDescription=goodsPrices[0].goods_price_description;
 								var goodsInformationHtml=""
 														+"<span class=\"goods-name\" style=\"color: #232326;font-size: 16px;\">"
 														+goodsJSON.goods_name+"</span>"
@@ -719,7 +720,7 @@
 			
 			mui.plusReady(function(){
      			mui(".bottom-div").on('tap','.addShoppingCart',function(){
-					
+					//alert(priceDescription);
 					mui.ajax(host+'/user/addShoppingCart',{//添加购物车
 						data:{
 							goodsId:goodsID,

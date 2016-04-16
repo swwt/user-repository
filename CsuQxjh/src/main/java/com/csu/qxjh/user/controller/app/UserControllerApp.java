@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.imageio.spi.RegisterableService;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthStyle;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.hibernate.Hibernate;
 import org.hibernate.engine.transaction.jta.platform.internal.SynchronizationRegistryBasedSynchronizationStrategy;
@@ -134,6 +136,7 @@ public class UserControllerApp {
 	@RequestMapping("/addGoodsOrderAndDeleteCart")//用户添加订单,并删除购物车
 	public Message addGoodsOrderAndDeleteCart(@RequestParam(value="cartData")String cartData,
 			@RequestParam(value="userId")String userId){
+		//System.out.println(cartData);
 		List<CartAmount> list=(List<CartAmount>)JSON.parseArray(cartData,CartAmount.class);
 		List<Map<String,String>> resultList=new ArrayList<Map<String,String>>();
 		User user=new User();
@@ -143,6 +146,7 @@ public class UserControllerApp {
 			GoodsOrder goodsOrder=new GoodsOrder();
 			Goods goods=new Goods();
 			ShoppingCart shoppingCart=shoppingCartService.getById(cartAmount.getCart_id());
+			//System.out.println("----------------------------"+shoppingCart.getShopping_cart_price_description());
 			goods.setId(shoppingCart.getGoods().getId());
 			goodsOrder.setGoods(goods);
 			goodsOrder.setGoods_order_amount(cartAmount.getAmount());
@@ -205,6 +209,7 @@ public class UserControllerApp {
 	public Message addShoppingCart(@RequestParam(value="goodsId")Integer goodsId,
 			@RequestParam(value="userId")String userId,@RequestParam(value="price")String price,
 			@RequestParam(value="priceDescription")String priceDescription){
+		System.out.println(priceDescription);
 		Message message=new Message();
 		message.setCode(1);
 		message.setMessage("添加购物车成功");
@@ -261,11 +266,15 @@ public class UserControllerApp {
 		for(int i=0;i<goodsIds.length;i++){
 			String goodsId=goodsIds[i];
 			GoodsOrder goodsOrder=goodsOrderSerice.getById(goodsId);
-			goodsOrder.setUser(null);
+//			goodsOrder.setUser(null);
 			Goods goods=new Goods();
 			Goods goodsOld=goodsOrder.getGoods();
+//			goodsOld.setGoodsComments(null);
+//			goodsOld.setGoodsPrices(null);
+//			goodsOld.setGoodsDetail(null);
 			goods.setGoods_name(goodsOld.getGoods_name());
 			goods.setImages(goodsOld.getImages());
+//			goods.setGoodsComments(null);
 			goodsOrder.setGoodsClone(goods);			
 			goodsOrderList.add(goodsOrder);
 		}

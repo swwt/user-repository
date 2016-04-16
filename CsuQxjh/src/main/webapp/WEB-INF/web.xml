@@ -31,10 +31,10 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>Set Character Encoding</filter-name>
-		<url-pattern>/pc_sellor/order_list</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 设置servlet编码结束 -->
+	<!-- 设置session延迟到控制层关闭结束 -->
    <filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
 	   <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>

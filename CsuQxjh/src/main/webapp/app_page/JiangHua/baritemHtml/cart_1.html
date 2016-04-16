@@ -610,6 +610,9 @@
 										+"</li>";	
 								}
 							document.getElementById("cartContent").innerHTML=shoppingCartHtml;
+							
+							mui('.mui-numbox').numbox();
+							
 							addTop();
 							}else{//登录失败，给出提醒
 								alert(data.message);

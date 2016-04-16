@@ -49,7 +49,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	@Override
 	public ShoppingCart getById(int id) {
 		// TODO Auto-generated method stub
-		return shoppingDao.selectById(id);
+		ShoppingCart shoppingCart= shoppingDao.selectById(id);
+		Hibernate.initialize(shoppingCart.getGoods());
+		return shoppingCart;
 	}
 
 }
