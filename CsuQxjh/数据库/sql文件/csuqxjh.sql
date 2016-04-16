@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/4/13 21:16:49                           */
+/* Created on:     2016/4/16 15:00:08                           */
 /*==============================================================*/
 
 
@@ -326,6 +326,7 @@ create table goods_order
    goods_order_pay_way  varchar(50) comment '支付方式',
    goods_order_send_way varchar(50) comment '送货方式',
    goods_order_user_use int comment '用户是否还保留记录',
+   goods_order_price_description varchar(50) comment '商品价格对应的描述',
    primary key (id)
 );
 
@@ -617,6 +618,8 @@ create table shopping_cart
    goods_id             int comment '商品编号',
    shopping_cart_amount int comment '数量',
    shopping_cart_time   varchar(20) comment '添加时间',
+   shopping_cart_price  decimal(10,3) comment '价格',
+   shopping_cart_price_description varchar(50) comment '价格描述',
    primary key (id)
 );
 
@@ -657,6 +660,8 @@ create table user_address
    user_address_remark  text comment '备注',
    user_address_change_time varchar(20) comment '修改时间',
    user_address_type    int comment '是否默认',
+   user_address_name    varchar(50) comment '收货人姓名',
+   user_address_phone   varchar(50) comment '收货人电话',
    primary key (id)
 );
 
