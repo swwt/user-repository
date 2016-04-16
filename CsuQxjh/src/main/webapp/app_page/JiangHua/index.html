@@ -76,7 +76,7 @@
 				<span class="mui-tab-label">公益</span>
 			</a>
 			<a class="mui-tab-item" href="baritemHtml/cart_1.html">
-				<span class="mui-icon iconfont icon-cart"><span class="mui-badge">5</span></span>
+				<span class="mui-icon iconfont icon-cart"><!--<span class="mui-badge">5</span>--></span>
 				<span class="mui-tab-label">购物车</span>
 			</a>
 			<a class="mui-tab-item" href="baritemHtml/mine_1.html">
@@ -266,7 +266,7 @@
 						document.getElementById('settingCenter').style.display = "none";
 					}
 					//设置将显示当前webview 
-					if(bar_title == "我的"){
+					if(bar_title == "我的"||bar_title=='购物车'){
 						if (!localStorage.getItem('user')) {
 							showlogin();
 						}else{
@@ -393,6 +393,9 @@
 					var barsIcon = options.detail.barsIcon;
 					var categoryID = options.detail.categoryID;
 					var product_id = options.detail.product_id;
+					var cartData = options.detail.cartData;
+					var dingdanMoneyTotal = options.detail.dingdanMoneyTotal;
+					//alert(dingdanMoneyTotal);
 					//alert("--"+product_id);
 					console.log(id);
 					console.log(href);
@@ -459,7 +462,7 @@
 								url: href,
 								id: id,
 								styles: {
-									popGesture: 'close'
+									popGesture: 'close' 
 								},
 								show: {
 									aniShow: aniShow
@@ -475,7 +478,8 @@
 							//alert("商品详情2");
 							//alert("gongyi");
 							//console.log("账户管理页面：" + title);
-							
+//							alert(cartData);
+//							alert(dingdanMoneyTotal);
 							mui.fire(headerWebView, 'templateFire', {
 								id: id,
 								title: title,
@@ -484,7 +488,9 @@
 								isBars: isBars,
 								barsIcon: barsIcon,
 								categoryID: categoryID,
-								product_id: product_id
+								product_id: product_id,
+								cartData:cartData,
+								dingdanMoneyTotal:dingdanMoneyTotal
 							});
 							//如果为展示category或者商品信息的页面，需要每次都重新加载，因为存在刷新页面信息的东西;
 							//再次加载页面显示的也是之前加载的页面信息，所以这里，在这个页面返回的时候将里面的数据清空

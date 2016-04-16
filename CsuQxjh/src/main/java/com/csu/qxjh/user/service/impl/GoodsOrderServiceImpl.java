@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -86,7 +87,9 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice{
 	@Override
 	public GoodsOrder getById(String id) {
 		// TODO Auto-generated method stub
-		return goodsOrderDao.selectById(id);
+		GoodsOrder goodsOrder=goodsOrderDao.selectById(id);
+		Hibernate.initialize(goodsOrder.getGoods());
+		return goodsOrder;
 	}
 	@Override
 	public List<GoodsOrder> getOrderByNoPay(String userId) {

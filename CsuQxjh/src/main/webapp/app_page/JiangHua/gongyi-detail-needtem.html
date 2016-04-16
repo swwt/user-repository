@@ -10,21 +10,9 @@
 		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
 		<script src="../jsHostName/hostName.js"></script>
 		<style type="text/css">
-			.mui-backdrop {
-				position: fixed;
-				top: 0;
-				right: 0;
-				bottom: 0px;
-				left: 0;
-				z-index: 998;
-				width: 100%;
-				background-color: rgba(0, 0, 0, .6);
-			}
+			
 		</style>
-		<script type="text/javascript">
-			var user_id;
-			var news_id;
-		</script>
+
 	</head>
 
 	<body>
@@ -35,7 +23,7 @@
 
 		<div class="mui-content" style="overflow-x:hidden;margin-bottom: 45px;background-color: #fff;">
 			<div id="newsContent">
-				<div class="gongyi-title" style="width: 100%;height: 150px;border:1px solid#fff;background-image: url(../img/xiaoningmeng.png);background-size: 100% 150px;background-repeat: no-repeat;padding-bottom: 5px;">
+				<!--<div class="gongyi-title" style="width: 100%;height: 150px;border:1px solid#fff;background-image: url(../img/xiaoningmeng.png);background-size: 100% 150px;background-repeat: no-repeat;padding-bottom: 5px;">
 					<p style="width: 100%;text-align: center;font-size: 20px;font-weight: bold;color:#222222;margin-top: 90px;">小柠檬的大抱负</p>
 					<p style="width: 100%; text-align: center;font-size: 14px;margin-bottom: 5px;">2016年03月22日</p>
 				</div>
@@ -55,7 +43,7 @@
 					<p style="text-align: center;padding: 0;">RELATED COMMENTS</p>
 					<ul class="comment-items mui-table-view" style="border: hidden;background-color: #fff;">
 						<li class="comment-item mui-table-view-cell mui-media" style="border: hidden;border:1px solid#fff;">
-							<img src="../img/3.jpg" class="mui-media-object mui-pull-left" style="border-radius: 55%;width: 2.8em;" />
+							<img src="../img/3.jpg"  class="mui-media-object mui-pull-left" style="border-radius: 55%;width: 2.8em;"/>
 							<div class="mui-media-body">
 								<div class="comment-header" style="color: #85878A;font-size: 14px;">
 									<span class="comment-username" style="">风中秋香</span>
@@ -67,7 +55,7 @@
 							</div>
 						</li>
 						<li class="comment-item mui-table-view-cell mui-media" style="">
-							<img src="../img/3.jpg" class="mui-media-object mui-pull-left" style="border-radius: 55%;width: 2.8em;" />
+							<img src="../img/3.jpg"  class="mui-media-object mui-pull-left" style="border-radius: 55%;width: 2.8em;"/>
 							<div class="mui-media-body">
 								<div class="comment-header" style="color: #85878A;font-size: 14px;">
 									<span class="comment-username" style="">风中秋香</span>
@@ -79,41 +67,26 @@
 							</div>
 						</li>
 					</ul>
-				</div>
+				</div>-->
 			</div>
 			<!--<div class="gongyi-footer" style="position: fixed;bottom: 0px;height: 45px;width: 100%;background: #fff;">
 				<span style="width: 30%;display: inline-block;text-align: center;">赞</span>
 				<span style="width: 30%;display: inline-block;text-align: center;">写评论</span>
 				<span style="width: 30%;display: inline-block;text-align: center;">评论</span>
 			</div>-->
-
+			
 		</div>
-		<div id="commit" style="display: none;">
-			<div class="comment-input" >
-				<div style="position: fixed;top: 20%;left:7.5%;width: 85%;z-index: 9999;padding: 30px 10px;background-color: #eee;height: 310px;border-radius: 10px;">
-					<div style="background-color:#F31717;z-index: 9999;color: white;font-weight:bold;height:40px;line-height:40px;margin-left: 5%;width: 90%;text-align: center;margin-bottom: 0;border-radius: 5px 5px 0 0;">评论框</div>
-					<div class="mui-input-row" style="width: 90%;margin-left: 5%;margin-top: 0;margin-bottom: 0;">
-						<textarea id="textarea" rows="6" placeholder="多行文本框"></textarea>
-					</div>
-					<button id="publish-comment" type="button" class="mui-btn" style="background-color:#41CEA9;color:white;font-size:16px;font-weight:bold;width: 90%;margin-left: 5%;height: 40px;">
-				发布评论
-					</button>
-				</div>
-
-			</div>
-			<div class="mui-backdrop"></div>
-		</div>
-		<nav class="mui-bar mui-bar-tab ">
+		<nav class="mui-bar mui-bar-tab " >
 			<a class="mui-tab-item mui-active" href="#" style="height: 45px;line-height: 45px;">
-				<span class="mui-icon iconfont icon-xinyuandan" style="font-size: 19px!important;"><span class="mui-tab-label" style="font-size: 14px;margin-left: 2px;" id="commentpraise">23</span></span>
-			</a>
-			<a id="edit-comment" class="mui-tab-item" href="#">
-				<span class="mui-icon iconfont icon-fenlei" style="font-size: 19px!important;"><span class="mui-tab-label" style="font-size: 14px;margin-left: 2px;" onclick="document.getElementById('commit').style.display='block'">写评论</span></span>
-
+				<span class="mui-icon iconfont icon-xinyuandan" style="font-size: 19px!important;"><span class="mui-tab-label" style="font-size: 14px;margin-left: 2px;">23</span></span>
 			</a>
 			<a class="mui-tab-item" href="#">
-				<span class="mui-icon iconfont icon-xiaolian" style="font-size: 19px!important;"><span class="mui-tab-label" style="font-size: 14px;margin-left: 2px;" id="commentamount">2</span></span>
-
+				<span class="mui-icon iconfont icon-fenlei" style="font-size: 19px!important;"><span class="mui-tab-label" style="font-size: 14px;margin-left: 2px;">写评论</span></span>
+				
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon iconfont icon-xiaolian" style="font-size: 19px!important;"><span class="mui-tab-label" style="font-size: 14px;margin-left: 2px;">2</span></span>
+				
 			</a>
 		</nav>
 
@@ -181,8 +154,6 @@
 											+"</ul>"
 										+"</div>";
 								document.getElementById("newsContent").innerHTML=newsHtml;
-								document.getElementById("commentamount").innerHTML=commentsJSONs.length;
-								document.getElementById("commentpraise").innerHTML=newsJSON.news_praise;
 							}else{//
 								alert(data.message); 
 							}
@@ -194,75 +165,16 @@
 						}
 					});
 			}
+			mui.init({
+				swipeBack: false
+			});
 			mui.plusReady(function() {
 				//adaptive();
 			});
 			window.addEventListener('gongyiPage', function(options) {					
 				var gongyiID = options.detail.gongyiID;
-				news_id=gongyiID;
 				getNewsById(gongyiID);
 			}, false);
-		</script>
-		<script type="text/javascript" charset="utf-8">
-			mui.init({
-				swipeBack: false
-			});
-			var edit_comment_btn;
-			var backdrop;
-			var publish_comment_btn;
-			var commit_dialog;
-			
-			mui.plusReady(function() {
-				//adaptive();
-				edit_comment_btn = document.querySelector('#edit-comment');
-				backdrop = document.querySelector('.mui-backdrop');
-				publish_comment_btn = document.querySelector('#publish-comment');
-				commit_dialog = document.querySelector('#commit');
-				edit_comment_btn.addEventListener('tap', function() {
-					commit_dialog.style.display = 'block';
-				}, false);
-				backdrop.addEventListener('tap', function(){
-					commit_dialog.style.display= 'none';
-				},false);
-				publish_comment_btn.addEventListener('tap', function() {
-					commit_dialog.style.display = 'none';
-				}, false);
-			});
-		</script>
-		<script type="text/javascript">
-			mui("#commit").on('tap','#publish-comment',function(){
-				if(!localStorage.getItem('user')){
-					alert("请先登录");
-				}else{
-					var commentContent=document.getElementById("textarea").value;
-					userId=JSON.parse(localStorage.getItem('user')).id;
-					mui.ajax(host+'/news/addNewsComment',{
-						data:{
-							newsId:news_id,
-							userId:userId,
-							commentContent:commentContent
-						},
-						dataType:'json',//服务器返回json格式数据
-						type:'post',//HTTP请求类型
-						timeout:10000,//超时时间设置为10秒；
-						success:function(data){
-							//服务器返回响应，根据响应结果，分析是否成功；							
-							if(data.code==1){//评论成功
-								alert(data.message);
-								getNewsById(news_id);
-							}else{//登录失败，给出提醒
-								alert(data.message);
-							}
-						},
-						error:function(xhr,type,errorThrown){
-							//异常处理；
-							//console.log(type);
-							alert("出现错误");
-						}
-					});
-				}
-				
-			}) 
 		</script>
 	</body>
 

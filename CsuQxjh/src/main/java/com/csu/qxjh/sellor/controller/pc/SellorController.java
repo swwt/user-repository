@@ -87,12 +87,13 @@ public class SellorController {
 		}
 		return "/web_page/seller/order_list";
 	}
-
 	@ResponseBody
-	@RequestMapping("/testYan")
-	public GoodsOrder testYan(){
-		//GoodsOrder goodsOrder = goodsOrderService.fuzzyPageQuery(1, null);
-		return null;
+	@RequestMapping("/getTest")
+	public Message getTest(){
+		Message message=new Message();
+		GoodsOrder goodsOrder=goodsOrderService.getById("402881e853fad5e50153fad5e9e50000");
+		//System.out.println(goodsOrder.getUser().getId());
+		message.setResult(goodsOrder);
+		return message;
 	}
-	
 }

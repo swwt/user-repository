@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
 	
 	private String id;//主键
-	private String user_name;//用户名(值与主键相同)
+	private String user_name;//用户名(值与主键相同,默认用户名)
 	private String user_login_name;//登录名(用户登陆所使用的登录名,登录名在此限制为不能是纯数字)
 	private String user_real_name;//真实姓名
 	private String user_nickname;//昵称

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,7 +28,8 @@ public class GoodsOrder {
 	private int goods_order_amount;//商品数量
 	private String goods_order_unit;//商品单位
 	private double goods_order_shipping_costs;//运费
-	private double goods_order_price;//商品总价
+	private double goods_order_price;//商品单价
+	private String goods_order_price_description;//商品价格对应的描述
 //	private UserAddress address;//收货地址
 	private String goods_order_create_time;//下单时间
 	private int goods_order_deliver_status;//发货状态，0代表未发货，1代表已发货
@@ -42,6 +44,7 @@ public class GoodsOrder {
 	private String goods_order_pay_way;//支付方式
 	private String goods_order_send_way;//收货方式
 	private int goods_order_user_use;//用户是否保留该订单记录，0代表不保留，1代表保留
+	private Goods goodsClone;//对应goods的另一个版本
 	public GoodsOrder() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -196,6 +199,20 @@ public class GoodsOrder {
 	}
 	public void setGoods_order_user_use(int goods_order_user_use) {
 		this.goods_order_user_use = goods_order_user_use;
+	}
+	@Column
+	public String getGoods_order_price_description() {
+		return goods_order_price_description;
+	}
+	public void setGoods_order_price_description(String goods_order_price_description) {
+		this.goods_order_price_description = goods_order_price_description;
+	}
+	@Transient
+	public Goods getGoodsClone() {
+		return goodsClone;
+	}
+	public void setGoodsClone(Goods goodsClone) {
+		this.goodsClone = goodsClone;
 	}
 
 	

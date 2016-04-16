@@ -90,10 +90,33 @@
 				background-color: #FE9400;
 			}
 		</style>
-
+		<script type="text/javascript">
+			var goodsID;//定义订单的商品id
+			var userId;//定义用户id
+			var price;//此时加入购物车或者立即购买所使用的价格
+			if(!localStorage.getItem('user')){
+//				userId=localStorage.getItem('user');
+//				alert(localStorage.getItem('user'));
+			}		
+			var priceDescription;//价格描述
+			var buttons ;
+			var goods_price_span;
+		</script>
 	</head>
 
 	<body>
+		<!--<header id="top" class="mui-bar mui-bar-nav">
+			<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>
+			</button>
+			<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-right">
+				<span class="mui-icon mui-icon-more"></span>
+			</button>
+			<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-right">
+				<span class="mui-icon mui-icon-compose"></span>
+			</button>
+			<h1 class="mui-title">商品详情</h1>
+		</header>-->
 		<div id="goods" class="mui-content">
 			<div style="margin-bottom: 48px;">
 				<div class="goodCard">
@@ -129,12 +152,14 @@
 						<span class="goods-name" style="color: #232326;font-size: 16px;">湖南湘西沅陵特产&nbsp;大山野生新鲜板栗&nbsp;生板栗&nbsp;毛栗子油栗500克</span>
 
 						<div class="goods-price-des" style="margin-top: 8px;">
-							<button type="button" class="mui-btn mui-btn-danger">11.90元/500g</button>
-							<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">20元/1kg</button>
+							<button type="button" class="mui-btn mui-btn-danger" ><span style="display: none;">11.90</span><span>11.90元/500g</span></button>
+							<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined"><span>20</span>元/1kg</button>
 						</div>
 
 						<div class="mui-row" style="height: 30px;line-height: 30px;margin-top: 8px;">
-							<span class="mui-pull-left goodPrice">￥<span style="font-size: 20px;font-weight: bold;">11.90</span></span>
+							<span class="mui-pull-left goodPrice">￥
+								<span id="goods-price" style="font-size: 20px;font-weight: bold;">11.90</span>
+							</span>
 							<span class="mui-pull-right">
 							<button type="button" class="mui-btn mui-btn-outlined">降价通知</button>
 						</span>
@@ -374,15 +399,49 @@
 				</div>
 
 				<div class="right-cart-item">
-					<span class="mui-tab-label">加入购物车</span>
+					<span class="mui-tab-label addShoppingCart">加入购物车</span>
 				</div>
 
 				<div class="right-purchase-item">
 					<span class="mui-tab-label">立即购买</span>
 				</div>
+
+				<!--<a class="mui-tab-item" style="width: 15%;height: 45px;">
+					<span class="mui-tab-label" >公益</span>
+				</a>
+				<a class="mui-tab-item" style="width: 22.5%;height: 45px;">
+					<span class="mui-tab-label">购物车</span>
+				</a>
+				<a class="mui-tab-item" style="width: 22.5%;height: 45px;">
+					<span class="mui-tab-label">我的</span>
+				</a>-->
 			</div>
 
-		</div>		
+		</div>
+		<!--<div id="bottom" class="mui-col-xs-12">
+			<nav class="mui-bar mui-bar-tab">
+				<a class="mui-tab-item" href="#">
+					<span class="mui-icon mui-icon-home"></span>
+					<span class="mui-tab-label">首页</span>
+				</a>
+				<a class="mui-tab-item" href="#">
+					<span class="mui-icon mui-icon-list"></span>
+					<span class="mui-tab-label">分类</span>
+				</a>
+				<a class="mui-tab-item" href="#">
+					<span class="mui-icon mui-icon-flag"></span>
+					<span class="mui-tab-label">公益</span>
+				</a>
+				<a class="mui-tab-item" href="#">
+					<span class="mui-icon mui-icon-download"><span class="mui-badge">5</span></span>
+					<span class="mui-tab-label">购物车</span>
+				</a>
+				<a class="mui-tab-item" href="#">
+					<span class="mui-icon mui-icon-contact"></span>
+					<span class="mui-tab-label">我的</span>
+				</a>
+			</nav>
+		</div>-->
 		<script type="text/javascript" src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/main.js"></script>
 		<script type="text/javascript">
@@ -456,19 +515,48 @@
 								
 								//2.设置商品名称价格等基本信息
 								var goodsPrices=goodsJSON.goodsPrices;
+								if(goodsPrices.length>0){
+									price=goodsPrices[0].goods_price_specific;
+								}								
 								var goodsInformationHtml=""
 														+"<span class=\"goods-name\" style=\"color: #232326;font-size: 16px;\">"
 														+goodsJSON.goods_name+"</span>"
-														+"<div class=\"goods-price-des\" style=\"margin-top: 8px;\">"
-															+"<button type=\"button\" class=\"mui-btn mui-btn-danger\">11.90元/500g</button>"
-															+"<button type=\"button\" class=\"mui-btn mui-btn-danger mui-btn-outlined\">20元/1kg</button>"
+														+"<div class=\"goods-price-des\" style=\"margin-top: 8px;\">";
+											if(goodsPrices.length>0){
+												goodsInformationHtml=goodsInformationHtml
+												+"<button type=\"button\" class=\"mui-btn mui-btn-danger\">"+"<span style=\"display: none;\">"
+												+goodsPrices[0].goods_price_specific+"</span>"+"<span>"+goodsPrices[0].goods_price_description+"</span>"+"</button>";
+												for(var s=1;s<goodsPrices.length;s++){
+													goodsInformationHtml=goodsInformationHtml
+													+"<button type=\"button\" class=\"mui-btn mui-btn-danger mui-btn-outlined\">"+"<span style=\"display: none;\">"
+													+goodsPrices[s].goods_price_specific+"</span>"+"<span>"+goodsPrices[s].goods_price_description+"</span>"+"</button>";
+												}								                     
+											}else{
+												goodsInformationHtml=goodsInformationHtml
+												+"<button type=\"button\" class=\"mui-btn mui-btn-danger\">"+"<span style=\"display: none;\"></span>"+'暂无标价'+"</button>";                      
+											}
+                                    
+												goodsInformationHtml=goodsInformationHtml
 														+"</div>"
-														+"<div class=\"mui-row\" style=\"height: 30px;line-height: 30px;margin-top: 8px;\">"
-														+"<span class=\"mui-pull-left goodPrice\">￥<span style=\"font-size: 20px;font-weight: bold;\">"+goodsDetailJSON.goods_detail_now_price+"</span></span>"
+														+"<div class=\"mui-row\" style=\"height: 30px;line-height: 30px;margin-top: 8px;\">";
+												if(goodsPrices.length>0){
+													goodsInformationHtml=goodsInformationHtml
+															+"<span class=\"mui-pull-left goodPrice\">￥"
+																+"<span id=\"goods-price\" style=\"font-size: 20px;font-weight: bold;\">"+goodsPrices[0].goods_price_specific+"</span>";
+												}else{
+													goodsInformationHtml=goodsInformationHtml
+															+"<span class=\"mui-pull-left goodPrice\">"
+																+"<span id=\"goods-price\" style=\"font-size: 20px;font-weight: bold;\"></span>";
+												}
+												
+												
+												goodsInformationHtml=goodsInformationHtml
+															+"</span>"
 															+"<span class=\"mui-pull-right\">"
-																+"<button type=\"button\" class=\"mui-btn mui-btn-outlined\">降价通知</button>"
+															+"<button type=\"button\" class=\"mui-btn mui-btn-outlined\">降价通知</button>"
 															+"</span>"
 														+"</div>";
+						
 								document.getElementById("goodsInformation").innerHTML=goodsInformationHtml;
 								
 								//3.促销，送至，运费等其他内容
@@ -541,6 +629,7 @@
 																+"<span class=\"CommentStar mui-pull-left\">";
 									var goodsComent=goodsComments[i];
 									var starAmount=goodsComent.goods_comment_grade;
+									//alert(starAmount);
 									for(var j=0;j<starAmount;j++){//满格五角星
 										goodsCommentHtml=goodsCommentHtml
 																+"<span class=\"mui-icon mui-icon-star-filled\"></span>";		
@@ -586,6 +675,28 @@
 									+"</li>"
 								+"</ul>";
 								document.getElementById("item4mobile").innerHTML=goodsCommentHtml;
+								
+								
+								mui.ready(function(){
+										buttons = mui('.goodCard .goodTag .goods-price-des button');
+										goods_price_span = document.querySelector('#goods-price');
+										
+										mui('.goodCard .goodTag .goods-price-des').on('tap', 'button', function(){
+											var price_button = this;
+											var span = this.getElementsByTagName('span')[0];
+											price=span.innerText;
+											var span1=this.getElementsByTagName('span')[1];
+											priceDescription=span1.innerText;
+											goods_price_span.innerText = span.innerText;
+											this.classList.remove('mui-btn-outlined');
+											mui.each(buttons, function(index, item){
+												if(item != price_button){
+													this.classList.add('mui-btn-outlined');
+												}
+											}); 
+										});
+								});
+								userId=JSON.parse(localStorage.getItem('user')).id;
 							}else{//获取失败，给出提醒
 								alert(data.message);
 							}
@@ -603,12 +714,70 @@
 			mui.init({
 				swipeBack: true
 			});
-		window.addEventListener('goodsIndexDetailPage', function(options) {					
-				var goodsID = options.detail.goodsID;
-				getGoodsDetail(goodsID);
-				alert("goodsDetailById:"+goodsID);
-				}, false);
 			
+
+			
+			mui.plusReady(function(){
+     			mui(".bottom-div").on('tap','.addShoppingCart',function(){
+					
+					mui.ajax(host+'/user/addShoppingCart',{//添加购物车
+						data:{
+							goodsId:goodsID,
+							userId:userId,
+							price:price,
+							priceDescription:priceDescription
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；							
+							if(data.code==1){//
+								mui.toast(data.message);								
+							}else{//
+								mui.toast(data.message);	
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+				}) 
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+//			mui.ready(function(){
+//				buttons = mui('.goodCard .goodTag .goods-price-des button');
+//				goods_price_span = document.querySelector('#goods-price');
+//				
+//				mui('.goodCard .goodTag .goods-price-des').on('tap', 'button', function(){
+//					var price_button = this;
+//					var span = this.getElementsByTagName('span')[0];
+//					
+//					goods_price_span.innerText = span.innerText;
+//					this.classList.remove('mui-btn-outlined');
+//					mui.each(buttons, function(index, item){
+//						if(item != price_button){
+//							this.classList.add('mui-btn-outlined');
+//						}
+//					});
+//				});
+//				
+//				
+//			});
+			window.addEventListener('goodsIndexDetailPage', function(options) {					
+				goodsID = options.detail.goodsID;
+				getGoodsDetail(goodsID);
+				//alert("goodsDetailById:"+goodsID);
+			}, false);
 		</script>
 	</body>
 

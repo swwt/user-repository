@@ -60,8 +60,10 @@ public class NewsControllerApp {
 			//Hibernate.initialize(newsComments);
 			NewsComment newsComment=iterator.next();
 			User user=newsComment.getUser();
+			user.setGoodsOrders(null);
 			user.setCollections(null);
-			user.setGoodsOrders(null);	
+			user.setShoppingCarts(null);
+			user.setUserAddresses(null);
 		}
 		message.setResult(news);
 		return message;
@@ -99,7 +101,7 @@ public class NewsControllerApp {
 	public Message addNewsComment(@RequestParam(value="newsId")Integer newsId,
 			@RequestParam(value="commentContent")String commentContent,@RequestParam(value="userId") String userId){
 		Message message=new Message();
-		message.setMessage("添加评论成功");
+		message.setMessage("评论成功");
 		message.setCode(1);
 		NewsComment newsComment=new NewsComment();
 		newsComment.setNews_comment_content(commentContent);

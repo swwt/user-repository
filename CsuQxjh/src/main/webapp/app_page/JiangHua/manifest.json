@@ -234,7 +234,8 @@
 					"Home/goodsIndex-needtem.html",
 					"template/search-template.html",
 					"Home/searchPage.html",
-					"search-template.html"
+					"search-template.html",
+					"Home/edit-order-needtem.html"
 				],
 				"priority": 0
 			},
@@ -372,7 +373,9 @@
 					"Mine/user-manage.html",
 					"Mine/user-manage-needtem.html"
 				],
-				"refer": [],
+				"refer": [
+					"Mine/login.html"
+				],
 				"priority": 0
 			},
 			"baritemHtml/cart_1.html": {
@@ -390,7 +393,8 @@
 					"fonts/iconfont.ttf",
 					"js/md5.js",
 					"fonts/mui.ttf",
-					"test.html"
+					"test.html",
+					"jsHostName/hostName.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -402,7 +406,8 @@
 					"fonts/iconfont.ttf",
 					"css/own.css",
 					"js/mui.min.js",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"jsHostName/hostName.js"
 				],
 				"refer": [
 					"Mine/address.html"
@@ -414,7 +419,14 @@
 					"js/mui.picker.min.js",
 					"css/mui.picker.min.css",
 					"js/city.data-3.js",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"css/own.css",
+					"js/own.js",
+					"js/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"fonts/iconfont.ttf",
+					"jsHostName/hostName.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -638,6 +650,57 @@
 					"img/categoriesBanner.jpg"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"Mine/register-needtem.html": {
+				"resources": [
+					"css/own.css",
+					"js/own.js",
+					"js/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"js/ajax.js",
+					"fonts/iconfont.ttf",
+					"js/load.js",
+					"js/md5.js",
+					"fonts/mui.ttf",
+					"jsHostName/hostName.js"
+				],
+				"refer": [
+					"Mine/login.html"
+				],
+				"priority": 0
+			},
+			"Home/edit-order-needtem.html": {
+				"resources": [
+					"images/goods/memory.png",
+					"fonts/mui.ttf",
+					"css/own.css",
+					"js/own.js",
+					"js/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"jsHostName/hostName.js"
+				],
+				"refer": [
+					"Home/pay-needtem.html",
+					"Home/select-address-needtem.html"
+				],
+				"priority": 0
+			},
+			"Home/select-address-needtem.html": {
+				"resources": [
+					"fonts/iconfont.ttf",
+					"css/own.css",
+					"js/own.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"Mine/address.html"
+				],
 				"priority": 0
 			}
 		},

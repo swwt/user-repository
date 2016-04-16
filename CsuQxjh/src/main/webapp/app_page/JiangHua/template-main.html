@@ -87,6 +87,8 @@
 				var barsIcon = options.detail.barsIcon;
 				//categoryID = options.detail.categoryID;
 				var product_id=options.detail.product_id;
+				var cartData=options.detail.cartData;
+				var dingdanMoneyTotal=options.detail.dingdanMoneyTotal;
 				console.log("Template Html:"+href);
 				
 				if (isBars) {
@@ -120,6 +122,12 @@
 				});
 				mui.fire(contentWebview,'goodsIndexDetailPage',{//商品详情
 						goodsID:product_id
+				});
+//				alert(cartData);
+				//alert(dingdanMoneyTotal);
+				mui.fire(contentWebview,'edit_order_page',{//填写订单
+						cartData:cartData,
+						dingdanMoneyTotal:dingdanMoneyTotal
 				});
 			},false);
 			

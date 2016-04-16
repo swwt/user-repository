@@ -124,7 +124,11 @@ public class GoodsControllerApp {
 			GoodsComment goodsComment=iterator.next();
 			goodsComment.getUser().setGoodsOrders(null);
 			goodsComment.getUser().setCollections(null);
+			goodsComment.getUser().setShoppingCarts(null);
+			goodsComment.getUser().setUserAddresses(null);
+			//System.out.println(goodsComment.getGoods_comment_grade());
 		}
+		System.out.println(goods.getGoodsPrices());
 		message.setCode(1);
 		message.setMessage("获取成功");
 		message.setResult(goods);
