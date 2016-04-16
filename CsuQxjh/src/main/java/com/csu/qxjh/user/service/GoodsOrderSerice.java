@@ -32,4 +32,9 @@ public interface GoodsOrderSerice {
 	 * @return
 	 */
 	public Message markAsSendOut(String orderId);
+	
+	/**添加订单
+	 * @param goodsOrder
+	 */
+	public void save(GoodsOrder goodsOrder);
 }	

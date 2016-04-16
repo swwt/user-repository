@@ -34,7 +34,7 @@
                 </a>
                 <ul class="submenu">
                     <li><a href="user-list.html">商品列表</a></li>
-                    <li><a href="new-user.html">新增商品</a></li>
+                    <li><a href="/pc_goods/turn_to_goods_release">新增商品</a></li>
                 </ul>
             </li>
             <li>
