@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,28 +23,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "goods_order")
 public class GoodsOrder {
-	private String id;// 主键
-	private Goods goods;// 所属商品
-	private User user;// 所属用户
+
+	private String id;//主键
+	private Goods goods;//所属商品
+	private User user;//所属用户
+	private int goods_order_amount;//商品数量
+	private String goods_order_unit;//商品单位
+	private double goods_order_shipping_costs;//运费
+	private double goods_order_price;//商品单价
+	private String goods_order_price_description;//商品价格对应的描述
+	private String goods_order_create_time;//下单时间
+	private int goods_order_deliver_status;//发货状态，0代表未发货，1代表已发货
+	private int goods_order_gain_status;//收货状态，0代表未收货，1代表已收货(只有收获了，该订单才能算是商品对应的销量的一部分)
+	private String goods_order_remark;//备注，买家留言
+	private int goods_order_evaluate_status;//是否评价，0代表未评价，1代表已评价
+	private int goods_order_payment_status;//是否付款，0代表未付款，1代表已付款
+	private int goods_order_gift_type;//是否有赠品，0代表没有，1代表有
+//	private PromotionGifs promotionGifs;//赠品
+	private int promotion_gifs_amount;//赠品数量
+	private String promotion_name;//促销类型内容（对应的是offer_promotion_type中的优惠促销的中文表格名）
+	private String goods_order_pay_way;//支付方式
+	private String goods_order_send_way;//收货方式
+	private int goods_order_user_use;//用户是否保留该订单记录，0代表不保留，1代表保留
+	private Goods goodsClone;//对应goods的另一个版本
+
 	private Sellor sellor;// 所属卖家
-	private int goods_order_amount;// 商品数量
-	private String goods_order_unit;// 商品单位
-	private double goods_order_shipping_costs;// 运费
-	private double goods_order_price;// 商品总价
-	// private UserAddress address;//收货地址
-	private String goods_order_create_time;// 下单时间
-	private int goods_order_deliver_status;// 发货状态，0代表未发货，1代表已发货
-	private int goods_order_gain_status;// 收货状态，0代表未收货，1代表已收货(只有收获了，该订单才能算是商品对应的销量的一部分)
-	private String goods_order_remark;// 备注，买家留言
-	private int goods_order_evaluate_status;// 是否评价，0代表未评价，1代表已评价
-	private int goods_order_payment_status;// 是否付款，0代表未付款，1代表已付款
-	private int goods_order_gift_type;// 是否有赠品，0代表没有，1代表有
-	// private PromotionGifs promotionGifs;//赠品
-	private int promotion_gifs_amount;// 赠品数量
-	private String promotion_name;// 促销类型内容（对应的是offer_promotion_type中的优惠促销的中文表格名）
-	private String goods_order_pay_way;// 支付方式
-	private String goods_order_send_way;// 收货方式
-	private int goods_order_user_use;// 用户是否保留该订单记录，0代表不保留，1代表保留
 
 	public GoodsOrder() {
 		super();
@@ -83,6 +87,7 @@ public class GoodsOrder {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sellor_id")
+	@JsonIgnore
 	public Sellor getSellor() {
 		return sellor;
 	}
@@ -245,6 +250,20 @@ public class GoodsOrder {
 
 	public void setGoods_order_user_use(int goods_order_user_use) {
 		this.goods_order_user_use = goods_order_user_use;
+	}
+	@Column
+	public String getGoods_order_price_description() {
+		return goods_order_price_description;
+	}
+	public void setGoods_order_price_description(String goods_order_price_description) {
+		this.goods_order_price_description = goods_order_price_description;
+	}
+	@Transient
+	public Goods getGoodsClone() {
+		return goodsClone;
+	}
+	public void setGoodsClone(Goods goodsClone) {
+		this.goodsClone = goodsClone;
 	}
 
 }

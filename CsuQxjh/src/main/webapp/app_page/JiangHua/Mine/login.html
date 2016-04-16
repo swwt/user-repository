@@ -28,7 +28,7 @@
 <script type="text/javascript">
 				function loginAjax(){	 
 					
-					alert(1);
+					//alert(1);
 					var user_login_name=document.getElementById("user_login_name").value;
 					var user_password=document.getElementById("user_password").value;
 	
@@ -85,14 +85,14 @@
 			<span class="mui-icon mui-icon-person" style="font-size: 4em; border: 2px solid gray; border-radius: 50%; color: gray;"></span>
 		</div>
 		<div class="mui-card" style="margin-top: 20px;">
-			<form class="mui-input-group">
+			<form class="mui-input-group" id="loginuserpass">
 				<div class="mui-input-row">
 					<label><span class="mui-icon iconfont icon-zhanghao"></span></label>
-					<input id='user_login_name' type="text" class="mui-input-clear" value="18142642529" placeholder="请输入手机号或用户名" />
+					<input id='user_login_name' type="text" class="mui-input-clear"  placeholder="请输入手机号或用户名" />
 				</div>
 				<div class="mui-input-row">
 					<label><span class="mui-icon iconfont icon-mimaxiugai"></span></label>
-					<input id='user_password' type="password" class="mui-input-clear" value="123456" placeholder="请输入密码" />
+					<input id='user_password' type="password" class="mui-input-clear"  placeholder="请输入密码" />
 				</div>
 			</form>
 		</div>
@@ -237,5 +237,23 @@
 			}
 		}
 	</script>
+<!--	<script type="text/javascript">
+		if(!localStorage.getItem('user')){
+			
+		}else{
+			var telephone=JSON.parse(localStorage.getItem('user')).user_phone;
+			var pass=JSON.parse(localStorage.getItem('user')).user_password;
+			var loginhtml=
+				+"<div class=\"mui-input-row\">"
+					+"<label><span class=\"mui-icon iconfont icon-zhanghao\"></span></label>"
+					+"<input id='user_login_name' type=\"text\" class=\"mui-input-clear\" value=\""+telephone+"\" placeholder=\"请输入手机号或用户名\" />"
+				+"</div>"
+				+"<div class=\"mui-input-row\">"
+					+"<label><span class=\"mui-icon iconfont icon-mimaxiugai\"></span></label>"					
+					+"<input id='user_password' type=\"password\" class=\"mui-input-clear\"  value=\""+pass+"\"placeholder=\"请输入密码\" />"
+				+"</div>";
+			
+		}
+	</script>-->
 </body>
 </html>

@@ -14,6 +14,8 @@ import com.csu.qxjh.goods.dao.GoodsCatagory1Dao;
 import com.csu.qxjh.goods.dao.RecommendCatagoryDao;
 import com.csu.qxjh.goods.pojo.GoodsCatagory1;
 
+
+
 @Repository
 public class GoodsCatagory1DaoImpl implements GoodsCatagory1Dao{
 	

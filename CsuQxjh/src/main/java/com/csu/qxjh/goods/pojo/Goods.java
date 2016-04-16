@@ -1,6 +1,6 @@
 package com.csu.qxjh.goods.pojo;
 
-import java.util.List;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="goods")
-public class Goods {
+public class Goods implements Serializable{
 	private int id;//主键编号
 	private GoodsCatagory2 goodsCatagory2;//与商品二级分类多对一
 	private Sellor sellor;//与卖家多对一
@@ -180,9 +179,12 @@ public class Goods {
 
 	
 	
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="goods")
 	public Set<GoodsImage> getImages() {
 		return images;
+	}
+	public void setImages(Set<GoodsImage> images) {
+		this.images = images;
 	}
 	
 	@Transient
@@ -192,10 +194,9 @@ public class Goods {
 	public void setGoods_grade(Map<String, Integer> goods_grade) {
 		this.goods_grade = goods_grade;
 	}
-	public void setImages(Set<GoodsImage> images) {
-		this.images = images;
-	}
+
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="goods")	
+	@JsonIgnore
 	public Set<GoodsOrder> getGoodsOrders() {
 		return goodsOrders;
 	}
@@ -218,6 +219,7 @@ public class Goods {
 	public void setGoodsDetail(GoodsDetail goodsDetail) {
 		this.goodsDetail = goodsDetail;
 	}
+	
 	@Transient
 	public int getGoodsCommentNumber() {
 		return goodsCommentNumber;
@@ -225,6 +227,7 @@ public class Goods {
 	public void setGoodsCommentNumber(int goodsCommentNumber) {
 		this.goodsCommentNumber = goodsCommentNumber;
 	}
+	
 	@Transient
 	public int getGoodsSells() {
 		return goodsSells;
@@ -232,6 +235,7 @@ public class Goods {
 	public void setGoodsSells(int goodsSells) {
 		this.goodsSells = goodsSells;
 	}
+	
 	@OneToMany(mappedBy="goods",fetch=FetchType.LAZY)
 	public Set<GoodsPrice> getGoodsPrices() {
 		return goodsPrices;
@@ -239,7 +243,7 @@ public class Goods {
 	public void setGoodsPrices(Set<GoodsPrice> goodsPrices) {
 		this.goodsPrices = goodsPrices;
 	}
-	
+
 	
 	
 }

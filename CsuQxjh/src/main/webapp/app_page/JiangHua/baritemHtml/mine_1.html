@@ -124,6 +124,16 @@
 			}
 			
 		</style>
+		<script type="text/javascript">
+			var userJSON;
+		</script>
+		<script type="text/javascript">
+			function setUserName(){
+				userJSON=JSON.parse(localStorage.getItem('user'));
+				var user_name=userJSON.user_name.substring(0,10);//默认用户名
+				document.getElementById("usernameAfterLogin").innerHTML=user_name;
+			}			
+		</script>
 	</head>
 
 	<body>
@@ -137,7 +147,7 @@
 				</div>
 				<div class="user-info-after-login">
 					<span id="usernameAfterLogin">张三</span>
-					<span id="memberForUser">金牌会员</span>
+				<!--	<span id="memberForUser">金牌会员</span>-->
 				</div>
 				<a id="userManage" class="manage-info-for-user" href="../Mine/user-manage-needtem.html">
 					<span class="mui-icon mui-icon-forward mui-pull-right" style="font-size: 18px;margin-top: 2px;">
@@ -234,7 +244,7 @@
 			</ul>
 
 			<ul id="logoutBtn" class="mui-table-view" onclick="" style="background-color:#F23030;margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;">
-				<li class="mui-table-view-cell" style="text-align: center;">
+				<li class="mui-table-view-cell logoutRemoveUser" style="text-align: center;">
 					<span style="color: #FFF;">退出登录</span>
 				</li>
 			</ul>
@@ -257,6 +267,16 @@
 			var userManageDiv;
 			
 			mui.plusReady(function() {
+				//退出登陆监听
+				mui(".mui-table-view").on('tap','.logoutRemoveUser',function(){
+					localStorage.removeItem('user');
+					mui.plusReady(function(){
+     								 mui.openWindow({
+									  url: '../Mine/login.html', 
+									  id:'login'
+								  });
+					});
+				}) 
 				parentWebView = plus.webview.currentWebview().parent();
 				aniShow = getaniShow();
 				touxiangimg = document.getElementById('touxiangimg');
@@ -318,8 +338,12 @@
 				
 				mui('.mui-table-view').on('tap', 'a', function() {
 					var id = this.getAttribute('href');
+					//alert(id);
+					
 					var href = this.href;
+					//alert(href);
 					var title = this.innerText;
+					//alert(title);
 					var isBars = false;
 					var barsIcon = '';
 					//检测已经存在sessionkey否者运行下面的登陆代码
@@ -401,6 +425,20 @@
 					touxiangword.style.color = 'indianred';
 				}
 			}
+		</script>
+		<script type="text/javascript">
+			setUserName();
+			mui.plusReady(function() {
+			currentWebview = plus.webview.currentWebview();
+			currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次				
+						if(plus.networkinfo.getCurrentType()==1){
+							alert("当前没有网络");
+						}else{
+							//getCatagory(); 
+							location.reload();
+						}					
+			});
+		});	
 		</script>
 	</body>
 

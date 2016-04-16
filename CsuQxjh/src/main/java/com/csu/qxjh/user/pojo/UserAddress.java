@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /*
  * 收货地址
  */
@@ -17,6 +19,8 @@ import javax.persistence.Table;
 public class UserAddress {
 	private int id;//主键
 	private User user;//所属用户
+	private String user_address_name;//收货人姓名
+	private String user_address_phone;//收货人电话
 	private String user_address_province;//省份
 	private String user_address_city;//市
 	private String user_address_county;//区/县
@@ -83,11 +87,26 @@ public class UserAddress {
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
+	@JsonIgnore
 	public User getUser(){
 		return user;
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	@Column
+	public String getUser_address_name() {
+		return user_address_name;
+	}
+	public void setUser_address_name(String user_address_name) {
+		this.user_address_name = user_address_name;
+	}
+	@Column
+	public String getUser_address_phone() {
+		return user_address_phone;
+	}
+	public void setUser_address_phone(String user_address_phone) {
+		this.user_address_phone = user_address_phone;
 	}
 	
 }

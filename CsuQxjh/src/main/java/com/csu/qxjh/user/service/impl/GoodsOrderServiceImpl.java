@@ -113,7 +113,9 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 	@Override
 	public GoodsOrder getById(String id) {
 		// TODO Auto-generated method stub
-		return goodsOrderDao.selectById(id);
+		GoodsOrder goodsOrder=goodsOrderDao.selectById(id);
+		Hibernate.initialize(goodsOrder.getGoods());
+		return goodsOrder;
 	}
 
 	@Override

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../css/own.css"/>
     <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
-    
+     <script src="../jsHostName/hostName.js"></script>
     <style type="text/css">
     		.emptyAddress {
     			text-align: center;
@@ -45,18 +45,18 @@
 		<h1 class="mui-title">地址管理</h1>
 	</header>
 	
-	<div class="mui-content own-content-padding">
+	<div class="mui-content own-content-padding" id="addressContent">
 		<div  class="emptyAddress own-left-nav-color">
-			<span>空空如也</span>
+			<span>新增地址</span>
 			<br />
-			<span>先添加一个收货地址吧</span>
+			<span>添加一个收货地址</span> 
 			<br />
 			<button type="button" class="mui-btn">
 				<span class="mui-icon iconfont icon-tianjia" style="padding: 0px 5px; color: gray;"></span>
 			</button>
-		</div>
+	    </div> 
 		<ul id="addressList" class="mui-table-view">
-			<li class="mui-table-view-cell">
+		<!--	<li class="mui-table-view-cell">
 				<h5 class="name">colin</h5>
 				<h5 class="number">15882017353</h5>
 				<p class="address mui-ellipsis-2">中国四川省成都市高新区大源村南华路双祥社区25号院n栋n单元n楼n号电梯n号门n栋n单元n楼n号电梯n号门</p>
@@ -75,11 +75,11 @@
 				<h5 class="name">colin</h5>
 				<h5 class="number">15882017353</h5>
 				<p class="address mui-ellipsis-2">中国四川省成都市高新区大源村南华路双祥社区25号院n栋n单元n楼n号电梯n号门n栋n单元n楼n号电梯n号门</p>
-			</li>
+			</li>-->
 		</ul>
-		<div>
+     	<!--<div>
 			<img src="http://file.huihoo.com//images/products/SP-10014/large.jpg?t=1438324882998"  style="width: 100%;"/>
-		</div>
+		</div>-->
 	</div>
 	
 	<script src="../js/mui.min.js" charset="UTF-8"></script>
@@ -87,13 +87,12 @@
 	<script type="text/javascript" charset="UTF-8">
 		mui.init({
 			swipeBack:true
-		});
-		
-		
+		});				
 		var addressWebview;
 		var emptyAddress;
 		var emptyAddressBtn;
-		mui.plusReady(function(){
+		function setEvent(){
+			mui.plusReady(function(){
 			emptyAddress = document.querySelector('.emptyAddress');
 			emptyAddressBtn = emptyAddress.querySelector('button');
 			
@@ -114,6 +113,9 @@
 			if (true) {
 				emptyAddress.style.display = 'block';
 				emptyAddressBtn.addEventListener('tap',function(){
+					mui.fire(addressWebview,'updateAddress',{//公益详情
+						update:'add'
+					});
 					showaddressWeb();
 				},false);
 			}else {
@@ -122,21 +124,38 @@
 			
 			//地址修改点击事件
 			mui('.mui-table-view').on('tap','.mui-table-view-cell',function(){
-				var cell = this;
-				var name = this.children[0];
-				var phoneNum = this.children[1];
-				var address = this.children[2];
 				
+				var cell = this;
+				var addressId = this.getElementsByTagName("input")[0].value;
+				var name = this.getElementsByTagName("h5")[0].innerHTML;
+				var phoneNum = this.getElementsByTagName("h5")[1].innerHTML;
+				var address = this.getElementsByTagName("p")[0].innerHTML;
+				var user_address_type = this.getElementsByTagName("input")[1].value;
+				mui.fire(addressWebview,'updateAddress',{//公益详情
+						addressId:addressId,
+						name:name,
+						phoneNum:phoneNum,
+						address:address,
+						user_address_type:user_address_type,
+						update:'update'
+				});
 				showaddressWeb();
 			});
 			
 			//接收rightbar事件
 			window.addEventListener('pressRightBar',function(){
+				
+				mui.fire(addressWebview,'updateAddress',{//公益详情
+						update:'add'
+				});
 				showaddressWeb();
 			},false);
 		});
+		}
+		
 		
 		function showaddressWeb(){
+			//alert(1);
 			var aniShow = getaniShow();
 			//第二次进来的时候不会进plusReady
 			if (!addressWebview.getURL() || !addressWebview) {
@@ -157,7 +176,86 @@
 				addressWebview.show(aniShow);
 			}
 		}
+
 	</script>
-	
+	<script type="text/javascript">
+    	function getAddress(){
+    		var userJSON=JSON.parse(localStorage.getItem('user'));
+			var userId=userJSON.id;
+			mui.ajax(host+'/userInformation/getUserAddress',{
+						data:{
+							userId:userId,//用户id							
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){						
+							if(data.code==1){
+								//alert(data.message);							
+								var addressHtml="";
+								if(data.result==""){
+									addressHtml=addressHtml
+									+"<div  class=\"emptyAddress own-left-nav-color\">"
+										+"<span>空空如也</span>"
+										+"<br />"
+										+"<span>先添加一个收货地址吧</span>"
+										+"<br />"
+										+"<button type=\"button\" class=\"mui-btn\">"
+											+"<span class=\"mui-icon iconfont icon-tianjia\" style=\"padding: 0px 5px; color: gray;\"></span>"
+										+"</button>"
+									+"</div>";
+									document.getElementById("addressContent").innerHTML=addressHtml;
+								}else{
+									//alert(data.result);
+									var addressJSONs= data.result;									
+									for(var i=0;i<addressJSONs.length;i++){
+										var addressJSON=addressJSONs[i];
+										addressHtml=addressHtml
+										+"<li class=\"mui-table-view-cell\">"
+											+"<input type=\"hidden\" value=\""+addressJSON.id+"\">"
+											+"<h5 class=\"name\">"+addressJSON.user_address_name+"</h5>";
+										if(addressJSON.user_address_type==1){
+											addressHtml=addressHtml
+											+"<span style=\"padding: 2px 8px;background-color: #F23030;font-size:12px;color: white;\">默认</span>"
+										
+										}
+											
+										addressHtml=addressHtml
+											+"<h5 class=\"number\">"+addressJSON.user_address_phone+"</h5>"
+											+"<p class=\"address mui-ellipsis-2\">"+addressJSON.user_address_province+" "
+											+addressJSON.user_address_city+" "+addressJSON.user_address_county
+											+" "+addressJSON.user_address_street+"</p>"
+											+"<input type=\"hidden\" value=\""+addressJSON.user_address_type+"\">"
+										+"</li>";
+									}
+									document.getElementById("addressList").innerHTML=addressHtml;
+								}
+								setEvent(); 
+							}else{//登录失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+    	}
+    </script>
+    <script type="text/javascript">
+	getAddress();
+	mui.plusReady(function() {
+		currentWebview = plus.webview.currentWebview();
+		currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次				
+					if(plus.networkinfo.getCurrentType()==1){
+						alert("当前没有网络");
+					}else{
+						//getCatagory(); 
+						location.reload();
+					}					
+		});
+	});			
+	</script>
 </body>
 </html>

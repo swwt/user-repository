@@ -33,9 +33,9 @@
 		<filter-name>Set Character Encoding</filter-name>
 		<url-pattern>/pc_sellor/order_list</url-pattern>
 	</filter-mapping>
-
+	
 	<!-- 设置servlet编码结束 -->
-	<filter>
+   <filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
 	   <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
 	   <init-param>
@@ -45,7 +45,7 @@
    </filter>
    <filter-mapping>
 	   <filter-name>OpenSessionInViewFilter</filter-name>
-	   <url-pattern>/*</url-pattern>
+	   <url-pattern>/pc_sellor/*</url-pattern>
    </filter-mapping>
 	<!--  -->
 	<servlet>

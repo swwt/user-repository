@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>E3父子模版，可直接用index的父子模版</title>
+
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/own.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<script src="../jsHostName/hostName.js"></script>
+		<style type="text/css">
+			.mui-icon,
+			.mui-bar-nav .mui-title {
+				color: white;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav own-main-background-color ">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">填写订单</h1>
+		</header>-->
+
+		<div class="mui-content">
+
+			<ul id="list" class="mui-table-view " style="margin-top: 3px;">
+				<li class="mui-table-view-cell" style="padding-left: 10px;border-bottom: 2px dotted#999999;">
+					<a id="select-address" class="mui-navigate-right" href="#">
+						<div style="font-size: 16px;margin-left:0.7em;margin-top: 4px;color: #232326;">
+							<span style="margin-left: 1em;margin-right: 1em;"></span>
+							<span style="margin-right: 0.8em;">还没有收货地址，点击新建一个</span>
+							
+						</div>
+						<div class="mui-icon mui-icon-location" style="margin-left:0;font-weight:bold;font-size: 18px;color: #81838E;margin-top: 10px;">
+							<span style="font-size:14px;color: #232326;font-weight: 100;">？</span>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" style="padding-left: 10px;border-bottom: 2px dotted#999999;">
+					<a id="select-address" class="mui-navigate-right" href="#">
+						<div style="font-size: 16px;margin-left:0.7em;margin-top: 4px;color: #232326;">
+							<span style="margin-left: 1em;margin-right: 1em;">张珊</span>
+							<span style="margin-right: 0.8em;">152****1726</span>
+							<span style="padding: 3px 5px;background-color: #F23030;font-size:12px;color: white;">默认</span>
+						</div>
+						<div class="mui-icon mui-icon-location" style="margin-left:0;font-weight:bold;font-size: 18px;color: #81838E;margin-top: 10px;">
+							<span style="font-size:14px;color: #232326;font-weight: 100;">湖南省长沙市天心区韶山南路68号中南大学铁道学院</span>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" style="padding-right:1em;padding-left: 10px;border-top: 0.5em solid#F0F2F5;">
+					<a class="mui-navigate-right" href="#">
+						<img src="../images/goods/memory.png" class="mui-media-object mui-push-left" style="width: 3em;height:3.2em;border-radius: 45%;margin-left: 5px;" />
+						<span class=" mui-media-body" style="display: inline;float: right;margin-top: 1.2em;margin-right: 1em;">共2件</span>
+						<span class=" mui-media-body" style="display: inline;float: right;margin-top: 1.2em;margin-right: 1em;">共2件</span>
+						<span class=" mui-media-body" style="display: inline;float: right;margin-top: 1.2em;margin-right: 1em;">共2件</span>
+							
+					</a>
+				</li>
+				
+				<li class="mui-table-view-cell" style="border-top: none;">
+					<a class="mui-navigate-right">
+						<span style="float: left;">支付配送</span>
+						<div style="float: right;text-align: right;margin-right: 1em;">
+							<p style="color: #222222;">在线支付</p>
+							<p style="color: #222222;">圆通快递</p>
+							<p style="color: #222222;">2016-04-14 09:00-15:00</p>
+						</div>
+					
+					</a>
+				</li>
+				
+				<li class="mui-table-view-cell" style="border-top: none;border-top: 0.5em solid#F0F2F5;">
+						<div id="">
+							<span>商品金额</span>
+							<span style="float: right;color:#F23030">￥ 236.00</span>
+						</div>	
+						<div>
+							<span >运费</span>
+							<span style="float: right;color:#F23030">+&nbsp;￥ 0.00</span>
+						</div>
+				</li>
+			</ul>
+
+		</div>
+		
+		<div class="commit-order" style="background-color:white;position: fixed;bottom: 0;height:45px;width:100%;">
+			<div id="commitOrderBtn" style="width: 35%;text-align:center;color:white;font-weight:bold;background-color: #F23030;float:right;height: 45px;line-height: 45px;">
+				提交订单
+			</div>
+			
+			<div style="width: 65%;height: 45px;line-height: 45px;float:left;text-align: right;padding-right: 0.5em;color: #F23030;">
+				实付款：￥<span>236.00</span>
+			</span>
+			
+		</div>
+
+		<script src="../js/mui.min.js" charset="UTF-8"></script>
+		<script src="../js/own.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: false
+			});
+			
+			var commitOrderDiv;
+			var aniShow;
+			var selectAddressDiv;
+			
+			mui.plusReady(function() {
+				aniShow = getaniShow();
+				commitOrderDiv = document.querySelector("#commitOrderBtn");
+				selectAddressDiv =document.querySelector('#select-address');
+				
+				commitOrderDiv.addEventListener('tap', function(){
+					
+					mui.openWindow({
+						url: "pay-needtem.html",
+						id: "pay-needtem.html",
+						styles:{
+							top:0
+						},
+						extras:{
+							
+						},
+						show:{
+							autoShow: true //页面loaded事件发生后自动显示，默认为true 
+						},
+						waiting: {  
+        					autoShow: true, //自动显示等待框，默认为true  
+       						title: '正在加载...' //等待对话框上显示的提示内容 
+       					}
+					});
+					
+				}, false);
+				
+				selectAddressDiv.addEventListener('tap', function(){
+					mui.openWindow({
+						url: "select-address-needtem.html",
+						id: "select-address-needtem.html",
+						styles:{
+							top:0
+						},
+						extras:{
+							
+						},
+						show:{
+							autoShow: true //页面loaded事件发生后自动显示，默认为true 
+						},
+						waiting: {  
+        					autoShow: true, //自动显示等待框，默认为true  
+       						title: '正在加载...' //等待对话框上显示的提示内容 
+       					}
+					});
+				}, false);
+				
+			});
+			window.addEventListener('edit_order_page', function(options) {				
+				var orderStr = options.detail.cartData;
+				var dingdanMoneyTotal = options.detail.dingdanMoneyTotal;
+				//alert(orderStr);
+				var cartJSON = JSON.parse(orderStr);
+				var goodsIdStr="";
+				for(var n=0;n<cartJSON.length;n++){
+					var order=cartJSON[n];
+					goodsIdStr=goodsIdStr+order.goodsId+" ";
+				}
+				getAddress(goodsIdStr,dingdanMoneyTotal);
+		}, false);
+		</script>
+	</body>
+	<script type="text/javascript">
+	var userId=JSON.parse(localStorage.getItem('user')).id;
+	var addressOrderHtml="";
+	function getOrder(goodsIdStr,dingdanMoneyTotal){
+			mui.ajax(host+'/user/getGoodsOrders',{
+						data:{
+							goodsIdStr:goodsIdStr,//用户id							
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){						
+							if(data.code==1){
+								//alert(data.message);							
+							  	var orderJSONs=data.result;
+							  	for(var k=0;k<orderJSONs.length;k++){
+							  		//alert(1);
+							  		var orderJSON=orderJSONs[k];
+							  		//alert(orderJSONs.length);
+							  		//alert(JSON.stringify(orderJSON.goodsClone));
+							  		var orderImages=orderJSON.goodsClone.images;
+							  		//alert(orderImages);
+							  		//alert(host+orderImages[0]);
+							  		addressOrderHtml=addressOrderHtml
+							  		+"<li class=\"mui-table-view-cell\" style=\"padding-right:1em;padding-left: 10px;border-top: 0.5em solid#F0F2F5;\">"
+										+"<a class=\"mui-navigate-right\" href=\"#\">"
+											+"<img src=\""+host+orderImages[0].goods_image_src+"\" class=\"mui-media-object mui-push-left\" style=\"width: 3em;height:3.2em;border-radius: 45%;margin-left: 5px;\" />"											
+											+"<span class=\" mui-media-body\" style=\"display: inline;float: right;margin-top: 1.2em;margin-right: 1em;\">"+orderJSON.goodsClone.goods_name+"</span>"
+											+"<span class=\" mui-media-body\" style=\"display: inline;float: right;margin-top: 1.2em;margin-right: 1em;\">"+orderJSON.goods_order_price_description+"</span>"
+											+"<span class=\" mui-media-body\" style=\"display: inline;float: right;margin-top: 1.2em;margin-right: 1em;\">共"+orderJSON.goods_order_amount+"件</span>"
+										+"</a>"
+									+"</li>"									
+									+"<li class=\"mui-table-view-cell\" style=\"border-top: none;\">"
+										+"<a class=\"mui-navigate-right\">"
+											+"<span style=\"float: left;\">支付配送</span>"
+											+"<div style=\"float: right;text-align: right;margin-right: 1em;\">"
+												+"<p style=\"color: #222222;\">在线支付</p>"
+												+"<p style=\"color: #222222;\">圆通快递</p>"
+												+"<p style=\"color: #222222;\">"+orderJSON.goods_order_create_time+"</p>"
+											+"</div>"										
+										+"</a>"
+									+"</li>";
+							  	}
+							  	addressOrderHtml=addressOrderHtml
+							  		+"<li class=\"mui-table-view-cell\" style=\"border-top: none;border-top: 0.5em solid#F0F2F5;\">"
+										+"<div id=\"\">"
+											+"<span>商品总金额</span>"
+											+"<span style=\"float: right;color:#F23030\">￥ "+dingdanMoneyTotal+"</span>"
+										+"</div>"	
+										+"<div>"
+											+"<span >运费</span>"
+											+"<span style=\"float: right;color:#F23030\">+&nbsp;￥ 0.00</span>"
+										+"</div>"
+									+"</li>";
+								document.getElementById("list").innerHTML=addressOrderHtml;
+							}else{//登录失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+		}
+		function getAddress(goodsIdStr,dingdanMoneyTotal){
+			mui.ajax(host+'/userInformation/getDefaultAddress',{
+						data:{
+							userId:userId//用户id
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；							
+							if(data.code==1){
+								//alert(data.message);
+								var addressJSON=data.result;
+								//alert(addressJSON);
+								if(addressJSON==null){
+									addressOrderHtml=addressOrderHtml
+									+"<li class=\"mui-table-view-cell\" style=\"padding-left: 10px;border-bottom: 2px dotted#999999;\">"
+										+"<a id=\"select-address\" class=\"mui-navigate-right\" href=\"#\">"
+											+"<div style=\"font-size: 16px;margin-left:0.7em;margin-top: 4px;color: #232326;\">"
+												+"<span style=\"margin-left: 1em;margin-right: 1em;\"></span>"
+												+"<span style=\"margin-right: 0.8em;\">还没有收货地址，点击新建一个</span>"												
+											+"</div>"
+											+"<div class=\"mui-icon mui-icon-location\" style=\"margin-left:0;font-weight:bold;font-size: 18px;color: #81838E;margin-top: 10px;\">"
+												+"<span style=\"font-size:14px;color: #232326;font-weight: 100;\">？</span>"
+											+"</div>"
+										+"</a>"
+									+"</li>";
+								}else{
+									alert(1);
+									addressOrderHtml=addressOrderHtml
+									+"<li class=\"mui-table-view-cell\" style=\"padding-left: 10px;border-bottom: 2px dotted#999999;\">"
+									+"<a id=\"select-address\" class=\"mui-navigate-right\" href=\"#\">"
+										+"<div style=\"font-size: 16px;margin-left:0.7em;margin-top: 4px;color: #232326;\">"
+											+"<span style=\"margin-left: 1em;margin-right: 1em;\">"+addressJSON.user_address_name+"</span>"
+											+"<span style=\"margin-right: 0.8em;\">"+addressJSON.user_address_phone+"</span>"
+											+"<span style=\"padding: 3px 5px;background-color: #F23030;font-size:12px;color: white;\">默认</span>"
+										+"</div>"
+										+"<div class=\"mui-icon mui-icon-location\" style=\"margin-left:0;font-weight:bold;font-size: 18px;color: #81838E;margin-top: 10px;\">"
+											+"<span style=\"font-size:14px;color: #232326;font-weight: 100;\">"+addressJSON.user_address_province+" "
+											+addressJSON.user_address_city+" "+addressJSON.user_address_county
+											+" "+addressJSON.user_address_street+"</span>"
+										+"</div>"
+									+"</a>"
+									+"</li>";
+								}								
+								getOrder(goodsIdStr,dingdanMoneyTotal);
+								
+							}else{
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+		}
+		
+	</script>
+	
+	<script type="text/javascript">
+//	mui.plusReady(function() {
+//		currentWebview = plus.webview.currentWebview();
+//		currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次				
+//					if(plus.networkinfo.getCurrentType()==1){
+//						alert("当前没有网络");
+//					}else{
+//						//getCatagory(); 
+//						//alert("刷新");
+//						location.reload();
+//					}					
+//		});
+//	});	
+	</script>
+</html>

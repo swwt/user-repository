@@ -118,12 +118,5 @@ public class SellorController {
 		message = goodsOrderService.markAsSendOut(orderId);
 		return message;
 	}
-
-	@ResponseBody
-	@RequestMapping("/testYan")
-	public GoodsOrder testYan() {
-		GoodsOrder goodsOrder = goodsOrderService.getById("297e8373540fee2101540fee2a290000");
-		return goodsOrder;
-	}
-
 }
+

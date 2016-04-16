@@ -94,6 +94,20 @@ public class TestEnvironment {
     @Resource
     private GoodsOrderSerice goodsOrderSerice;
     @Test
+    public void test31(){
+    	shoppingCartService.getShoppingCart("402881e853dcd3ae0153dcd3b1680000");
+    }
+    @Test
+    public void test30(){
+    	Goods goods=goodsService.getById(1);
+    	
+    }
+    @Test
+    public void test29(){
+    	Goods goods=goodsService.getById(1);
+    	System.out.println(goods.getGoodsPrices());
+    }
+    @Test
     public void test28(){
     	GoodsOrder goodsOrder = goodsOrderSerice.getById("402881e853fad5e50153fad5e9e50000");
     	System.out.println(goodsOrder);

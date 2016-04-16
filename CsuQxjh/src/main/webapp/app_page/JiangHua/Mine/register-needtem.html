@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../css/own.css"/>
     <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    <script src="../jsHostName/hostName.js"></script>
     <style type="text/css">
     		/*下面两项是重置muicss的输入框label和input之间的宽比率*/
     		.mui-input-row label {
@@ -16,6 +17,40 @@
     			width: 80%;
     		}
     </style>
+    <script type="text/javascript">
+    	function registerAjax(){
+    		var phone=document.getElementById("account").value;
+    		var pass=document.getElementById("psd").value;
+    		mui.ajax(host+'/user/register',{
+						data:{
+							user_phone:phone,
+							user_password:pass
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；							
+							if(data.code==1){//登陆成功跳转到首页
+								alert(data.message);															
+								mui.plusReady(function(){
+     								 mui.openWindow({
+									  url: 'login.html', 
+									  id:'login'
+								  });
+								});
+							}else{//登录失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+    	}
+    </script>
 </head>
 <body>
 	
@@ -29,7 +64,7 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label><span class="mui-icon iconfont icon-zhanghao"></span></label>
-					<input id="account" class="mui-input-clear" type="text" placeholder="输入手机或则邮箱" />
+					<input id="account" class="mui-input-clear" type="text" placeholder="输入手机" />
 				</div>
 				<div class="mui-input-row">
 					<label><span class="mui-icon iconfont icon-mimaxiugai"></span></label>
@@ -42,7 +77,7 @@
 			</form>
 		</div>
 		<div class="mui-button-row" style="margin: 10px 15px;">
-			<button type="button" class="mui-btn mui-btn-block own-btn-green" style="padding: 5px 0px;">注册</button>
+			<button type="button" class="mui-btn mui-btn-block own-btn-green" style="padding: 5px 0px;" onclick="registerAjax()">注册</button>
 		</div>
 	</div>
 	

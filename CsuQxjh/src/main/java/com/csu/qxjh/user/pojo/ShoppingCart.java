@@ -23,6 +23,8 @@ public class ShoppingCart {
 	private Goods goods;//商品
 	private int shopping_cart_amount;//该商品对应的数量
 	private String shopping_cart_time;//添加时间
+	private double shopping_cart_price;//此字段的需要是应为一个商品有多种价格形式
+	private String shopping_cart_price_description;//对上面的价格进行描述
 	public ShoppingCart() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -66,5 +68,24 @@ public class ShoppingCart {
 	public void setShopping_cart_time(String shopping_cart_time) {
 		this.shopping_cart_time = shopping_cart_time;
 	}
+	@Column
+	public double getShopping_cart_price() {
+		return shopping_cart_price;
+	}
+	public void setShopping_cart_price(double shopping_cart_price) {
+		this.shopping_cart_price = shopping_cart_price;
+	}
+	@Column
+	public String getShopping_cart_price_description() {
+		return shopping_cart_price_description;
+	}
+	public void setShopping_cart_price_description(String shopping_cart_price_description) {
+		this.shopping_cart_price_description = shopping_cart_price_description;
+	}
+
+	
+
+
+
 	
 }
