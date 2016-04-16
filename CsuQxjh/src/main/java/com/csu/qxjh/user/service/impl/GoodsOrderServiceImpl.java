@@ -163,6 +163,14 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 		}
 		return message;
 	}
+
+
+
+	@Override
+	public void save(GoodsOrder goodsOrder) {
+		// TODO Auto-generated method stub
+		goodsOrderDao.save(goodsOrder);
+	}
 	
 	
 }

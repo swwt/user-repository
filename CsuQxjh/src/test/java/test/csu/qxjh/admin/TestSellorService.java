@@ -44,7 +44,7 @@ public class TestSellorService {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	GoodsOrderDao goodsOrderDao;
 
@@ -53,7 +53,7 @@ public class TestSellorService {
 
 		Sellor sellor = new Sellor();
 
-		sellor.setSellor_name("钢铁侠");
+		sellor.setSellor_name("蜘蛛侠");
 		sellor.setSellor_real_name("Helawdafalo man");
 		sellor.setSellor_nickname("susdafaw hero");
 		sellor.setSellor_login_name("adasd");
@@ -97,59 +97,69 @@ public class TestSellorService {
 	public void testInsertGoodsOrder() {
 
 		Map<String, Object> data = userService.fuzzyPageQuery(1, null);
-		
+
 		List<User> users = (List<User>) data.get("users");
-		
-//		for(int i=0;i<5;i++){
+
+		for (int i = 0; i < 10; i++) {
 			GoodsOrder goodsOrder = new GoodsOrder();
 			goodsOrder.setUser(users.get((int) (Math.random() * 8)));
-			goodsOrder.setSellor(sellorDao.selectById("297e83735417970d0154179714260000"));
-			goodsOrder.setGoods_order_create_time(DateUtil.getDate2());
-			
-			int payment_status = (int)(Math.random()*2);
-			
+			Sellor sellor = sellorDao.selectById("297e8373541e7ca501541e7cad2c0000");
+			if (sellor == null) {
+				System.out.println("null");
+			}
+			goodsOrder.setSellor(sellor);
+
+			String date = DateUtil.getDate2();
+			System.out.println(date);
+			goodsOrder.setGoods_order_create_time(date);
+
+			int payment_status = (int) (Math.random() * 2);
+
 			int deliver_status = -1;
-			if(payment_status == 1)deliver_status = (int)(Math.random()*2);
-			
+			if (payment_status == 1)
+				deliver_status = (int) (Math.random() * 2);
+
 			int gain_status = -1;
-			if(deliver_status == 1)gain_status = (int)(Math.random()*2);
-			
+			if (deliver_status == 1)
+				gain_status = (int) (Math.random() * 2);
+
 			goodsOrder.setGoods_order_payment_status(payment_status);
 			goodsOrder.setGoods_order_deliver_status(deliver_status);
 			goodsOrder.setGoods_order_gain_status(gain_status);
 
 			goodsOrder.setGoods_order_amount((int) (Math.random() * 10));
 
-			goodsOrderService.insert(goodsOrder);
-//		}
-		
-		
+			goodsOrderService.save(goodsOrder);
+		}
+
 	}
 
 	@Test
 	public void testQueryGoodsorderByStatus() {
-		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(1, null, -1, -1, -1,"297e837354178e330154178e3ba30000");
+		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(1, null, -1, -1, -1,
+				"297e837354178e330154178e3ba30000");
 		List<GoodsOrder> goodsOrders = (List<GoodsOrder>) data.get("goodsOrders");
 		for (GoodsOrder goodsOrder : goodsOrders) {
 			System.out.println(goodsOrder.getSellor().getId());
 			System.out.println(goodsOrder.getGoods_order_create_time());
-//			System.out.println(goodsOrder.getGoods_order_deliver_status());
-//			System.out.println(goodsOrder.getGoods_order_gain_status());
+			// System.out.println(goodsOrder.getGoods_order_deliver_status());
+			// System.out.println(goodsOrder.getGoods_order_gain_status());
 			System.out.println("--------");
 		}
 	}
-	
+
 	@Test
 	public void testOrderConditions() {
-		String[] orderConditions = {"goods_order_create_time"};
+		String[] orderConditions = { "goods_order_create_time" };
 		Map<String, String> conditions = new HashMap<>();
 		conditions.put("sellor_id", "297e837354178e330154178e3ba30000");
-		List<GoodsOrder> goodsOrders = goodsOrderDao.pageQuery(GoodsOrder.class, conditions, 1, 8, orderConditions, true);
+		List<GoodsOrder> goodsOrders = goodsOrderDao.pageQuery(GoodsOrder.class, conditions, 1, 8, orderConditions,
+				true);
 		for (GoodsOrder goodsOrder : goodsOrders) {
 			System.out.println(goodsOrder.getSellor().getId());
 			System.out.println(goodsOrder.getGoods_order_create_time());
 			System.out.println("--------");
 		}
 	}
-	
+
 }

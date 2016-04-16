@@ -3,6 +3,8 @@ package com.csu.qxjh.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.Test;
+
 public class DateUtil {
 	public static String getDate() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

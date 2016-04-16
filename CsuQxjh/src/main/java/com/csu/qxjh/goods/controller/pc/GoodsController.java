@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.csu.qxjh.goods.dao.GoodsCatagory1Dao;
@@ -45,11 +46,11 @@ public class GoodsController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/get_goods_catagory_info")
-	public Message releaseGoods() {
+	@RequestMapping("/release_goods_info")
+	public Message releaseGoods(@RequestParam(value="files")MultipartFile[] multipartFiles) {
 		Message message = new Message();
 		
-		
+		System.out.println(multipartFiles.length);
 		
 		return message;
 	}

@@ -137,8 +137,9 @@
 									<span class="charactersleft">可用插件直接代替textarea</span>
 								</div>
 								<div class="span11 field-box actions">
-									<input type="button" class="btn-glow primary" value="发布商品" />
-									<span>—</span> <input type="reset" value="重置信息" class="reset" />
+									<input type="button" class="btn-glow primary" value="发布商品"
+										id="releaseGoodsBtn" /> <span>—</span> <input type="reset"
+										value="重置信息" class="reset" />
 								</div>
 							</form>
 						</div>
@@ -174,7 +175,8 @@
 		src="${pageContext.request.contextPath}/web_page/seller/js/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/web_page/seller/js/theme.js"></script>
-
+<script
+		src="${pageContext.request.contextPath}/web_page/seller/js/ajaxfileupload.js"></script>
 	<script type="text/javascript">
 		$(function() {
 
@@ -231,8 +233,7 @@
 					type : "POST", //提交方式
 					url : "/pc_goods/get_goods_catagory_info",//路径
 					dataType : "json",//返回的json格式的数据
-					data : {
-					},//数据，这里使用的是Json格式进行传输
+					data : {},//数据，这里使用的是Json格式进行传输
 					success : function(jsonString) {//返回数据根据结果进行相应的处理
 						var goodsCatagory1sArray = new Array();
 						var goodsCatagory2sArray = new Array();
@@ -264,27 +265,54 @@
 						for (var i = 0; i < goodsCatagory1sArray_length; i++) {
 							var value = goodsCatagory1sArray[i];
 							$("#goodsCatagory1Select").append(
-									"<option value='" + value + "'>" + value + "</option>");
+									"<option value='" + value + "'>" + value
+											+ "</option>");
 						}
 
-						$("#goodsCatagory1Select").change(
-								function() {
-									$("#goodsCatagory2Select").empty();
-									var index = $(this)[0].selectedIndex;
-									//        alert(index);
-									var goodsCatagory2s = goodsCatagory2sArray[index];
-									for (var i = 0; i < goodsCatagory2s.length; i++) {
-										var value = goodsCatagory2s[i];
-										$("#goodsCatagory2Select").append(
-												"<option value='" + value + "'>" + value
-														+ "</option>");
-									}
-								});
+						$("#goodsCatagory1Select")
+								.change(
+										function() {
+											$("#goodsCatagory2Select").empty();
+											var index = $(this)[0].selectedIndex;
+											//        alert(index);
+											var goodsCatagory2s = goodsCatagory2sArray[index];
+											for (var i = 0; i < goodsCatagory2s.length; i++) {
+												var value = goodsCatagory2s[i];
+												$("#goodsCatagory2Select")
+														.append(
+																"<option value='" + value + "'>"
+																		+ value
+																		+ "</option>");
+											}
+										});
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						alert(errorThrown);
 					}
 				});
+
+		$("#releaseGoodsBtn").click(function() {
+			alert("releaseGoodsBtn");
+			$.ajaxFileUpload({
+			      url: '/pc_goods/release_goods_info',
+			      type: 'post',
+			      secureuri: false, //一般设置为false
+			      fileElementId: 'files', // 上传文件的id、name属性名
+			      dataType: 'json', //返回值类型，一般设置为json、application/json
+			      data: {//传递参数到服务器
+			        "saveItem":"avatar"
+			      },
+			      success: function(data, status){
+			        if(data.saveStatus == "success"){
+			          alert("保存成功！");
+			        }
+			        else("保存失败！");
+			      },
+			      error: function(data, status, e){
+			        alert(e);
+			      }
+			    });
+		});
 	</script>
 
 </body>
