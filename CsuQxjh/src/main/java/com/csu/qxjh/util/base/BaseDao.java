@@ -70,7 +70,7 @@ public interface BaseDao<T> {
 	 * @param isDesc是否逆序
 	 * @return实体类数组
 	 */
-	List<T> pageQuery(Class<T> entityClass, Map<String, String> conditions, int start, int length, boolean isDesc);
+	List<T> pageQuery(Class<T> entityClass, Map<String, String> conditions, int start, int length, String[] orderConditions ,boolean isDesc);
 
 	/**条件查询结果记录的个数
 	 * @param entityClass实体类
@@ -89,7 +89,7 @@ public interface BaseDao<T> {
 	 * @param isDesc是否逆序
 	 * @return实体类数组
 	 */
-	List<T> pageFuzzyQuery(Class<T> entityClass, Map<String, String> conditions, int start, int length, boolean isDesc);
+	List<T> pageFuzzyQuery(Class<T> entityClass, Map<String, String> conditions, int start, int length,String[] orderConditions , boolean isDesc);
 
 	/**模糊模糊查询记录的个数
 	 * @param entityClass

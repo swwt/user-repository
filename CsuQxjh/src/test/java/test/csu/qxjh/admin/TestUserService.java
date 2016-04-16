@@ -42,8 +42,9 @@ public class TestUserService {
 	@Test
 	public void testFuzzyPageQuery(){
 		Map<String, String> conditions = new HashMap<>();
-		conditions.put("user_login_name", "man");
-		List<User> users = userDao.pageFuzzyQuery(User.class, conditions, 0, 8, true);
+		conditions.put("user_login_name", "2");
+		String[] orderConditions = {"id"};
+		List<User> users = userDao.pageFuzzyQuery(User.class, conditions, 0, 8,orderConditions,true);
 		System.out.println(users.size());
 	}
 	

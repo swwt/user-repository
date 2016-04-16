@@ -22,7 +22,7 @@ public class AdminDaoImpl extends BaseDaoImpl<Admin> implements AdminDao {
 		Map<String, String> conditions = new HashMap<>();
 		conditions.put(this.ADMIN_LOGIN_NAME, adminLoginName);
 		conditions.put(this.ADMIN_PASSWORD, adminPassword);
-		List<Admin> admins = pageQuery(Admin.class, conditions, 1, 1, false);
+		List<Admin> admins = pageQuery(Admin.class, conditions, 1, 1,null, false);
 		if (admins.size()!=1) {
 			return null;
 		}
@@ -36,7 +36,7 @@ public class AdminDaoImpl extends BaseDaoImpl<Admin> implements AdminDao {
 		
 		Map<String, String> conditions = new HashMap<>();
 		conditions.put(this.ADMIN_LOGIN_NAME, adminLoginName);
-		List<Admin> admins = pageQuery(Admin.class, conditions, 1, 1, false);
+		List<Admin> admins = pageQuery(Admin.class, conditions, 1, 1, null,false);
 		if (admins.size()!=1) {
 			return false;
 		}

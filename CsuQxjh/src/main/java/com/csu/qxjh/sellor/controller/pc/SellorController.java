@@ -1,11 +1,13 @@
 package com.csu.qxjh.sellor.controller.pc;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.sellor.service.SellorService;
 import com.csu.qxjh.user.pojo.GoodsOrder;
+import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.service.GoodsOrderSerice;
 import com.csu.qxjh.util.MD5Util;
 import com.csu.qxjh.util.pojo.Message;
@@ -75,25 +78,45 @@ public class SellorController {
 	}
 
 	@RequestMapping("/order_list")
-	public String orderList(@RequestParam(value = "targetPageIndex",defaultValue="1") int targetPageIndex,
-			@RequestParam(value = "key",defaultValue="") String key) {
+	public String orderList(@RequestParam(value = "targetPageIndex", defaultValue = "1") int targetPageIndex,
+			@RequestParam(value = "key", defaultValue = "") String key,
+			@RequestParam(value = "payment_status", defaultValue = "-1") int payment_status,
+			@RequestParam(value = "deliver_status", defaultValue = "-1") int deliver_status,
+			@RequestParam(value = "gain_status", defaultValue = "-1") int gain_status) {
 		final String basePath = "/pc_sellor/order_list";
 
-		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(targetPageIndex, key);
+		Sellor sellor = (Sellor) session.getAttribute("sellor");
+		
+		Map<String, Object> data = goodsOrderService.fuzzyPageQuery(targetPageIndex, key, payment_status,
+				deliver_status, gain_status,sellor.getId());
+
+		data.put("payment_status", payment_status);
+		data.put("deliver_status", deliver_status);
+		data.put("gain_status", gain_status);
+
 		request.setAttribute("data", data);
 		request.setAttribute("basePath", basePath);
-		if (request == null) {
-			System.out.println("request is null");
-		}
+
+		/*List<GoodsOrder> goodsOrders = (List<GoodsOrder>) data.get("goodsOrders");
+		for (GoodsOrder goodsOrder : goodsOrders) {
+			User user = goodsOrder.getUser();
+			System.out.println(user.toString());
+		}*/
+
 		return "/web_page/seller/order_list";
 	}
+
+	/**
+	 * 标记订单为已经发货状态
+	 * 
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping("/getTest")
-	public Message getTest(){
-		Message message=new Message();
-		GoodsOrder goodsOrder=goodsOrderService.getById("402881e853fad5e50153fad5e9e50000");
-		//System.out.println(goodsOrder.getUser().getId());
-		message.setResult(goodsOrder);
+	@RequestMapping("/markAsSendOut")
+	public Message markAsSendOut(@RequestParam(value="orderId")String orderId) {
+		Message message = null;
+		message = goodsOrderService.markAsSendOut(orderId);
 		return message;
 	}
 }
+

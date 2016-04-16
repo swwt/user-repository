@@ -61,14 +61,16 @@ public class AdminServiceImpl implements AdminService {
 		String key = param_key;
 		List<Admin> admins = null;
 
+		String[] orderConditions ={"id"};
 		/* 如果查询关键为空 */
 		if (key == null || key.equals("")) {
-			admins = adminDao.pageQuery(Admin.class, null, (pageIndex - 1) * pageSize, pageSize, true);
+			
+			admins = adminDao.pageQuery(Admin.class, null, (pageIndex - 1) * pageSize, pageSize, orderConditions,true);
 			pageCounts = adminDao.pageQueryCounts(Admin.class, null);
 		} else {
 			Map<String, String> conditions = new HashMap<>();
 			conditions.put("admin_name", key);
-			admins = adminDao.pageFuzzyQuery(Admin.class, conditions, (pageIndex - 1) * pageSize, pageSize, true);
+			admins = adminDao.pageFuzzyQuery(Admin.class, conditions, (pageIndex - 1) * pageSize, pageSize, orderConditions,true);
 			pageCounts = adminDao.pageFuzzyQueryCounts(Admin.class, conditions);
 		}
 

@@ -31,7 +31,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>Set Character Encoding</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/pc_sellor/order_list</url-pattern>
 	</filter-mapping>
 	
 	<!-- 设置servlet编码结束 -->
