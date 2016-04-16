@@ -104,7 +104,7 @@ public class TestSellorService {
 			GoodsOrder goodsOrder = new GoodsOrder();
 			goodsOrder.setUser(users.get((int) (Math.random() * 8)));
 			goodsOrder.setSellor(sellorDao.selectById("297e83735417970d0154179714260000"));
-			goodsOrder.setGoods_order_create_time(DateUtil.getDate());
+			goodsOrder.setGoods_order_create_time(DateUtil.getDate2());
 			
 			int payment_status = (int)(Math.random()*2);
 			

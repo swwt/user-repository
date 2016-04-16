@@ -39,16 +39,19 @@ public class GoodsController {
 
 		List<GoodsCatagory1> goodsCatagory1s = goodsCatagory1Dao.selectAll();
 
-		for (GoodsCatagory1 goodsCatagory1 : goodsCatagory1s) {
-			List<GoodsCatagory2> goodsCatagory2s = goodsCatagory1.getGoodsCatagory2List();
-			for (GoodsCatagory2 goodsCatagory2 : goodsCatagory2s) {
-				goodsCatagory2.setGoodsList(null);
-			}
-		}
-
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("goodsCatagory1s", goodsCatagory1s);
 		return jsonObject.toJSONString();
+	}
+
+	@ResponseBody
+	@RequestMapping("/get_goods_catagory_info")
+	public Message releaseGoods() {
+		Message message = new Message();
+		
+		
+		
+		return message;
 	}
 
 }

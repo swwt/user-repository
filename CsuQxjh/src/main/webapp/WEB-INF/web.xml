@@ -46,6 +46,7 @@
    <filter-mapping>
 	   <filter-name>OpenSessionInViewFilter</filter-name>
 	   <url-pattern>/pc_sellor/*</url-pattern>
+	   <url-pattern>/pc_goods/get_goods_catagory_info</url-pattern>
    </filter-mapping>
 	<!--  -->
 	<servlet>
