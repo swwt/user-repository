@@ -1,5 +1,7 @@
 package test.csu.qxjh.sellor;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
 import com.csu.qxjh.goods.dao.GoodsCatagory1Dao;
 import com.csu.qxjh.goods.dao.GoodsCatagory2Dao;
 import com.csu.qxjh.goods.pojo.GoodsCatagory1;
@@ -44,6 +47,24 @@ public class TestGoodsCategory {
 		goodsCatagory2.setGoods_catagory_2_type(0);
 		goodsCatagory2.setGoodsCatagory1(goodsCatagory1);
 		goodsCatagory2Dao.insert(goodsCatagory2);
+	}
+	
+	@Test
+	public void testRetriveGoodsCatagory1(){
+		
+		List<GoodsCatagory1> goodsCatagory1s = goodsCatagory1Dao.selectAll();
+		
+		for(GoodsCatagory1 goodsCatagory1:goodsCatagory1s){
+			List<GoodsCatagory2> goodsCatagory2s = goodsCatagory1.getGoodsCatagory2List();
+			for(GoodsCatagory2 goodsCatagory2:goodsCatagory2s){
+				goodsCatagory2.setGoodsList(null);
+			}
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("goodsCatagory1s", goodsCatagory1s);
+		System.out.println(jsonObject.toJSONString());
+		
 	}
 	
 }

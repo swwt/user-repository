@@ -80,6 +80,14 @@
                                             <option value="" >分类</option>
                                             <option value="" >分类</option>
                                         </select>
+                                        <select title="商品分类">
+                                            <option value="" >分类</option>
+                                            <option value="" >分类</option>
+                                            <option value="" >分类</option>
+                                            <option value="" >分类</option>
+                                            <option value="" >分类</option>
+                                            <option value="" >分类</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="span12 field-box">

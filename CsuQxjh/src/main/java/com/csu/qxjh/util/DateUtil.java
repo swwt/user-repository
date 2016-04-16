@@ -9,6 +9,4 @@ public class DateUtil {
 		String date=simpleDateFormat.format(new Date());
 		return date;
 	}
-	
-	
 }

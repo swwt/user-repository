@@ -67,7 +67,7 @@ public class SellorController {
 			session.setAttribute("sellor", message.getResult());
 		}
 		Sellor sellor = (Sellor) message.getResult();
-		sellor.setCollections(null);
+		if (sellor!=null)sellor.setCollections(null);
 		return message;
 	}
 
