@@ -50,7 +50,8 @@
 			"test.html",
 			"test2.html",
 			"baritemHtml/test2.html",
-			"Home/edit-order-needtem.html"
+			"Home/edit-order-needtem.html",
+			"Home/search-needtem.html"
 		]
 	},
 	"template-main.html": {
@@ -237,6 +238,9 @@
 			"css/mui.min.css",
 			"fonts/iconfont.ttf",
 			"jsHostName/hostName.js"
+		],
+		"refer": [
+			"Mine/change-address-needtem.html"
 		]
 	},
 	"Mine/my-dingdan-needtem.html": {
@@ -500,6 +504,11 @@
 		],
 		"refer": [
 			"Mine/address.html"
+		]
+	},
+	"Home/search-needtem.html": {
+		"resources": [
+			"fonts/mui.ttf"
 		]
 	}
 }

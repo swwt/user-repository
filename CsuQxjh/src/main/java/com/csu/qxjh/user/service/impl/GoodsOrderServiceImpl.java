@@ -93,12 +93,9 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 
 		return result;
 	}
-
-	
-	
 	@Override
 	public void insert(GoodsOrder goodsOrder){
-		goodsOrder.setGoods_order_create_time(DateUtil.getDate());
+		goodsOrder.setGoods_order_create_time(DateUtil.getDate2());
 		goodsOrder.setGoods_order_user_use(1);// 用户保留订单
 		// TODO Auto-generated method stub
 		goodsOrderDao.insert(goodsOrder);

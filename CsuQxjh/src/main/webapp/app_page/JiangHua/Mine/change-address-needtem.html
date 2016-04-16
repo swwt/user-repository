@@ -244,18 +244,25 @@
     	}
     </script>
     <script type="text/javascript">
-	getAddress();
-	mui.plusReady(function() {
-		currentWebview = plus.webview.currentWebview();
-		currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次				
-					if(plus.networkinfo.getCurrentType()==1){
-						alert("当前没有网络");
-					}else{
-						//getCatagory(); 
-						location.reload();
-					}					
-		});
-	});			
+		getAddress();
+		mui.plusReady(function() {
+			currentWebview = plus.webview.currentWebview();
+			currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次				
+						if(plus.networkinfo.getCurrentType()==1){
+							alert("当前没有网络");
+						}else{
+							//getCatagory(); 
+							location.reload();
+						}					
+			});
+			
+			window.addEventListener('change_address', function(options) {		
+				//getAddress();
+				alert(4);
+				location.reload();
+			}, false);
+		});	
+		
 	</script>
 </body>
 </html>

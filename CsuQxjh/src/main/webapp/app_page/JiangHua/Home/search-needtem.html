@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>E3父子模版，可直接用index的父子模版</title>
+
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/own.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+
+		<style type="text/css">
+			.mui-icon,
+    		.mui-bar-nav .mui-title {
+    			color: white;
+    		}
+    		
+    		/* 搜索框Search*/
+			
+			.mui-search .mui-placeholder {
+				color: #FAFAFA;
+				text-align: left;
+			}
+			
+			.mui-search .mui-icon-speech {
+				color: #FFFFFF!important;
+			}
+			
+			.mui-search .mui-icon-search {
+				color: white!important;
+			}
+			
+			.mui-bar .mui-search {
+				width: 75%;
+				color: white;
+				margin-top: 2px;
+			}
+			
+			/*去掉 mui-table-view-cell默认的下划线*/
+			.mui-table-view-cell:after{
+				height: 0!important;
+			}
+			
+			/*设置搜索结果列表 ul li的*/
+			ul li{
+				border-bottom: 1px solid#E6E7EB;
+			}
+			
+		</style>
+
+	</head>
+
+	<body>
+		<header id="bar-search" class="mui-bar mui-bar-nav own-main-background-color ">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="mui-input-row mui-search " style="margin-left: 1em;display:inline-flex">
+				<input id="search" type="search" class="mui-input-speech mui-input-clear " placeholder="输入关键词搜索" style="color: white;">
+			</div>
+			<a id="search-btn" style="color: white;">搜索</a>
+		</header>
+
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" style="color:#444A4D;font-weight: bold;">
+					历史搜索
+				</li>
+				<li class="mui-table-view-cell">
+					茶几
+				</li>
+				<li class="mui-table-view-cell">
+					电脑
+				</li>
+			</ul>
+		</div>
+
+		<script src="../js/mui.min.js" charset="UTF-8"></script>
+		<script src="../js/own.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: false
+			});
+			mui.plusReady(function() {
+				//adaptive();
+				
+			});
+			
+			function(){
+				var content;
+				content=document.getElementById("search").value;
+				if(content==''){
+					alert('请输入要搜索的商品');
+				}else{
+					
+				}
+			}
+		</script>
+	</body>
+
+</html>

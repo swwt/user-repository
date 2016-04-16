@@ -138,28 +138,66 @@
 					
 				}, false);
 				
-				selectAddressDiv.addEventListener('tap', function(){
-					mui.openWindow({
-						url: "select-address-needtem.html",
-						id: "select-address-needtem.html",
-						styles:{
-							top:0
-						},
-						extras:{
-							
-						},
-						show:{
-							autoShow: true //页面loaded事件发生后自动显示，默认为true 
-						},
-						waiting: {  
-        					autoShow: true, //自动显示等待框，默认为true  
-       						title: '正在加载...' //等待对话框上显示的提示内容 
-       					}
-					});
-				}, false);
+//				selectAddressDiv.addEventListener('tap', function(){
+//					mui.openWindow({
+//						url: "select-address-needtem.html",
+//						id: "select-address-needtem.html",
+//						styles:{
+//							top:0
+//						},
+//						extras:{
+//							
+//						},
+//						show:{
+//							autoShow: true //页面loaded事件发生后自动显示，默认为true 
+//						},
+//						waiting: {  
+//      					autoShow: true, //自动显示等待框，默认为true  
+//     						title: '正在加载...' //等待对话框上显示的提示内容 
+//     					}
+//					});
+//				}, false);
+/*				addressWebview = mui.preload({
+					url:'address.html',
+					id:'address.html',
+					styles:{
+						top:'0px',
+						bottom:'0px'
+					}
+				});*/
+				
+//				selectAddressDiv.addEventListener('tap', function(){
+//					mui.openWindow({
+//						url: "../",
+//						id: "select-address-needtem.html",
+//						styles:{
+//							top:0
+//						},
+//						extras:{
+//							
+//						},
+//						show:{
+//							autoShow: true //页面loaded事件发生后自动显示，默认为true 
+//						},
+//						waiting: {  
+//      					autoShow: true, //自动显示等待框，默认为true  
+//     						title: '正在加载...' //等待对话框上显示的提示内容 
+//     					}
+//					});
+//				}, false);
 				
 			});
 			}
+			
+//			function addEvent2(){
+//				mui(".mui-table-view").on('tap','.mui-table-view-cell',function(){
+//				  
+//				  mui.openWindow({
+//				    id:'detail',
+//				    url:'detail.html'
+//				  });
+//				}) 
+//			}
 			
 			window.addEventListener('edit_order_page', function(options) {				
 				var orderStr = options.detail.cartData;
@@ -274,8 +312,9 @@
 											+"</div>"
 										+"</a>"
 									+"</li>";
+									addEvent2();
 								}else{
-									alert(1);
+									
 									addressOrderHtml=addressOrderHtml
 									+"<li class=\"mui-table-view-cell\" style=\"padding-left: 10px;border-bottom: 2px dotted#999999;\">"
 									+"<a id=\"select-address\" class=\"mui-navigate-right\" href=\"#\">"

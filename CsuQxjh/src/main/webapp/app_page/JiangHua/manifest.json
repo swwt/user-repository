@@ -235,7 +235,8 @@
 					"template/search-template.html",
 					"Home/searchPage.html",
 					"search-template.html",
-					"Home/edit-order-needtem.html"
+					"Home/edit-order-needtem.html",
+					"Home/search-needtem.html"
 				],
 				"priority": 0
 			},
@@ -428,7 +429,9 @@
 					"fonts/iconfont.ttf",
 					"jsHostName/hostName.js"
 				],
-				"refer": [],
+				"refer": [
+					"Mine/change-address-needtem.html"
+				],
 				"priority": 0
 			},
 			"Mine/my-dingdan-needtem.html": {
@@ -701,6 +704,13 @@
 				"refer": [
 					"Mine/address.html"
 				],
+				"priority": 0
+			},
+			"Home/search-needtem.html": {
+				"resources": [
+					"fonts/mui.ttf"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

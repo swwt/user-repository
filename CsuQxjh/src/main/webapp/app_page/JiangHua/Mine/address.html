@@ -23,120 +23,12 @@
     <script type="text/javascript">
     	var addressId=0;
     </script>
-    <script type="text/javascript">
-	    function updateAddress(){
-	    	var userJSON=JSON.parse(localStorage.getItem('user'));
-			var userId=userJSON.id;
-    		var user_address = document.getElementById("user_address").innerHTML.split(" ");
-    		var user_address_province = user_address[0];
-    		var user_address_city = user_address[1];
-    		var user_address_county = user_address[2];
-    		var user_address_name = document.getElementById("user_address_name").value;
-    		var user_address_street = document.getElementById("user_address_street").value;
-    		var user_address_phone = document.getElementById("user_address_phone").value;  
-    		var type = document.getElementById("defaultAddress").classList.contains('mui-active');
-    		alert(type);
-    		var user_address_type;
-    		if(type){
-    			user_address_type=1;
-    		}else{
-    			user_address_type=0;
-    		}
-					mui.ajax(host+'/userInformation/updateUserAddress',{
-						data:{
-							id:addressId,
-							userId:userId,//用户id
-							user_address_name:user_address_name,//收货人姓名
-							user_address_phone:user_address_phone,//收货人电话
-							user_address_province:user_address_province,//省
-							user_address_city:user_address_city,//市
-							user_address_county:user_address_county,//区
-							user_address_street:user_address_street,//详细地址
-							user_address_type:user_address_type//是否为默认地址
-						},
-						dataType:'json',//服务器返回json格式数据
-						type:'post',//HTTP请求类型
-						timeout:10000,//超时时间设置为10秒；
-						success:function(data){
-							//服务器返回响应，根据响应结果，分析是否登录成功；							
-							if(data.code==1){
-								alert(data.message);
-							}else{
-								alert(data.message);
-							}
-						},
-						error:function(xhr,type,errorThrown){
-							//异常处理；
-							//console.log(type);
-							alert("出现错误");
-						}
-					});
-	    }
-    	function addAddress(){		
-    		var userJSON=JSON.parse(localStorage.getItem('user'));
-			var userId=userJSON.id;
-    		var user_address = document.getElementById("user_address").innerHTML.split(" ");
-    		var user_address_province = user_address[0];
-    		var user_address_city = user_address[1];
-    		var user_address_county = user_address[2];
-    		var user_address_name = document.getElementById("user_address_name").value;
-    		var user_address_street = document.getElementById("user_address_street").value;
-    		var user_address_phone = document.getElementById("user_address_phone").value;   
-    		var type = document.getElementById("defaultAddress").classList.contains('mui-active');
-    		alert(type);
-    		var user_address_type;
-    		if(type){
-    			user_address_type=1;
-    		}else{
-    			user_address_type=0;
-    		}
-					mui.ajax(host+'/userInformation/addUserAddress',{
-						data:{
-							userId:userId,//用户id
-							user_address_name:user_address_name,//收货人姓名
-							user_address_phone:user_address_phone,//收货人电话
-							user_address_province:user_address_province,//省
-							user_address_city:user_address_city,//市
-							user_address_county:user_address_county,//区
-							user_address_street:user_address_street,//详细地址
-							user_address_type:user_address_type
-						},
-						dataType:'json',//服务器返回json格式数据
-						type:'post',//HTTP请求类型
-						timeout:10000,//超时时间设置为10秒；
-						success:function(data){
-							//服务器返回响应，根据响应结果，分析是否登录成功；							
-							if(data.code==1){//登陆成功跳转到首页
-//								mui.plusReady(function(){
-//									mui.toast()
-//								});
-								alert(data.message);
-//								mui.fire(parentWebView, 'newWebView', {
-//									id: id,
-//									href: href,
-//									aniShow: aniShow,
-//									title: title,
-//									isBars: isBars,
-//									barsIcon: barsIcon
-//								});
-							}else{//登录失败，给出提醒
-								alert(data.message);
-							}
-						},
-						error:function(xhr,type,errorThrown){
-							//异常处理；
-							//console.log(type);
-							alert("出现错误");
-						}
-					});
-    	}
-    </script>
 </head>
 <body>
 	<header class="mui-bar mui-bar-nav own-main-background-color">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left own-left-nav-color"></a>
 		<h1 class="mui-title own-left-nav-color">地址</h1>
-		<a class="mui-icon iconfont icon-iconfont53 mui-pull-right own-left-nav-color" id="submitAddress"></a>
+		<a class= "mui-icon iconfont icon-iconfont53 mui-pull-right own-left-nav-color" id="submitAddress"></a>
 	</header>
 	
 	<div class="mui-content" id="content">
@@ -173,6 +65,8 @@
 		
 		var addressPicker;
 		var pickerlabel;
+		var currentWebview;
+		
 		mui.plusReady(function(){
 			addressPicker = document.getElementById('addressPicker');
 			pickerlabel = addressPicker.children[0];
@@ -203,18 +97,206 @@
 				});
 
 			},false);
-		});
-		
-		mui.plusReady(function(){
-     			mui(".mui-bar").on('tap','#submitAddress',function(){
-					if(addressId!=0){
-						updateAddress();
-					}else{
-						addAddress();
-					}
+			
+			document.querySelector('#submitAddress').addEventListener('tap',function(){
+     				var forms=document.getElementsByTagName("form");
+     				var inputList=forms[0].getElementsByTagName("input");
+     				var name=inputList[0].value;
+     				var phone=inputList[1].value;
+     				var detailAddress=forms[0].getElementsByTagName("textarea")[0].value;
+     				var addressName=document.getElementById("user_address").innerHTML;
+     				if(name==''){
+     					alert("请输入收货人");
+     				}else{
+     					if(phone==''){
+     						alert("请输入电话");
+     					}else{
+     						if(addressName=='省、市、区'){
+	     						alert('请输入省市区');
+	     					}else{
+	     						if(detailAddress==''){
+	     							alert('请输入详细地址');
+	     						}else{
+	     							if(addressId!=0){
+										updateAddress();
+									}else{
+										addAddress();
+									}
+									
+									
+	     						}
+	     					}	     					
+     					}	     				
+	     				
+     				}
+     				
 					
-				}) 
+					
 			});
+			
+//			mui(".mui-bar").on('tap','#submitAddress',function(){
+//   				var forms=document.getElementsByTagName("form");
+//   				var inputList=forms[0].getElementsByTagName("input");
+//   				var name=inputList[0].value;
+//   				var phone=inputList[1].value;
+//   				var detailAddress=forms[0].getElementsByTagName("textarea")[0].value;
+//   				var addressName=document.getElementById("user_address").innerHTML;
+//   				if(name==''){
+//   					alert("请输入收货人");
+//   				}else{
+//   					if(phone==''){
+//   						alert("请输入电话");
+//   					}else{
+//   						if(addressName=='省、市、区'){
+//	     						alert('请输入省市区');
+//	     					}else{
+//	     						if(detailAddress==''){
+//	     							alert('请输入详细地址');
+//	     						}else{
+//	     							if(addressId!=0){
+//										updateAddress();
+//									}else{
+//										addAddress();
+//									}
+//	     						}
+//	     					}	     					
+//   					}	     				
+//	     				
+//   				}
+//   				
+//					
+//					
+//			}) 
+			
+			function commit(){
+				var changeAddressView = mui.preload({
+					url:'change-address-needtem.html',
+					id:'change-address-needtem.html',
+					styles:{
+						top:'0px',
+						bottom:'0px'
+					}
+				});
+//	    		var changeAddressView=plus.webview.getWebviewById('../Mine/change-address-needtem.html');
+//		    	alert(changeAddressView);
+		     	mui.fire(changeAddressView,'change_address',{
+	    			
+	  			});
+				
+	    		mui.back();
+	    	}	
+	    	
+	    	
+	    function updateAddress(){
+	    	var userJSON=JSON.parse(localStorage.getItem('user'));
+			var userId=userJSON.id;
+    		var user_address = document.getElementById("user_address").innerHTML.split(" ");
+    		var user_address_province = user_address[0];
+    		var user_address_city = user_address[1];
+    		var user_address_county = user_address[2];
+    		var user_address_name = document.getElementById("user_address_name").value;
+    		var user_address_street = document.getElementById("user_address_street").value;
+    		var user_address_phone = document.getElementById("user_address_phone").value;  
+    		var type = document.getElementById("defaultAddress").classList.contains('mui-active');
+    		alert(type);
+    		var user_address_type;
+    		if(type){
+    			user_address_type=1;
+    		}else{
+    			user_address_type=0;
+    		}
+					mui.ajax(host+'/userInformation/updateUserAddress',{
+						data:{
+							id:addressId,
+							userId:userId,//用户id
+							user_address_name:user_address_name,//收货人姓名
+							user_address_phone:user_address_phone,//收货人电话
+							user_address_province:user_address_province,//省
+							user_address_city:user_address_city,//市
+							user_address_county:user_address_county,//区
+							user_address_street:user_address_street,//详细地址
+							user_address_type:user_address_type//是否为默认地址
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；							
+							if(data.code==1){
+								//alert(data.message);
+								//commit();
+							}else{
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+	    }
+    	function addAddress(){		
+    		var userJSON=JSON.parse(localStorage.getItem('user'));
+			var userId=userJSON.id;
+    		var user_address = document.getElementById("user_address").innerHTML.split(" ");
+    		var user_address_province = user_address[0];
+    		var user_address_city = user_address[1];
+    		var user_address_county = user_address[2];
+    		var user_address_name = document.getElementById("user_address_name").value;
+    		var user_address_street = document.getElementById("user_address_street").value;
+    		var user_address_phone = document.getElementById("user_address_phone").value;   
+    		var type = document.getElementById("defaultAddress").classList.contains('mui-active');
+    		//alert(type);
+    		var user_address_type;
+    		if(type){
+    			user_address_type=1;
+    		}else{
+    			user_address_type=0;
+    		}
+					mui.ajax(host+'/userInformation/addUserAddress',{
+						data:{
+							userId:userId,//用户id
+							user_address_name:user_address_name,//收货人姓名
+							user_address_phone:user_address_phone,//收货人电话
+							user_address_province:user_address_province,//省
+							user_address_city:user_address_city,//市
+							user_address_county:user_address_county,//区
+							user_address_street:user_address_street,//详细地址
+							user_address_type:user_address_type
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；							
+							if(data.code==1){//登陆成功跳转到首页
+//								mui.plusReady(function(){
+//									mui.toast()
+//								});
+//								commit();
+								//alert(data.message);
+//								mui.fire(parentWebView, 'newWebView', {
+//									id: id,
+//									href: href,
+//									aniShow: aniShow,
+//									title: title,
+//									isBars: isBars,
+//									barsIcon: barsIcon
+//								});
+							}else{//登录失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+    		}
+	    	
+		});
 	</script>
 	<script type="text/javascript">
 		window.addEventListener('updateAddress', function(options) {	
@@ -254,5 +336,11 @@
 			}			
 			}, false);			
 	</script>
+	    <script type="text/javascript">
+    	
+    </script>
+    <script type="text/javascript">
+	   
+    </script>
 </body>
 </html>
