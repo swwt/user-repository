@@ -13,6 +13,7 @@ import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.user.pojo.UserAddress;
 import com.csu.qxjh.user.service.UserAddressService;
 import com.csu.qxjh.user.service.UserService;
+import com.csu.qxjh.util.MD5Util;
 import com.csu.qxjh.util.pojo.Message;
 
 /*
@@ -23,7 +24,29 @@ import com.csu.qxjh.util.pojo.Message;
 public class UserInformationControllerApp {
 	@Resource
 	private UserAddressService userAddressService;
+	@Resource
+	private UserService userService; 
 	
+	
+	@ResponseBody
+	@RequestMapping("/updatePassword")
+	public Message updatePassword(@RequestParam("userId") String userId,
+			@RequestParam(value="oldPassword")String oldPassword,
+			@RequestParam(value="newPassword")String newPassword){
+		Message message = new Message();
+		User user=userService.getUserById(userId);
+		String password=user.getUser_password();
+		if(password.equals(MD5Util.MD5(oldPassword))){
+			message.setCode(1);
+			message.setMessage("修改成功");
+			user.setUser_password(newPassword);
+			userService.update(user);
+		}else{
+			message.setCode(0);
+			message.setMessage("修改失败，原密码错误！");
+		}
+		return message;
+	}
 	@ResponseBody
 	@RequestMapping("/addUserAddress")
 	public Message addUserAddress(UserAddress userAddress,

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../css/own.css"/>
     <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
-    
+    <script src="../jsHostName/hostName.js"></script>
     <style type="text/css">
     		.mui-input-row label {
     			width: 20%;
@@ -53,7 +53,35 @@
 		mui.init({
 			swipeBack:true
 		});
-		
+		function updatePassword(userId,oldPassword,newPassword){
+			mui.ajax(host+'/userInformation/updatePassword',{
+						data:{
+							userId:userId,
+							oldPassword:oldPassword,
+							newPassword:newPassword
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；							
+							if(data.code==1){//登陆成功跳转到首页
+								alert(data.message);
+								 mui.openWindow({
+									  url: 'login.html', 
+									  id:'login'
+								 });
+							}else{//登录失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+		}
 		var inputList;
 		var changepwdWebview;
 		mui.plusReady(function(){
@@ -62,6 +90,9 @@
 			changepwdWebview = plus.webview.currentWebview();
 			
 			document.querySelector('button[type="button"]').addEventListener('tap',function(){
+				var userId = userId=JSON.parse(localStorage.getItem('user')).id;
+				var oldPassword = inputList[0].value;
+				var newPassword = inputList[1].value;
 				for (var i = 0;i < inputList.length; i++) {
 					if (inputList[i].value.length <= 0) {
 						var alertMSG;
@@ -71,6 +102,7 @@
 							alertMSG = '请输入新密码';
 						}else if(i == 2 ) {
 							alertMSG = '两次输入密码必须一致';
+						}else{							
 						}
 						mui.toast(alertMSG);
 						return;
@@ -79,6 +111,9 @@
 				if (inputList[1].value != inputList[2].value) {
 					mui.toast('两次输入密码必须一致');
 					return;
+				}else{
+					alert(1);
+					updatePassword(userId,oldPassword,newPassword);
 				}
 				
 				//开始执行修改密码联网

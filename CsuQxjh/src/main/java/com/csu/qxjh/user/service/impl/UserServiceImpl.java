@@ -121,4 +121,13 @@ public class UserServiceImpl implements UserService {
 		
 		return result;
 	}
+
+	@Override
+	public void update(User user) {
+		// TODO Auto-generated method stub
+		String passowrd = user.getUser_password();
+		String password_MD5 = new MD5Util().MD5(passowrd);
+		user.setUser_password(password_MD5);
+		userDao.update(user);
+	}
 }

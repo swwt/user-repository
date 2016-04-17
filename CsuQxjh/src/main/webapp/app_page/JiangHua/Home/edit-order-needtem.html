@@ -109,7 +109,7 @@
 			var commitOrderDiv;
 			var aniShow;
 			var selectAddressDiv;
-			
+			var dingdanMoneyTotal;//订单金额
 			function addEvent(){
 				mui.plusReady(function() {
 				aniShow = getaniShow();
@@ -117,7 +117,18 @@
 				selectAddressDiv =document.querySelector('#select-address');
 				
 				commitOrderDiv.addEventListener('tap', function(){
+					var paywebview = mui.preload({
+					    url:"pay-needtem.html",
+					    id:"pay-needtem.html",//默认使用当前页面的url作为id
+					    styles: {
+							top: '0px',
+							bottom: '0px'
+						}
+					});
 					
+					mui.fire(paywebview,'payPage',{
+   						 dingdanMoneyTotal:dingdanMoneyTotal
+  					});
 					mui.openWindow({
 						url: "pay-needtem.html",
 						id: "pay-needtem.html",
@@ -201,14 +212,19 @@
 			
 			window.addEventListener('edit_order_page', function(options) {				
 				var orderStr = options.detail.cartData;
-				var dingdanMoneyTotal = options.detail.dingdanMoneyTotal;
+				//alert(orderStr);
+				dingdanMoneyTotal = options.detail.dingdanMoneyTotal;
 				//alert(orderStr);
 				var cartJSON = JSON.parse(orderStr);
 				var goodsIdStr="";
+				//alert(cartJSON.length);
+				//alert("getGoodsOrders:"+goodsIdStr);
 				for(var n=0;n<cartJSON.length;n++){
 					var order=cartJSON[n];
 					goodsIdStr=goodsIdStr+order.goodsId+" ";
+					//alert("getGoodsOrders:"+goodsIdStr);
 				}
+				//alert("getGoodsOrders:"+goodsIdStr);
 				getAddress(goodsIdStr,dingdanMoneyTotal);
 		}, false);
 		</script>
@@ -217,6 +233,7 @@
 	var userId=JSON.parse(localStorage.getItem('user')).id;
 	var addressOrderHtml="";
 	function getOrder(goodsIdStr,dingdanMoneyTotal){
+			//alert("getGoodsOrders:"+goodsIdStr);
 			mui.ajax(host+'/user/getGoodsOrders',{
 						data:{
 							goodsIdStr:goodsIdStr					
@@ -277,9 +294,9 @@
 						error:function(xhr,type,errorThrown){
 							//异常处理；
 							//console.log(type);
-							alert(xhr);
-							alert(type);
-							alert(errorThrown);
+//							alert(xhr);
+//							alert(type);
+//							alert(errorThrown);
 							alert("出现错误");
 						}
 					});
@@ -305,14 +322,14 @@
 										+"<a id=\"select-address\" class=\"mui-navigate-right\" href=\"#\">"
 											+"<div style=\"font-size: 16px;margin-left:0.7em;margin-top: 4px;color: #232326;\">"
 												+"<span style=\"margin-left: 1em;margin-right: 1em;\"></span>"
-												+"<span style=\"margin-right: 0.8em;\">还没有收货地址，点击新建一个</span>"												
+												+"<span style=\"margin-right: 0.8em;\">还没有收货地址，先去我的创建收货地址</span>"												
 											+"</div>"
 											+"<div class=\"mui-icon mui-icon-location\" style=\"margin-left:0;font-weight:bold;font-size: 18px;color: #81838E;margin-top: 10px;\">"
 												+"<span style=\"font-size:14px;color: #232326;font-weight: 100;\">？</span>"
 											+"</div>"
 										+"</a>"
 									+"</li>";
-									addEvent2();
+									//addEvent2();
 								}else{
 									
 									addressOrderHtml=addressOrderHtml

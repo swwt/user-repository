@@ -51,7 +51,8 @@
 			"test2.html",
 			"baritemHtml/test2.html",
 			"Home/edit-order-needtem.html",
-			"Home/search-needtem.html"
+			"Home/search-needtem.html",
+			"Mine/wait-for-pay-needtem.html"
 		]
 	},
 	"template-main.html": {
@@ -179,14 +180,17 @@
 			"Mine/change-address-needtem.html",
 			"index.html",
 			"Mine/user-manage.html",
-			"Mine/user-manage-needtem.html"
+			"Mine/user-manage-needtem.html",
+			"Mine/changeEmail-needtem.html",
+			"jsHostName/hostName.js"
 		],
 		"refer": [
 			"Mine/change-address-needtem.html",
 			"index.html",
 			"Mine/user-manage.html",
 			"Mine/user-manage-needtem.html",
-			"Mine/login.html"
+			"Mine/login.html",
+			"Mine/changeEmail-needtem.html"
 		]
 	},
 	"baritemHtml/cart_1.html": {
@@ -271,10 +275,13 @@
 			"fonts/iconfont.ttf",
 			"js/md5.js",
 			"Mine/user-manage.html",
-			"js/mui.min.js"
+			"js/mui.min.js",
+			"jsHostName/hostName.js",
+			"fonts/mui.ttf"
 		],
 		"refer": [
-			"Mine/user-manage.html"
+			"Mine/user-manage.html",
+			"Mine/login.html"
 		]
 	},
 	"baritemHtml/gongyi.html": {
@@ -314,10 +321,12 @@
 			"css/iconfont.css",
 			"css/mui.min.css",
 			"img/3.jpg",
-			"js/own.js"
+			"js/own.js",
+			"Mine/user-manage-needtem.html"
 		],
 		"refer": [
-			"Mine/changepsd-needtem.html"
+			"Mine/changepsd-needtem.html",
+			"Mine/user-manage-needtem.html"
 		]
 	},
 	"Gongyi/gongyi-detail-needtem.html": {
@@ -508,7 +517,32 @@
 	},
 	"Home/search-needtem.html": {
 		"resources": [
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"css/own.css",
+			"js/own.js",
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"Home/searchPage.html",
+			"index.html"
+		]
+	},
+	"Home/pay-needtem.html": {
+		"resources": [
+			"css/own.css",
+			"js/own.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css"
+		]
+	},
+	"Mine/wait-for-pay-needtem.html": {
+		"resources": [
+			"img/shopIcon_1.png",
+			"images/goods/pending_pay_item.png"
 		]
 	}
 }

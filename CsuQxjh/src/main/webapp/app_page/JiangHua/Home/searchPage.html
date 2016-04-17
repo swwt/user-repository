@@ -292,7 +292,7 @@
 										+"</a>"
 									+"</li>";
 								}
-								
+								//alert(zongheHtml);
 								document.getElementById("zonghe").innerHTML=zongheHtml;
 								goodsAction('#item1mobile');
 							}else{//获取失败，给出提醒
@@ -320,7 +320,7 @@
 						success:function(data){
 							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
 							if(data.code==1){//表示获取成功
-								//alert(data.message);
+							//	alert(data.message);
 								goodsJSON=data.result;
 								var zongheHtml="";
 								for(var i=0;i<goodsJSON.length;i++){
@@ -369,7 +369,7 @@
 						success:function(data){
 							//服务器返回响应，根据响应结果，分析是否成功获取数据；							
 							if(data.code==1){//表示获取成功
-							//	alert(data.message);
+								//alert(data.message);
 								goodsJSON=data.result;
 								var zongheHtml="";
 								for(var i=0;i<goodsJSON.length;i++){

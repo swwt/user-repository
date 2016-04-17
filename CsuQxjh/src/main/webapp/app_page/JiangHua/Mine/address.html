@@ -169,14 +169,7 @@
 //			}) 
 			
 			function commit(){
-				var changeAddressView = mui.preload({
-					url:'change-address-needtem.html',
-					id:'change-address-needtem.html',
-					styles:{
-						top:'0px',
-						bottom:'0px'
-					}
-				});
+				var changeAddressView = plus.webview.getWebviewById('template-sub.html');
 //	    		var changeAddressView=plus.webview.getWebviewById('../Mine/change-address-needtem.html');
 //		    	alert(changeAddressView);
 		     	mui.fire(changeAddressView,'change_address',{
@@ -274,7 +267,7 @@
 //								mui.plusReady(function(){
 //									mui.toast()
 //								});
-//								commit();
+								commit();
 								//alert(data.message);
 //								mui.fire(parentWebView, 'newWebView', {
 //									id: id,

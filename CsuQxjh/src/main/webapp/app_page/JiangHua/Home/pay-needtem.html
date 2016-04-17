@@ -40,7 +40,7 @@
 			<ul id="list" class="mui-table-view " style="margin-top: 3px;">
 				<li class="mui-table-view-cell" style="padding-left: 10px;">
 					<span style="color: #747474;">订单金额</span>
-					<span style="float: right;color: #F23030;">127.00元</span>
+					<span style="float: right;color: #F23030;" id="totalmoney">127.00元</span>
 				</li>
 				<li class="mui-table-view-cell mui-media" style="padding-left: 10px;">
 					<a class="mui-navigate-right" href="#">
@@ -110,7 +110,16 @@
 			});
 			mui.plusReady(function() {
 				//adaptive();
+				//alert(plus.webview.currentWebview().id);
+				window.addEventListener('payPage',function(event){
+				  //获得事件参数
+				  var dingdanMoneyTotal = event.detail.dingdanMoneyTotal;
+				  
+				  document.getElementById("totalmoney").innerHTML=dingdanMoneyTotal+'元';
+				  
+				});
 			});
+		
 		</script>
 	</body>
 

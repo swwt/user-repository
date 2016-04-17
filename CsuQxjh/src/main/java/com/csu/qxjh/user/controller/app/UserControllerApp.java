@@ -25,9 +25,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.CollectionSerializer;
 import com.csu.qxjh.goods.pojo.Goods;
-import com.csu.qxjh.goods.service.GoodsService;
 import com.csu.qxjh.sellor.pojo.Sellor;
-import com.csu.qxjh.user.dao.CollectionDao;
 import com.csu.qxjh.user.pojo.Collection;
 import com.csu.qxjh.user.pojo.GoodsOrder;
 import com.csu.qxjh.user.pojo.ShoppingCart;
@@ -36,10 +34,10 @@ import com.csu.qxjh.user.service.CollectionService;
 import com.csu.qxjh.user.service.GoodsOrderSerice;
 import com.csu.qxjh.user.service.ShoppingCartService;
 import com.csu.qxjh.user.service.UserService;
-import com.csu.qxjh.user.service.impl.GoodsOrderServiceImpl;
 import com.csu.qxjh.util.StringUtil;
 import com.csu.qxjh.util.pojo.CartAmount;
 import com.csu.qxjh.util.pojo.Message;
+
 
 /*
  * 用户（买家）webapp控制层
@@ -116,19 +114,40 @@ public class UserControllerApp {
 		}	
 		return message;
 	}
-	
+	/**
+	 * 
+	 * @param goodsId 商品id
+	 * @param userId 用户id
+	 * @param goods_order_price 此次下单对应的价格
+	 * @param goods_order_price_description 此次下单的价格对应的描述
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/addGoodsOrder")//用户添加订单（适用于立即购买）
 	public Message addGoodsOrder(@RequestParam(value="goodsId")Integer goodsId,
-			@RequestParam(value="userId")String userId,GoodsOrder goodsOrder){
+			@RequestParam(value="userId")String userId,
+			@RequestParam(value="goods_order_price")String goods_order_price,
+			@RequestParam(value="goods_order_price_description")String goods_order_price_description){
 		Message message=new Message();
 		message.setCode(1);
 		message.setMessage("添加成功");
 		Goods goods=new Goods();
 		User user=new User();
-		goodsOrder.setUser(user);
+		goods.setId(goodsId);
+		user.setId(userId);
+		GoodsOrder goodsOrder=new GoodsOrder();
 		goodsOrder.setGoods(goods);
+		goodsOrder.setUser(user);
+		goodsOrder.setGoods_order_price(Double.parseDouble(goods_order_price));
+		goodsOrder.setGoods_order_price_description(goods_order_price_description);
+		goodsOrder.setGoods_order_amount(1);
 		goodsOrderSerice.insert(goodsOrder);
+		String orderId=goodsOrder.getId();
+		Map<String,String> map=new HashMap();
+		map.put("goodsId", orderId);
+		List<Map<String,String>> resultList=new ArrayList<Map<String,String>>();
+		resultList.add(map);
+		message.setResult(resultList);
 		return message;
 	}
 	
@@ -261,6 +280,7 @@ public class UserControllerApp {
 	@ResponseBody
 	@RequestMapping("/getGoodsOrders")//用户获取订单信息
 	public Message getGoodsOrders(@RequestParam(value="goodsIdStr")String goodsIdStr){
+		System.out.println(goodsIdStr);
 		List<GoodsOrder> goodsOrderList=new ArrayList<>();
 		String[] goodsIds=goodsIdStr.split(" ");
 		for(int i=0;i<goodsIds.length;i++){
@@ -269,12 +289,8 @@ public class UserControllerApp {
 			goodsOrder.setUser(null);
 			Goods goods=new Goods();
 			Goods goodsOld=goodsOrder.getGoods();
-//			goodsOld.setGoodsComments(null);
-//			goodsOld.setGoodsPrices(null);
-//			goodsOld.setGoodsDetail(null);
 			goods.setGoods_name(goodsOld.getGoods_name());
 			goods.setImages(goodsOld.getImages());
-//			goods.setGoodsComments(null);
 			goodsOrder.setGoodsClone(goods);	
 			goodsOrder.setGoods(null);
 			goodsOrderList.add(goodsOrder);
@@ -285,6 +301,70 @@ public class UserControllerApp {
 		message.setResult(goodsOrderList);
 		return message;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getNoPayGoodsOrder")//用户获取待付款订单
+	public Message getNoPayGoodsOrder(@RequestParam(value="userId")String userId){
+		List<GoodsOrder> goodsOrders=goodsOrderSerice.getOrderByNoPay(userId);
+		for(int i=0;i<goodsOrders.size();i++){
+			GoodsOrder goodsOrder=goodsOrders.get(i);
+			goodsOrder.setUser(null);
+			Goods goods=new Goods();
+			Goods goodsOld=goodsOrder.getGoods();
+			goods.setGoods_name(goodsOld.getGoods_name());
+			goods.setImages(goodsOld.getImages());
+			goodsOrder.setGoodsClone(goods);	
+			goodsOrder.setGoods(null);
+		}
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("获取代付款订单成功");
+		message.setResult(goodsOrders);
+		return message;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getNoGetGoodsOrder")//用户获取待收货订单
+	public Message getNoGetGoodsOrder(@RequestParam(value="userId")String userId){
+		List<GoodsOrder> goodsOrders=goodsOrderSerice.getOrderByNoGet(userId);
+		for(int i=0;i<goodsOrders.size();i++){
+			GoodsOrder goodsOrder=goodsOrders.get(i);
+			goodsOrder.setUser(null);
+			Goods goods=new Goods();
+			Goods goodsOld=goodsOrder.getGoods();
+			goods.setGoods_name(goodsOld.getGoods_name());
+			goods.setImages(goodsOld.getImages());
+			goodsOrder.setGoodsClone(goods);	
+			goodsOrder.setGoods(null);
+		}
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("获取未收货订单成功");
+		message.setResult(goodsOrders);
+		return message;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getNoCommentGoodsOrder")//用户获取待评价订单
+	public Message getNoCommentGoodsOrder(@RequestParam(value="userId")String userId){
+		List<GoodsOrder> goodsOrders=goodsOrderSerice.getOrderByNoComment(userId);		
+		for(int i=0;i<goodsOrders.size();i++){
+			GoodsOrder goodsOrder=goodsOrders.get(i);
+			goodsOrder.setUser(null);
+			Goods goods=new Goods();
+			Goods goodsOld=goodsOrder.getGoods();
+			goods.setGoods_name(goodsOld.getGoods_name());
+			goods.setImages(goodsOld.getImages());
+			goodsOrder.setGoodsClone(goods);	
+			goodsOrder.setGoods(null);
+		}
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("获取未收货订单成功");
+		message.setResult(goodsOrders);
+		return message;
+	}
+	
 }
 
 

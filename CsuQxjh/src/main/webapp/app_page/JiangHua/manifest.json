@@ -236,7 +236,8 @@
 					"Home/searchPage.html",
 					"search-template.html",
 					"Home/edit-order-needtem.html",
-					"Home/search-needtem.html"
+					"Home/search-needtem.html",
+					"Mine/wait-for-pay-needtem.html"
 				],
 				"priority": 0
 			},
@@ -372,7 +373,9 @@
 					"Mine/change-address-needtem.html",
 					"index.html",
 					"Mine/user-manage.html",
-					"Mine/user-manage-needtem.html"
+					"Mine/user-manage-needtem.html",
+					"Mine/changeEmail-needtem.html",
+					"jsHostName/hostName.js"
 				],
 				"refer": [
 					"Mine/login.html"
@@ -466,9 +469,13 @@
 					"fonts/iconfont.ttf",
 					"js/md5.js",
 					"Mine/user-manage.html",
-					"js/mui.min.js"
+					"js/mui.min.js",
+					"jsHostName/hostName.js",
+					"fonts/mui.ttf"
 				],
-				"refer": [],
+				"refer": [
+					"Mine/login.html"
+				],
 				"priority": 0
 			},
 			"baritemHtml/gongyi.html": {
@@ -505,7 +512,8 @@
 					"css/iconfont.css",
 					"css/mui.min.css",
 					"img/3.jpg",
-					"js/own.js"
+					"js/own.js",
+					"Mine/user-manage-needtem.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -708,7 +716,35 @@
 			},
 			"Home/search-needtem.html": {
 				"resources": [
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"css/own.css",
+					"js/own.js",
+					"js/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"Home/searchPage.html",
+					"index.html"
+				],
+				"priority": 0
+			},
+			"Home/pay-needtem.html": {
+				"resources": [
+					"css/own.css",
+					"js/own.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"Mine/wait-for-pay-needtem.html": {
+				"resources": [
+					"img/shopIcon_1.png",
+					"images/goods/pending_pay_item.png"
 				],
 				"refer": [],
 				"priority": 0

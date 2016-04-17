@@ -65,7 +65,7 @@
 				<li class="mui-table-view-cell" style="color:#444A4D;font-weight: bold;">
 					历史搜索
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell"> 
 					茶几
 				</li>
 				<li class="mui-table-view-cell">
@@ -82,18 +82,39 @@
 			});
 			mui.plusReady(function() {
 				//adaptive();
-				
-			});
 			
-			function(){
-				var content;
-				content=document.getElementById("search").value;
-				if(content==''){
-					alert('请输入要搜索的商品');
-				}else{
+				document.querySelector("#search-btn").addEventListener('tap',function(){
+					var indexWebview=plus.webview.getWebviewById('HBuilder');
+					var indexWebview = mui.preload({
+									url: '../index.html',
+									id: 'index.html',
+									styles: {
+										top: '0px',
+										bottom: '0px'
+									}
+					});	
+					var content;
+					content=document.getElementById("search").value;
+					var anishow = getaniShow();
+					if(content==''){
+						alert('请输入要搜索的商品');
+					}else{
+						 /*mui.fire(searchWebView,'searchPageFire',{
+   							 categoryID:content
+   					 	 });*/
+   					 	mui.fire(indexWebview, 'newWebView', {
+							id: 'Home/searchPage.html',
+							href: '../Home/searchPage.html',
+							aniShow: anishow,
+							title: '商品搜索',
+							isBars: false,
+							barsIcon: '',
+							category_id: content
+						});
+					}
 					
-				}
-			}
+				});
+			});
 		</script>
 	</body>
 

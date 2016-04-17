@@ -86,7 +86,7 @@ public class GoodsDaoImpl implements GoodsDao{
 	@Override
 	public List<Goods> selectByName(String name) {
 		// TODO Auto-generated method stub
-		String hql="From Goods s where s.goods_name=?";
+		String hql="From Goods s where s.goods_name like ?";
 		Query query=getSession().createQuery(hql).setString(0, "%"+name+"%");
 		List<Goods>goodsList=query.list();
 		return goodsList;
