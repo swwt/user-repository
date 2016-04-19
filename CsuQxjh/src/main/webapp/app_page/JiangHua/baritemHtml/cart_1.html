@@ -318,9 +318,11 @@
 					var title = "填写订单";  //？ 
 					var isBars = false;
 					var barsIcon = '';
+					//plus.nativeUI.showWaiting('订单正在处理...');
 					//alert(cartData);
 					if(cartJSONArrays.length==0){
 						alert("请先去添加购物车");
+						//plus.nativeUI.closeWaiting();
 					}else{
 						setOrder(cartData);
 						mui.fire(parentWebView, 'newWebView',{

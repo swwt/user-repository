@@ -296,6 +296,14 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsListNew;
 	}
 
+	@Override
+	public String getSellorIdByGoodsId(int id) {
+		// TODO Auto-generated method stub
+		Goods goods=goodsDao.selectById(id);
+		String sellorId=goods.getSellor().getId();
+		return sellorId;
+	}
+
 }
 class MapKeyComparator implements Comparator<Double>{
 

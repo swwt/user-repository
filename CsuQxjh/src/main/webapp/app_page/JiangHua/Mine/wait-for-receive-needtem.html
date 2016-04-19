@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
 		<link rel="stylesheet" type="text/css" href="../css/own.css" />
 		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
-
+		<script src="../jsHostName/hostName.js"></script>
 		<style type="text/css">
 			.mui-icon,
 			.mui-bar-nav .mui-title {
@@ -80,9 +80,9 @@
 			<h1 class="mui-title">待付款</h1>
 		</header>-->
 
-		<div class="mui-content pending-pay-items" style="background-color: #F0F2F5;">
+		<div class="mui-content pending-pay-items" style="background-color: #F0F2F5;" >
 
-			<ul class="pending-pay-item mui-table-view" style="">
+			<ul class="pending-pay-item mui-table-view" style="" id="waitReceiveOrder">
 				<li class="mui-table-view-cell pay-item-top" style="background-color: white;">
 					<img class="item-shop-img" style="width: 1.3em;height: 1.3em;" src="../img/shopIcon_1.png" />
 					<span class="item-shop-name" style="margin-top: 0;padding: 0;font-size: 14px;">江华商城</span>
@@ -117,26 +117,84 @@
 			mui.init({
 				swipeBack: false
 			});
+			function getNoReceive(){
+				
+			}
 			mui.plusReady(function() {
-				mui('.pending-pay-item').on('tap', 'button', function() {
-					mui.openWindow({
-						url: "../Home/pay-needtem.html",
-						id: "../Home/pay-needtem.html",
-						styles: {
-							top: 0
-						},
-						extras: {
-						},
-						show: {
-							autoShow: true //页面loaded事件发生后自动显示，默认为true 
-						},
-						waiting: {
-							autoShow: true, //自动显示等待框，默认为true  
-							title: '正在加载...' //等待对话框上显示的提示内容 
-						}
+				function addEvent(){
+					mui('.pending-pay-item').on('tap', 'button', function() {
+						mui.toast('暂时没有相关物流信息');
 					});
+				}
+				
+				
+				function getWaitRceiveOrder(){
+					//alert("userId:"+userId);
+					var userId=JSON.parse(localStorage.getItem('user')).id;
+					mui.ajax(host+'/user/getNoGetGoodsOrder',{
+								data:{
+									userId:userId					
+								},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){						
+									if(data.code==1){
+										//alert(data.message);							
+									  	var orderJSONs=data.result;
+									  	var orderHtml=""
+										  	+"<li class=\"mui-table-view-cell pay-item-top\" style=\"background-color: white;\">"
+												+"<img class=\"item-shop-img\" style=\"width: 1.3em;height: 1.3em;\" src=\"../img/shopIcon_1.png\" />"
+												+"<span class=\"item-shop-name\" style=\"margin-top: 0;padding: 0;font-size: 14px;\">江华商城</span>"
+												+"<span class=\"pay-status-label\" style=\"float: right;color: #F23030;font-size: 14px;\">待收货</span>"
+											+"</li>";
+									  	
+									  	for(var k=0;k<orderJSONs.length;k++){
+									  		var orderJSON=orderJSONs[k];
+									  		var orderImages=orderJSON.goodsClone.images;
+									  		var money=parseFloat(orderJSON.goods_order_price)*parseInt(orderJSON.goods_order_amount);
+									  		orderHtml=orderHtml
+									  		+"<li class=\"mui-table-view-cell mui-media pay-item-middle\" style=\"border-top: 1px solid#E3E5E9;background-color:#F8F8F8;height: 85px!important;\">"
+												+"<img class=\"mui-media-object\" src=\""+host+orderImages[0].goods_image_src+"\" />"
+												+"<span class=\"pay-item-des mui-media-body\">"
+														+orderJSON.goodsClone.goods_name+"("+orderJSON.goods_order_price_description+")"
+												+"</span>"
+											+"</li>"
+											+"<li class=\"mui-table-view-cell\" style=\"font-size: 14px;\">"					
+												+"<span style=\"float:right;margin-left:10px;\">实付款: ￥<span style=\"font-size: 16px;font-weight: bold;\">"+money+"</span></span>"
+												+"<span style=\"float:right;\">共"+orderJSON.goods_order_amount+"件商品</span>"
+											+"</li>"
+											+"<li class=\"mui-table-view-cell\" style=\"border-top: 1px solid#E3E5E9;padding-top: 5px;padding-bottom: 7px;\">"
+												+"<button style=\"float: right;font-size: 14px;\">查看物流</button>"
+											+"</li>";
+									  	}
+									  	document.getElementById("waitReceiveOrder").innerHTML=orderHtml;	
+									  	addEvent();	
+									}else{//登录失败，给出提醒
+										alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									alert("出现错误");
+								}
+					});
+				}
+				var currentWebview = plus.webview.currentWebview();
+				currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次
+					
+					if(plus.networkinfo.getCurrentType()==1){
+						alert("当前没有网络");
+					}else{
+						//getCatagory(); 
+						window.location.reload();
+						//alert(1);
+						//getWaitPayOrder();
+					}					
 				});
+				getWaitRceiveOrder();
 			});
+			
+			
 		</script>
 	</body>
 

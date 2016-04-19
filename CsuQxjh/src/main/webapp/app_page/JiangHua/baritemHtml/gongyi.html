@@ -62,8 +62,121 @@
 				padding-top: 7px;
 			}
 		</style>
+		
+	</head>
+
+	<body>
+
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="background-color: #EFEFEF;">
+			<div class="mui-scroll">
+				<!--<div class="need-login" style="text-align: center; margin-top: 50px; display: none;">
+				<span style="color: gray; font-size: 0.9em;">你还没有登录</span>
+				<br />
+				<button type="button" class="mui-btn own-btn-green" style="margin-top: 10px; padding: 5px 20px;">请登录</button>
+			</div>-->
+
+				<ul id="xingyuandanList" class="mui-table-view">
+					
+
+				<!--	<li class="mui-table-view-cell mui-media" style="height: 100px;">
+						<a href="#">
+							<img class="mui-media-object mui-pull-left" src="../img/xiaoningmeng.png" />
+							<div class="mui-media-body">
+								<p class="itemName">"小柠檬的大抱负</p>
+								<p class="itemDes mui-ellipsis-2">如果你在小镇的街头闲逛，会看到一个卖柠檬水喝曲奇饼干的小男孩。</p>
+								<p class="itemInfo">
+									<span class="itemTime">2016年3月22日</span>
+									<span class="itemReadNum">1202阅读</span>
+								</p>
+							</div>
+						</a>
+				</li>--> 
+
+	
+				</ul>
+			</div>
+
+		</div>
 		<script type="text/javascript">
-			
+			/*
+			 * 添加时间监听，统计阅读量
+			 */
+			function readNumberEvent(){
+				mui(".mui-table-view-cell").on('tap','a',function(){
+					//alert(localStorage.getItem('newsIds'));
+					var newsIdJSON=JSON.parse(localStorage.getItem('newsIds'));
+					var nowNewsId=this.getAttribute('href');
+					if(newsIdJSON==null){
+						var newsIds=new Array();
+						newsIds[0]={'id':nowNewsId};
+						localStorage.setItem('newsIds',JSON.stringify(newsIds));
+						mui.ajax(host+'/news/updateNewsReadNumber',{
+								data:{
+									newsId:nowNewsId
+								},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){
+									//服务器返回响应，根据响应结果，分析是否登录成功；							
+									if(data.code==1){//登陆成功跳转到首页								
+										//alert(data.message);
+									}else{
+										//alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									//console.log(type);
+									alert("出现错误");
+								}
+							});
+						//alert('一开始为空');
+						//alert(localStorage.getItem('newsIds'));
+					}else{
+						var m=0;
+						
+						//alert(localStorage.getItem('newsIds'));
+						for(var n=0;n<newsIdJSON.length;n++){
+							if(newsIdJSON[n].id==nowNewsId){
+								m=1;
+								//alert('重复');
+							}
+						}
+						if(m==0){
+							//alert('新加');
+							newsIdJSON[newsIdJSON.length]={'id':nowNewsId};
+							localStorage.setItem('newsIds',JSON.stringify(newsIdJSON));
+							//alert(nowNewsId);
+							mui.ajax(host+'/news/updateNewsReadNumber',{
+								data:{
+									newsId:nowNewsId
+								},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){
+									//服务器返回响应，根据响应结果，分析是否登录成功；							
+									if(data.code==1){//登陆成功跳转到首页								
+										//alert(data.message);
+									}else{
+										//alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									//console.log(type);
+									alert("出现错误");
+								}
+							});
+						}
+					}
+				});
+			}
+ 
+			/*
+			 * 获取新闻列表
+			 */
 			function getNewsList(){
 				mui.ajax(host+'/news/getNewsList',{
 						data:{
@@ -105,6 +218,7 @@
 														
 	    						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();		
 								mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+								readNumberEvent();
 							}else{//
 								alert(data.message); 
 							}
@@ -118,41 +232,6 @@
 			}
 			window.onload=getNewsList;
 		</script>
-	</head>
-
-	<body>
-
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="background-color: #EFEFEF;">
-			<div class="mui-scroll">
-				<!--<div class="need-login" style="text-align: center; margin-top: 50px; display: none;">
-				<span style="color: gray; font-size: 0.9em;">你还没有登录</span>
-				<br />
-				<button type="button" class="mui-btn own-btn-green" style="margin-top: 10px; padding: 5px 20px;">请登录</button>
-			</div>-->
-
-				<ul id="xingyuandanList" class="mui-table-view">
-					
-
-				<!--	<li class="mui-table-view-cell mui-media" style="height: 100px;">
-						<a href="#">
-							<img class="mui-media-object mui-pull-left" src="../img/xiaoningmeng.png" />
-							<div class="mui-media-body">
-								<p class="itemName">"小柠檬的大抱负</p>
-								<p class="itemDes mui-ellipsis-2">如果你在小镇的街头闲逛，会看到一个卖柠檬水喝曲奇饼干的小男孩。</p>
-								<p class="itemInfo">
-									<span class="itemTime">2016年3月22日</span>
-									<span class="itemReadNum">1202阅读</span>
-								</p>
-							</div>
-						</a>
-				</li>--> 
-
-	
-				</ul>
-			</div>
-
-		</div>
-
 		<script type="text/javascript" charset="UTF-8">
 			mui.init({
 				swipeBack: false,

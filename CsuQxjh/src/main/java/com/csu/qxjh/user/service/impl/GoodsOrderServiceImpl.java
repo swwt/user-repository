@@ -104,7 +104,8 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 	@Override // 删除用户订单，实际只是修改数据表字段
 	public void deleteGoodsUserType(GoodsOrder goodsOrder) {
 		// TODO Auto-generated method stub
-		goodsOrder.setGoods_order_user_use(0);// 用户不保留订单
+		goodsOrder.setGoods_order_user_use(0);
+		goodsOrderDao.update(goodsOrder);// 用户不保留订单
 	}
 
 	@Override
@@ -118,28 +119,48 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 	@Override
 	public List<GoodsOrder> getOrderByNoPay(String userId) {
 		// TODO Auto-generated method stub
-		return goodsOrderDao.selectOrderByNoPay(userId);
+		List<GoodsOrder> goodsOrders=goodsOrderDao.selectOrderByNoPay(userId);
+		for(int i=0;i<goodsOrders.size();i++){
+			Hibernate.initialize(goodsOrders.get(i).getGoods());
+		}
+		return goodsOrders;
 	}
 
 	@Override
 	public List<GoodsOrder> getOrderByNoGet(String userId) {
 		// TODO Auto-generated method stub
-		return goodsOrderDao.selectOrderByNoGet(userId);
+		List<GoodsOrder> goodsOrders=goodsOrderDao.selectOrderByNoGet(userId);
+		for(int i=0;i<goodsOrders.size();i++){
+			Hibernate.initialize(goodsOrders.get(i).getGoods());
+		}
+		return goodsOrders;
 	}
 
 	@Override
 	public List<GoodsOrder> getOrderByNoComment(String userId) {
 		// TODO Auto-generated method stub
-		return goodsOrderDao.selectOrderByNoComment(userId);
+		List<GoodsOrder> goodsOrders=goodsOrderDao.selectOrderByNoComment(userId);
+		for(int i=0;i<goodsOrders.size();i++){
+			Hibernate.initialize(goodsOrders.get(i).getGoods());
+		}
+		return goodsOrders;
 	}
 
 	@Override
 	public List<GoodsOrder> getOrderByComplete(String userId) {
 		// TODO Auto-generated method stub
-		return goodsOrderDao.selectOrderByComplete(userId);
+		List<GoodsOrder> goodsOrders=goodsOrderDao.selectOrderByComplete(userId);
+		for(int i=0;i<goodsOrders.size();i++){
+			GoodsOrder goodsOrder=goodsOrders.get(i);
+			Hibernate.initialize(goodsOrders.get(i).getGoods());		
+			String storeName=goodsOrder.getSellor().getSellor_company();//该订单对应的卖家店铺名称
+			
+			goodsOrder.setStoreName(storeName);
+		}
+		return goodsOrders;
 	}
 
-
+	
 
 	@Override
 	public Message markAsSendOut(String orderId) {

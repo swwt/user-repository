@@ -52,7 +52,13 @@
 			"baritemHtml/test2.html",
 			"Home/edit-order-needtem.html",
 			"Home/search-needtem.html",
-			"Mine/wait-for-pay-needtem.html"
+			"Mine/wait-for-pay-needtem.html",
+			"Mine/wait-for-receive-needtem.html",
+			"Mine/comment-center-needtem.html",
+			"Mine/repair-replace-needtem.html",
+			"Home/news-needtem.html",
+			"Home/news2-needtem.html",
+			"Home/news3-needtem.html"
 		]
 	},
 	"template-main.html": {
@@ -144,7 +150,15 @@
 			"images/goods/YanZhiFang_1.png",
 			"images/goods/mangguo_1.png",
 			"images/goods/yanzhifang.png",
-			"index.html"
+			"index.html",
+			"img/lunbo3.jpg",
+			"css/style_1.css",
+			"img/lunbo5.jpg",
+			"img/mokuai1.jpg",
+			"img/mokuai3.jpg",
+			"img/mokuai2.jpg",
+			"img/lunbo1.jpg",
+			"img/lunbo4.jpg"
 		],
 		"refer": [
 			"index.html"
@@ -182,7 +196,8 @@
 			"Mine/user-manage.html",
 			"Mine/user-manage-needtem.html",
 			"Mine/changeEmail-needtem.html",
-			"jsHostName/hostName.js"
+			"jsHostName/hostName.js",
+			"Mine/wait-for-pay-needtem.html"
 		],
 		"refer": [
 			"Mine/change-address-needtem.html",
@@ -190,7 +205,8 @@
 			"Mine/user-manage.html",
 			"Mine/user-manage-needtem.html",
 			"Mine/login.html",
-			"Mine/changeEmail-needtem.html"
+			"Mine/changeEmail-needtem.html",
+			"Mine/wait-for-pay-needtem.html"
 		]
 	},
 	"baritemHtml/cart_1.html": {
@@ -255,7 +271,12 @@
 			"css/mui.min.css",
 			"img/shopIcon_1.png",
 			"fonts/mui.ttf",
-			"img/dongzhi.png"
+			"img/dongzhi.png",
+			"jsHostName/hostName.js",
+			"Mine/wait-for-pay-needtem.html"
+		],
+		"refer": [
+			"Mine/wait-for-pay-needtem.html"
 		]
 	},
 	"Mine/changeEmail-needtem.html": {
@@ -542,7 +563,89 @@
 	"Mine/wait-for-pay-needtem.html": {
 		"resources": [
 			"img/shopIcon_1.png",
-			"images/goods/pending_pay_item.png"
+			"images/goods/pending_pay_item.png",
+			"css/own.css",
+			"js/own.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"jsHostName/hostName.js"
+		],
+		"refer": [
+			"Home/pay-needtem.html"
+		]
+	},
+	"Mine/wait-for-receive-needtem.html": {
+		"refer": [
+			"Home/pay-needtem.html"
+		],
+		"resources": [
+			"css/own.css",
+			"js/own.js",
+			"img/shopIcon_1.png",
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"images/goods/pending_pay_item.png",
+			"jsHostName/hostName.js"
+		]
+	},
+	"Mine/comment-center-needtem.html": {
+		"resources": [
+			"images/comments/goods_comment_header.png",
+			"images/comments/goods_erji.png",
+			"css/own.css",
+			"js/own.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"jsHostName/hostName.js"
+		],
+		"refer": [
+			"Mine/comment-detail-needtem.html"
+		]
+	},
+	"Mine/repair-replace-needtem.html": {
+		"resources": [
+			"js/main.js",
+			"css/style_1.css",
+			"img/shuijiao.jpg",
+			"fonts/mui.ttf"
+		]
+	},
+	"Mine/comment-detail-needtem.html": {
+		"resources": [
+			"img/shouji.png",
+			"css/own.css",
+			"js/own.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css"
+		]
+	},
+	"Home/news-needtem.html": {
+		"resources": [
+			"img/mokuai13.jpg",
+			"img/mokuai11.jpg",
+			"img/mokuai12.jpg",
+			"img/news3.jpg"
+		]
+	},
+	"Home/news2-needtem.html": {
+		"resources": [
+			"img/lunbo2.jpg"
+		]
+	},
+	"Home/news3-needtem.html": {
+		"resources": [
+			"img/mokuai33.jpg",
+			"img/mokuai35.jpg",
+			"img/mokuai31.jpg",
+			"img/mokuai32.jpg",
+			"img/mokuai34.png"
 		]
 	}
 }

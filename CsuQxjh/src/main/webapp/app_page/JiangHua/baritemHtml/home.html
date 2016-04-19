@@ -1,226 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>E3</title>
-		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
-		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
-		<link rel="stylesheet" type="text/css" href="../css/own.css" />
-		<style type="text/css">
-			.mui-table-view:after {
-				height: 0px;
-			}
-			/*图片显示的时候设置为自动 因为 从服务器来的图片大小相同*/
-			
-			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object {
-				line-height: auto;
-				max-width: auto;
-				height: auto;
-				border-top-right-radius: 4px;
-				border-top-left-radius: 4px;
-			}
-			
-			.mui-table-view-cell {
-				margin-bottom: 10px;
-			}
-			
-			.bgDiv {
-				border: 1px solid rgba(204, 204, 204, 0.7);
-				border-radius: 5px;
-				background-color: white;
-				width: 100%;
-			}
-			
-			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
-				margin-top: 2px;
-				margin-bottom: 5px;
-				height: auto;
-				font-size: 12px;
-				font-family: Microsoft YaHe;
-			}
-			
-			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body p {
-				white-space: pre;
-				color: black;
-			}
-			
-			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body p.mui-ellipsis-2 {
-				height: 30px;
-			}
-			
-			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body .price-one {
-				margin-top: 12px;
-				float: left;
-				font-size: 1.1em;
-				margin-left: 7%;
-				color: red;
-				margin-bottom: 10px;
-			}
-			
-			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body .price-two {
-				margin-top: 12px;
-				float: right;
-				font-size: 1.1em;
-				margin-right: 7%;
-				text-decoration: line-through;
-			}
-			
-			.mui-slider-item img {
-				height: 160px;
-			}
-			/*Common 通用 */
-			
-			span.goods-title {
-				color: black;
-			}
-			/*九宫格  Catalog Grid*/
-			
-			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
-				width: 20%;
-				padding: 0 15px;
-				margin: 0px;
-				border-bottom: 0;
-				border-right: 0;
-			}
-			
-			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-icon {
-				color: white;
-				font-size: 38px;
-				border-radius: 10px;
-			}
-			
-			.mui-grid-view .mui-table-view-cell li .mui-media-body {
-				font-size: 1px;
-			}
-			
-			.express-tem {
-				width: 99%;
-				padding: 0 5px;
-			}
-			
-			#recommend .mui-table-view.mui-grid-view .mui-table-view-cell.pro-large,
-			#promotion .mui-table-view.mui-grid-view .mui-table-view-cell.pro-large {
-				width: 50%;
-			}
-			
-			#promotion .mui-table-view.mui-grid-view .mui-table-view-cell.pro-small {
-				width: 25%;
-			}
-			/*热销模块*/
-			
-			.iteminner {
-				height: 145px;
-				width: 100%;
-				overflow: hidden;
-				margin-top: 0px;
-			}
-			
-			.items {
-				height: 165px;
-				width: 100%;
-				overflow: scroll;
-				overflow-y: hidden;
-				margin-top: 0px;
-			}
-			
-			.item {
-				display: inline;
-				float: left;
-				border: 1px solid #D9D9D9;
-				padding-left: 5px;
-				padding-right: 5px;
-				margin-right: 6px;
-				margin-left: 5px;
-			}
-			
-			.item img {
-				width: 80px;
-				height: 90px;
-				display: block;
-				margin-top: 5px;
-			}
-			
-			.item span.item-price-current {
-				display: block;
-				width: 100%;
-				text-align: center;
-				color: #FF3E02;
-				font-size: 14px;
-			}
-			
-			.item span.item-price-before {
-				display: block;
-				width: 100%;
-				text-align: center;
-				text-decoration: line-through;
-				font-size: 11px;
-				color: #6c6c6c;
-			}
-			
-			span.cuxiao-title {
-				color: #FF3E02;
-				font-size: 14px;
-				text-align: left;
-				width: 100%;
-				margin-left: 6px;
-			}
-			
-			span.cuxiao-des {
-				width: 100%;
-				font-size: 11px;
-				text-align: left;
-				color: #7D7D7D;
-				display: block;
-				margin-left: 6px;
-			}
-		</style>
+		<meta charset="UTF-8">
+		<title>jianghua</title>
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/style_1.css" />
 	</head>
 
-	<body>
+	<body class="homePage comment">
+		<!--<header id="top" class="mui-bar mui-bar-nav">
+	<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-left">
+		<span class="mui-icon mui-icon-left-nav"></span>
+	</button>
+	<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-right">
+		<span class="mui-icon mui-icon-more"></span>
+	</button>
+	<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-right">
+		<span class="mui-icon mui-icon-compose"></span>
+	</button>
+	<h1 class="mui-title">中南大学-情系江华</h1>
+</header>-->
 
-		<div id="homeDiv" class="mui-content own-content-padding" style="overflow-x: hidden;">
-			<!--滚动条 -->
-			<div id="productSlider" class="mui-slider">
+		<div id="goods" class="mui-content-padded homePage">
+			<div id="slider" class="mui-slider">
 				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
-							<img src="../img/yuantiao.jpg">
-							<p class="mui-slider-title">静静看这世界</p>
+							<img src="../img/lunbo1.jpg">
 						</a>
+						<p class="mui-slider-title">
+							生态瑶都 天然氧吧
+						</p>
 					</div>
 					<div class="mui-slider-item">
 						<a href="#">
-							<img src="../img/shuijiao.jpg">
-							<p class="mui-slider-title">幸福就是可以一起睡觉</p>
+							<img class="sliderPic" src="../img/lunbo1.jpg">
 						</a>
+						<p class="mui-slider-title">
+							生态瑶都 天然氧吧
+						</p>
 					</div>
 					<div class="mui-slider-item">
 						<a href="#">
-							<img src="../img/muwu.jpg">
-							<p class="mui-slider-title">想要一间这样的木屋，静静的喝咖啡</p>
+							<img src="../img/lunbo3.jpg">
 						</a>
+						<p class="mui-slider-title">
+							野渡无人舟自横
+						</p>
 					</div>
 					<div class="mui-slider-item">
 						<a href="#">
-							<img src="../img/cbd.jpg">
-							<p class="mui-slider-title">Color of SIP CBD</p>
+							<img src="../img/lunbo4.jpg">
 						</a>
+						<p class="mui-slider-title">
+							阡陌交通 鸡犬相闻
+						</p>
 					</div>
 					<div class="mui-slider-item">
 						<a href="#">
-							<img src="../img/yuantiao.jpg">
-							<p class="mui-slider-title">静静看这世界</p>
+							<img src="../img/lunbo5.jpg">
 						</a>
+						<p class="mui-slider-title">
+							横看成岭侧成峰
+						</p>
 					</div>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
-							<img src="../img/shuijiao.jpg">
-							<p class="mui-slider-title">幸福就是可以一起睡觉</p>
+							<img src="../img/lunbo1.jpg">
 						</a>
+						<p class="mui-slider-title">
+							生态瑶都 天然氧吧
+						</p>
 					</div>
 				</div>
 				<div class="mui-slider-indicator mui-text-right">
@@ -230,343 +81,127 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
-
-			<!--分类目录-->
-			<div id="catalogGrid" class="">
-				<ul class="mui-table-view mui-grid-view mui-grid-9" style="margin: 0px;padding:0px; height: 60%;">
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<a href="#">
-							<span class="mui-icon mui-icon-home" style="background: #ff3300;"></span>
-							<div class="mui-media-body">水果</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<a href="#">
-							<span class="mui-icon mui-icon-email " style="background: #66ccff;"></span>
-							<div class="mui-media-body">干货</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<a href="#">
-							<span class="mui-icon mui-icon-chatbubble" style="background: #66ccff;"></span>
-							<div class="mui-media-body">特产</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<a href="#">
-							<span class="mui-icon mui-icon-location" style="background: #D15FEE;"></span>
-							<div class="mui-media-body">收藏</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<a href="#">
-							<span class="mui-icon mui-icon-more" style="background: #9A32CD;"></span>
-							<div class="mui-media-body">more</div>
-						</a>
-					</li>
-				</ul>
+			<div class="goodCard">
+				<div class="goodTag">
+					<a href="../Home/news-needtem.html">
+						<div class="bones mui-row">
+							<div class="bonesName mui-col-xs-5 mui-pull-left">
+								<img class="mui-media-object" src="../img/mokuai1.jpg" width="100%">
+							</div>
+							<div class="bonesTag mui-col-xs-7 mui-text-left mui-pull-left">
+								<p>中南大学主动承担社会责任，精准帮扶江华县</p>
+								<p class="sub">深入进行考察调研</p>
+								<p class="bottom">2016-03-16</p>
+							</div>
+						</div>
+					</a>
+				</div>
 			</div>
-
-			<!--促销模块  -->
-			<span class=" mui-icon iconfont icon-xinyuandan cuxiao-title" style=""><span class="goods-title">促销商品</span></span>
-			<span class="cuxiao-des" style="">&nbsp;&nbsp;&nbsp;&nbsp;打折优惠，尽收眼底</span>
-			<div id="cuxiao" class="iteminner">
-				<div class="items">
-					<div style="width: 670px;">
-						<div class="item">
-							<img src="../img/shouji.png" />
-							<span class="item-price-current">￥1999</span>
-							<span class="item-price-before">￥2999</span>
+			
+			<div class="goodCard">
+				<div class="goodTag">
+					<a href="../Home/news2-needtem.html">
+						<div class="bones mui-row">
+							<div class="bonesName mui-col-xs-5 mui-pull-left">
+								<img class="mui-media-object" src="../img/mokuai2.jpg" width="100%">
+							</div>
+							<div class="bonesTag mui-col-xs-7 mui-text-left mui-pull-left">
+								<p>中南大学主动承担社会责任，精准帮扶江华县</p>
+								<p class="sub">深入进行考察调研</p>
+								<p class="bottom">2016-03-16</p>
+							</div>
 						</div>
-						<div class="item">
-							<img src="../img/shouji.png" />
-							<span class="item-price-current">￥1999</span>
-							<span class="item-price-before">￥2999</span>
+					</a>
+				</div>
+			</div>
+			<div class="goodCard">
+				<div class="goodTag">
+					<a href="../Home/news3-needtem.html">
+						<div class="bones mui-row">
+							<div class="bonesName mui-col-xs-5 mui-pull-left">
+								<img class="mui-media-object" src="../img/mokuai3.jpg" width="100%">
+							</div>
+							<div class="bonesTag mui-col-xs-7 mui-text-left mui-pull-left">
+								<p>中南大学主动承担社会责任，精准帮扶江华县</p>
+								<p class="sub">深入进行考察调研</p>
+								<p class="bottom">2016-03-16</p>
+							</div>
 						</div>
-						<div class="item">
-							<img src="../img/shouji.png" />
-							<span class="item-price-current">￥1999</span>
-							<span class="item-price-before">￥2999</span>
-						</div>
-						<div class="item">
-							<img src="../img/shouji.png" />
-							<span class="item-price-current">￥1999</span>
-							<span class="item-price-before">￥2999</span>
-						</div>
-						<div class="item">
-							<img src="../img/shouji.png" />
-							<span class="item-price-current">￥1999</span>
-							<span class="item-price-before">￥2999</span>
-						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 
-			<!--促销模块 -->
-			<span class=" mui-icon iconfont icon-xinyuandan" style="color:#FF3E02;font-size: 14px;text-align: center;width: 100%;">每日热销</span>
-			<span style="width: 100%;font-size: 11px;text-align: center;color: #7D7D7D;display: block;">轻松看到最受欢迎的产品</span>
-			<div id="promotion" class="">
-				<img class="express-tem" src="../img/cuxiao.png" />
-				<!--<span class="mui-title tem-title" >爱生活</span>-->
-				<ul id="" class="mui-table-view mui-grid-view mui-grid-9">
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 pro-large">
-						<a href="#">
-							<div class="" style="width: 55%;float: left;">
-								<span class="goods-title" style="font-size: 14px;font-weight: 500;text-align: left;">今日最大牌</span>
-							</div>
-							<div class="" style="width: 40%;float: left;">
-								<img src="../img/shouji.png" style="width: 3.5em;height: 4.5em;" />
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 pro-large">
-						<a href="#">
-							<div class="" style="width: 55%;float: left;">
-								<span class="goods-title" style="font-size: 14px;font-weight: 500;text-align: left;">今日最大牌</span>
-							</div>
-							<div class="" style="width: 40%;float: left;">
-								<img src="../img/shouji.png" style="width: 3.5em;height: 4.5em;" />
-							</div>
-						</a>
-					</li>
-
-				</ul>
-				<ul id="cuxiao-small" class="mui-table-view mui-grid-view mui-grid-9" style="-webkit-padding-before: 0;">
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 pro-small">
-						<a href="#">
-							<div class="" style="width: 55%;">
-								<span class="goods-title" style="font-size: 12px;font-weight: 500;text-align: left;">今日最大牌</span>
-							</div>
-							<div class="" style="width: 40%;">
-								<img src="../img/shouji.png" style="width: 3.4em;height: 4.4em;" />
-							</div>
-						</a>
-					</li>
-					
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 pro-small">
-						<a href="#">
-							<div class="" style="width: 55%;">
-								<span class="goods-title" style="font-size: 12px;font-weight: 500;text-align: left;">今日最大牌</span>
-							</div>
-							<div class="" style="width: 40%;">
-								<img src="../img/shouji.png" style="width: 3.4em;height: 4.4em;" />
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 pro-small">
-						<a href="#">
-							<div class="" style="width: 55%;">
-								<span class="goods-title" style="font-size: 12px;font-weight: 500;text-align: left;">今日最大牌</span>
-							</div>
-							<div class="" style="width: 40%;">
-								<img src="../img/shouji.png" style="width: 3.4em;height: 4.4em;" />
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 pro-small">
-						<a href="#">
-							<div class="" style="width: 55%;">
-								<span class="goods-title" style="font-size: 12px;font-weight: 500;text-align: left;">今日最大牌</span>
-							</div>
-							<div class="" style="width: 40%;">
-								<img src="../img/shouji.png" style="width: 3.4em;height: 4.4em;" />
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-
-			<!--推荐模块 -->
-			<span class=" mui-icon iconfont icon-xinyuandan" style="color:#FF3E02;font-size: 14px;text-align: center;width: 100%;">猜你喜欢</span>
-			<span style="width: 100%;font-size: 11px;text-align: center;color: #7D7D7D;display: block;">实时推荐最适合你的宝贝</span>
-			<div id="recommend" class="mui-table-view mui-grid-view own-gray-color">
-				<ul id="" class="mui-table-view mui-grid-view mui-grid-9">
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 pro-large">
-						<a href="../Home/goodsIndex-needtem.html">
-							<div class="" style="width: 99%;display: block;padding: 0,5px;">
-								<img src="../images/goods/mangguo.png" style="width: 7em;height: 7em;" />
-							</div>
-							<div class="" style="width: 99%;padding: 5 5px;">
-								<span class="goods-title" style="font-size: 14px;font-weight: 500;text-align: left;">天银  芒果  湖南江华   5斤装</span>
-							</div>
-							<div class="" style="width: 99%;padding: 5 5px;margin-top:4px ;">
-								<span style="float:left;color:#FF3E02;font-size: 14px;padding-left: 2px;"><span>￥</span>46.9</span>
-								<span style="float: right;font-size: 11px;padding-right: 1px;">2774人付款</span>
-							</div>
-
-						</a>
-					</li>
-					<!--<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 pro-large">
-						<a href="../Home/goodsIndex-needtem.html">
-							<div class="" style="width: 99%;display: block;padding: 0,5px;">
-								<img src="../images/goods/yanzhifang.png" style="width: 100%;height: 100%;" />
-							</div>
-							<div class="" style="width: 99%;padding: 5 5px;">
-								<span class="goods-title" style="font-size: 14px;font-weight: 500;text-align: left;">天银  芒果  湖南江华   5斤装</span>
-							</div>
-							<div class="" style="width: 99%;padding: 5 5px;margin-top:4px ;">
-								<span style="float:left;color:#FF3E02;font-size: 14px;padding-left: 2px;"><span>￥</span>46.9</span>
-								<span style="float: right;font-size: 11px;padding-right: 1px;">2774人付款</span>
-							</div>
-
-						</a>
-					</li>-->
-
-				</ul>
-			</div>
 		</div>
-
-		<script src="../js/mui.min.js" charset="UTF-8"></script>
+		<!--<div id="shop" class="mui-content-padded homePage">
+			<div class="goodCard">
+				<div class="goodTag">
+					<ul class="mui-table-view mui-grid-view">
+						<li class="mui-table-view-cell mui-media mui-col-xs-6">
+							<a href="#">
+								<img class="mui-media-object" src="../img/shangpin1.jpg">
+								<div class="mui-media-body">瑶乡红茶</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-6">
+							<a href="#">
+								<img class="mui-media-object" src="../img/shangpin2.jpg">
+								<div class="mui-media-body">纯正土蜂蜜</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-6">
+							<a href="#">
+								<img class="mui-media-object" src="../img/shangpin3.jpg">
+								<div class="mui-media-body">特色河鱼酱</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-6">
+							<a href="#">
+								<img class="mui-media-object" src="../img/shangpin4.jpg">
+								<div class="mui-media-body">传统工艺腐竹</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>-->
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
 		<script src="../js/ajax.js" charset="UTF-8"></script>
 		<script src="../js/own.js" charset="UTF-8"></script>
-		<script type="text/javascript" charset="UTF-8">
+		<script type="text/javascript">
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			var slider = mui("#slider");
-			slider.slider({
-				interval: 5000
+			//获得slider插件对象
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+				interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0；
 			});
-			//将ios中独有的东西在android上屏蔽
-			var isLoadMarquee = false;
-			var isLoadRecommend = false;
+			
 			var currentWebview;
 			var parentWebview;
-			var homeDiv;
-			var marqueeArray = []; //跑马灯数据数组
-			var recommendArray = []; //推荐商品数组
+			
+			
 			mui.plusReady(function() {
+				
 				currentWebview = plus.webview.currentWebview();
 				parentWebview = plus.webview.currentWebview().parent();
-				homeDiv = document.getElementById('homeDiv');
-				//进到这个函数说明plusready可以通信(解决为什么第一个显示的界面不没有触发show函数)
-				pasueLink();
-				//监听show事件请求数据
-				currentWebview.addEventListener('show', function() {
-					pasueLink();
-				}, false);
-				//添加每个item点击的监听事件
-				mui('#recommend').on('tap', 'a', function() {
-					var item = this;
-					var itemID = this.getAttribute('href');
+				
+				mui('.goodCard .goodTag').on('tap', 'a', function() {
+					var id = this.getAttribute('href');
+					var href = this.href;
 					var anishow = getaniShow();
-//					alert("商品详情");
-					console.log("mui.fire goodsIndex.html"+ itemID);
-					//弹入分类商品列表
-//					alert(currentWebview.id);
-//					alert(parentWebview.id);
 					mui.fire(parentWebview, 'newWebView', {
-						id: 'Home/goodsIndex-needtem.html',
-						href: 'Home/goodsIndex-needtem.html',
+						id: id,
+						href: href,
 						aniShow: anishow,
-						title: '商品详情',
+						title: '中南大学--情系江华',
 						isBars: false,
-						barsIcon: '',
-						product_id: itemID
-					}, false);//product_id: itemID,
+						barsIcon: ''
+					}, false);
 				});
 			});
-			//与服务器通信
-			function pasueLink() {
-				if (!isLoadMarquee && marqueeArray.length <= 0) {
-					//开始请求
-					isLoadMarquee = true;
-					ajax_get_Marquee({});
-				}
-				if (!isLoadRecommend && recommendArray.length <= 0) {
-					isLoadRecommend = true;
-					ajax_get_Recommend();
-				}
-			}
-
-			function getMarqueeSuccess(data) {
-				if (data.code == '000000') {
-					marqueeArray = data.paomadeng;
-					//设置跑马灯
-					setMarquee();
-				}
-				isLoadMarquee = false;
-			}
-
-			function getRecommendSuccess(data) {
-				if (data.code = '000000') {
-					mui.each(data.hotSaleProducts, function(index, item) {
-						var dataItem = {};
-						dataItem.product_price = item.product_price;
-						dataItem.product_name = item.product_name;
-						dataItem.large_image_url = item.large_image_url;
-						dataItem.product_id = item.product_id;
-						recommendArray.push(dataItem);
-					});
-					//设置推荐商品
-					setRecommend();
-				}
-				isLoadRecommend = false;
-			}
-
-			function setMarquee() {
-				var sliderMarquee = document.getElementById('productSlider');
-				var sliderGroup = document.createElement('div');
-				sliderGroup.className = 'mui-slider-group mui-slider-loop';
-				sliderMarquee.appendChild(sliderGroup);
-				var sliderIndicator = document.createElement('div');
-				sliderIndicator.className = 'mui-slider-indicator';
-				sliderMarquee.appendChild(sliderIndicator);
-				for (var i = 0; i < marqueeArray.length; i++) {
-					if (0 == i) {
-						var sliderItemDuplicate = document.createElement('div');
-						sliderItemDuplicate.className = 'mui-slider-item mui-slider-item-duplicate';
-						sliderItemDuplicate.innerHTML = '<a href="' + marqueeArray[marqueeArray.length - 1].contentId + '">\
-								<img src="' + marqueeArray[marqueeArray.length - 1].imagerpath + '" />\
-							</a>';
-						sliderGroup.appendChild(sliderItemDuplicate);
-					}
-					var sliderItem = document.createElement('div');
-					sliderItem.className = 'mui-slider-item';
-					sliderItem.innerHTML = '<a href="' + marqueeArray[i].contentId + '">\
-							<img src="' + marqueeArray[i].imagerpath + '" />\
-						</a>';
-					sliderGroup.appendChild(sliderItem);
-					var indicatorItme = document.createElement('div');
-					if (i == 0) {
-						indicatorItme.className = 'mui-indicator mui-active';
-					} else {
-						indicatorItme.className = 'mui-indicator';
-					}
-					sliderIndicator.appendChild(indicatorItme);
-					if (marqueeArray.length - 1 == i) {
-						var sliderItemDuplicate = document.createElement('div');
-						sliderItemDuplicate.className = 'mui-slider-item mui-slider-item-duplicate';
-						sliderItemDuplicate.innerHTML = '<a href="' + marqueeArray[0].contentId + '">\
-								<img src="' + marqueeArray[0].imagerpath + '" />\
-							</a>';
-						sliderGroup.appendChild(sliderItemDuplicate);
-					}
-					var slider = mui('.mui-slider');
-					slider.slider();
-				}
-			}
-			//设置推荐商品
-			function setRecommend() {
-				var recommend = document.getElementById('recommend');
-				mui.each(recommendArray, function(index, item) {
-					var li = document.createElement('li');
-					li.className = 'mui-table-view-cell mui-media mui-col-xs-6';
-					li.innerHTML = '<a href="' + item.product_id + '">\
-						<div class= "bgDiv">\
-							<img class="mui-media-object" src="http://file.huihoo.com' + item.large_image_url + '"/>\
-							<div class="mui-media-body">\
-								<p class="mui-ellipsis-2">' + item.product_name + '</p>\
-								<p class="price-one">¥' + item.product_price.default_price + '</p>\
-								<p class="price-two">¥' + item.product_price.list_price + '</p>\
-							</div>\
-						</div>\
-					</a>';
-					recommend.appendChild(li);
-				});
-			}
 		</script>
-
 	</body>
 
 </html>

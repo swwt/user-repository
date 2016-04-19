@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.CollectionSerializer;
 import com.csu.qxjh.goods.pojo.Goods;
+import com.csu.qxjh.goods.pojo.GoodsComment;
+import com.csu.qxjh.goods.service.GoodsService;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.user.pojo.Collection;
 import com.csu.qxjh.user.pojo.GoodsOrder;
@@ -54,6 +57,8 @@ public class UserControllerApp {
 	private GoodsOrderSerice goodsOrderSerice;
 	@Resource
 	private ShoppingCartService shoppingCartService;
+	@Resource
+	private GoodsService goodsService;
 	/*
 	 *注册页面 
 	 */
@@ -133,9 +138,13 @@ public class UserControllerApp {
 		message.setMessage("添加成功");
 		Goods goods=new Goods();
 		User user=new User();
+		Sellor sellor=new Sellor();
 		goods.setId(goodsId);
 		user.setId(userId);
 		GoodsOrder goodsOrder=new GoodsOrder();
+		String sellorId=goodsService.getSellorIdByGoodsId(goodsId);
+		sellor.setId(sellorId);
+		goodsOrder.setSellor(sellor);
 		goodsOrder.setGoods(goods);
 		goodsOrder.setUser(user);
 		goodsOrder.setGoods_order_price(Double.parseDouble(goods_order_price));
@@ -192,7 +201,7 @@ public class UserControllerApp {
 	public Message deleteGoodsOrder(@RequestParam(value="goodsOrderId")String goodsOrderId){
 		Message message=new Message();
 		message.setCode(1);
-		message.setMessage("添加成功");
+		message.setMessage("删除成功");
 		goodsOrderSerice.deleteGoodsUserType((goodsOrderSerice.getById(goodsOrderId)));
 		return message;
 	}
@@ -365,7 +374,55 @@ public class UserControllerApp {
 		return message;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("/getCompleteGoodsOrder")//用户获取已完成订单
+	public Message getCompleteGoodsOrder(@RequestParam(value="userId")String userId){
+		List<GoodsOrder> goodsOrders=goodsOrderSerice.getOrderByComplete(userId);		
+		for(int i=0;i<goodsOrders.size();i++){
+			GoodsOrder goodsOrder=goodsOrders.get(i);
+			goodsOrder.setUser(null);
+			Goods goods=new Goods();
+			Goods goodsOld=goodsOrder.getGoods();
+			goods.setGoods_name(goodsOld.getGoods_name());
+			goods.setImages(goodsOld.getImages());
+			goods.setId(goodsOld.getId());
+			goodsOrder.setGoodsClone(goods);	
+			goodsOrder.setGoods(null);
+		}
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("获取已完成订单成功");
+		message.setResult(goodsOrders);
+		return message;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/addOrderComment")//用户获取已完成订单
+	public Message addOrderComment(@RequestParam(value="userId")String userId,
+			@RequestParam(value="goodsId")String goodsId,
+			@RequestParam(value="files")MultipartFile[] files,
+			GoodsComment goodsComment){
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("获取已完成订单成功");
+
+		return message;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

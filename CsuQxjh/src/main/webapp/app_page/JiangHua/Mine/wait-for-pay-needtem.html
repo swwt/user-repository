@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
 		<link rel="stylesheet" type="text/css" href="../css/own.css" />
 		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
-
+    	<script src="../jsHostName/hostName.js"></script>
 		<style type="text/css">
 			.mui-icon,
 			.mui-bar-nav .mui-title {
@@ -84,21 +84,17 @@
 
 		<div class="mui-content pending-pay-items" style="background-color: #F0F2F5;">
 
-			<ul class="pending-pay-item mui-table-view" style="">
+			<ul class="pending-pay-item mui-table-view" style="" id="waitPayOrder">
 				<li class="mui-table-view-cell pay-item-top" style="background-color: white;">
 					<img class="item-shop-img" style="width: 1.3em;height: 1.3em;" src="../img/shopIcon_1.png" />
 					<span class="item-shop-name" style="margin-top: 0;padding: 0;font-size: 14px;">江华商城</span>
 					<span class="pay-status-label" style="float: right;color: #F23030;font-size: 14px;">等待付款</span>
 				</li>
-				<li class="mui-table-view-cell mui-media pay-item-middle " style="background-color:#F8F8F8;height: 85px!important;">
+<!--				<li class="mui-table-view-cell mui-media pay-item-middle " style="background-color:#F8F8F8;height: 85px!important;">
 					<img class="mui-media-object" src="../images/goods/pending_pay_item.png" />
 					<span class="pay-item-des mui-media-body">
 							东芝(TOSHIBA) Q300系列 480G SATA3 固态硬盘东芝(TOSHIBA) Q300系列 480G SATA3 固态硬盘
 					</span>
-					<div class="mui-input-row mui-checkbox">
-						<label>Checkbox</label>
-						<input name="checkbox1" type="checkbox">
-					</div>
 
 				</li>
 				<li class="mui-table-view-cell mui-media pay-item-middle" style="border-top: 1px solid#E3E5E9;background-color:#F8F8F8;height: 85px!important;">
@@ -106,13 +102,14 @@
 					<span class="pay-item-des mui-media-body">
 							东芝(TOSHIBA) Q300系列 480G SATA3 固态硬盘东芝(TOSHIBA) Q300系列 480G SATA3 固态硬盘
 					</span>
-				</li>
+				</li>-->
 				<li class="mui-table-view-cell" style="font-size: 14px;">
 
-					<span style="float:right;margin-left:10px;">实付款: <span style="font-size: 16px;font-weight: bold;">￥127.00</span></span>
+					<span style="float:right;margin-left:10px;">实付款: ￥<span style="font-size: 16px;font-weight: bold;">127.00</span></span>
 					<span style="float:right;">共1件商品</span>
 				</li>
 				<li class="mui-table-view-cell" style="border-top: 1px solid#E3E5E9;padding-top: 5px;padding-bottom: 7px;">
+					<button style="border-color: #F23030;color: #F23030;float: right;font-size: 14px;width: 6em;">取消订单</button>
 					<button style="border-color: #F23030;color: #F23030;float: right;font-size: 14px;width: 6em;">去支付</button>
 				</li>
 			</ul>
@@ -121,29 +118,156 @@
 		<script src="../js/mui.min.js" charset="UTF-8"></script>
 		<script src="../js/own.js" charset="UTF-8"></script>
 		<script type="text/javascript" charset="utf-8">
+		var userId=JSON.parse(localStorage.getItem('user')).id;
 			mui.init({
 				swipeBack: false
 			});
+			
+			
+			
 			mui.plusReady(function() {
-				mui('.pending-pay-item').on('tap', 'button', function() {
-					mui.openWindow({
-						url: "../Home/pay-needtem.html",
-						id: "../Home/pay-needtem.html",
-						styles: {
-							top: 0
-						},
-						extras: {
-						},
-						show: {
-							autoShow: true //页面loaded事件发生后自动显示，默认为true 
-						},
-						waiting: {
-							autoShow: true, //自动显示等待框，默认为true  
-							title: '正在加载...' //等待对话框上显示的提示内容 
+				function deleteOrder(orderId){
+					mui.ajax(host+'/user/deleteGoodsOrder',{
+								data:{
+									goodsOrderId:orderId					
+								},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){						
+									if(data.code==1){
+										alert(data.message);
+										window.location.reload();
+										//getWaitPayOrder();
+									}else{//登录失败，给出提醒
+										alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									alert("出现错误");
+								}
+							});
+				}
+				function addEvent(){
+					mui('.pending-pay-item').on('tap', 'button', function() {
+						//alert(1);
+						var text = this.innerHTML;
+						var parent = this.parentNode;
+						var orderId = parent.getElementsByTagName('input')[0].value;
+						var beforeParent = parent.previousSibling;
+						var dingdanMoneyTotal = beforeParent.getElementsByTagName('span')[1].innerHTML;
+						if(text=='去支付'){
+							var paywebview = mui.preload({
+						    url:"../Home/pay-needtem.html",
+						    id:"pay-needtem.html",//默认使用当前页面的url作为id
+						    styles: {
+								top: '0px',
+								bottom: '0px'
+							}
+							});
+							mui.fire(paywebview,'payPage',{
+		   						 dingdanMoneyTotal:dingdanMoneyTotal
+		  					});
+							mui.openWindow({
+								url: "../Home/pay-needtem.html",
+								id: "pay-needtem.html",
+								styles:{
+									top:0
+								},
+								extras:{
+									
+								},
+								show:{
+									autoShow: true //页面loaded事件发生后自动显示，默认为true 
+								},
+								waiting: {  
+		        					autoShow: true, //自动显示等待框，默认为true  
+		       						title: '正在加载...' //等待对话框上显示的提示内容 
+		       					}
+							});
+						}else{
+							//alert(2);
+							deleteOrder(orderId);
 						}
+						
 					});
+				}
+				
+				
+				function getWaitPayOrder(){
+					//alert("userId:"+userId);
+					mui.ajax(host+'/user/getNoPayGoodsOrder',{
+								data:{
+									userId:userId					
+								},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){						
+									if(data.code==1){
+										//alert(data.message);							
+									  	var orderJSONs=data.result;
+									  	var orderHtml=""
+										  	+"<li class=\"mui-table-view-cell pay-item-top\" style=\"background-color: white;\">"
+												+"<img class=\"item-shop-img\" style=\"width: 1.3em;height: 1.3em;\" src=\"../img/shopIcon_1.png\" />"
+												+"<span class=\"item-shop-name\" style=\"margin-top: 0;padding: 0;font-size: 14px;\">江华商城</span>"
+												+"<span class=\"pay-status-label\" style=\"float: right;color: #F23030;font-size: 14px;\">等待付款</span>"
+											+"</li>";
+									  	
+									  	for(var k=0;k<orderJSONs.length;k++){
+									  		var orderJSON=orderJSONs[k];
+									  		var orderImages=orderJSON.goodsClone.images;
+									  		var money=parseFloat(orderJSON.goods_order_price)*parseInt(orderJSON.goods_order_amount);
+									  		orderHtml=orderHtml
+									  		+"<li class=\"mui-table-view-cell mui-media pay-item-middle\" style=\"border-top: 1px solid#E3E5E9;background-color:#F8F8F8;height: 85px!important;\">"
+												+"<img class=\"mui-media-object\" src=\""+host+orderImages[0].goods_image_src+"\" />"
+												+"<span class=\"pay-item-des mui-media-body\">"
+														+orderJSON.goodsClone.goods_name+"("+orderJSON.goods_order_price_description+")"
+												+"</span>"
+											+"</li>"
+											+"<li class=\"mui-table-view-cell\" style=\"font-size: 14px;\">"					
+												+"<span style=\"float:right;margin-left:10px;\">实付款: ￥<span style=\"font-size: 16px;font-weight: bold;\">"+money+"</span></span>"
+												+"<span style=\"float:right;\">共"+orderJSON.goods_order_amount+"件商品</span>"
+											+"</li>"
+											+"<li class=\"mui-table-view-cell\" style=\"border-top: 1px solid#E3E5E9;padding-top: 5px;padding-bottom: 7px;\">"
+												+"<button style=\"border-color: #F23030;color: #F23030;float: right;font-size: 14px;width: 6em;\">取消订单</button>"
+												+"<button style=\"border-color: #F23030;color: #F23030;float: right;font-size: 14px;width: 6em;\">去支付</button>"
+												+"<input value=\""+orderJSON.id+"\" type=\"hidden\"/>"
+											+"</li>";
+									  	}
+									  	document.getElementById("waitPayOrder").innerHTML=orderHtml;	
+									  	addEvent();	
+									}else{//登录失败，给出提醒
+										alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									//console.log(type);
+		//							alert(xhr);
+		//							alert(type);
+		//							alert(errorThrown);
+									alert("出现错误");
+								}
+							});
+				}
+				
+				var currentWebview = plus.webview.currentWebview();
+				currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次
+					
+					if(plus.networkinfo.getCurrentType()==1){
+						alert("当前没有网络");
+					}else{
+						//getCatagory(); 
+						window.location.reload();
+						//alert(1);
+						//getWaitPayOrder();
+					}					
 				});
+				getWaitPayOrder();
 			});
+		
 		</script>
 	</body>
 

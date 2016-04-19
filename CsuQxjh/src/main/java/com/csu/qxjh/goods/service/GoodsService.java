@@ -17,4 +17,5 @@ public interface GoodsService {
 	List<Goods> getByNameOrderByPriceDown(String name);//根据商品名称进行模糊搜索,并将结果进行按价格降序排列
 	List<Goods> getByNameOrderByPriceUp(String name);//根据商品名称进行模糊搜索,并将结果进行按价格升序排列
 	List<Goods> getByNameOrderByZongHe(String name);//根据商品名称进行模糊搜索,并将结果进行按综合降序排列
+	String getSellorIdByGoodsId(int id);//通过商品id获取卖家id
 }

@@ -110,7 +110,7 @@
 			}
 			
 			.mui-content .mui-table-view.mui-grid-view .mui-table-view-cell {
-				width: 25%;
+				width: 33%;
 				color: #222222;
 				padding: 0px;
 			}
@@ -129,7 +129,12 @@
 		</script>
 		<script type="text/javascript">
 			function setUserName(){
-				userJSON=JSON.parse(localStorage.getItem('user'));
+				if(localStorage.getItem('user')==null){
+					
+				}else{
+					userJSON=JSON.parse(localStorage.getItem('user'));	
+				}
+				
 				var user_name=userJSON.user_name.substring(0,10);//默认用户名
 				document.getElementById("usernameAfterLogin").innerHTML=user_name;
 			}			
@@ -176,23 +181,24 @@
 						</a>
 					</li>
 					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<a href="#">
+						<a href="../Mine/wait-for-receive-needtem.html">
 							<span class="mui-icon mui-icon-home"></span>
 							<div class="mui-media-body">待收货</div>
 						</a>
 					</li>
 					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<a href="#">
+						<a href="../Mine/comment-center-needtem.html">
 							<span class="mui-icon mui-icon-home"></span>
 							<div class="mui-media-body">待评价</div>
 						</a>
 					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<a href="#">
+				<!--	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a id="repair-replace" href="../Mine/repair-replace-needtem.html">
+
 							<span class="mui-icon mui-icon-home"></span>
 							<div class="mui-media-body">返修/退换</div>
 						</a>
-					</li>
+					</li>-->
 				</ul>
 			</div>
 			
@@ -362,7 +368,10 @@
 					}else if(this.id == 'myOrder') {
 						isBars = true;
 						barsIcon = 'mui-icon iconfont icon-chat';
+					}else if(this.id =='repair-replace'){
+						title = "售后服务-订单列表";
 					}
+
 					
 					
 					mui.fire(parentWebView, 'newWebView', {

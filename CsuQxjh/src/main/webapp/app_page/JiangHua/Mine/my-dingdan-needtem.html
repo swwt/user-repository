@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
 		<link rel="stylesheet" type="text/css" href="../css/own.css" />
-
+		<script src="../jsHostName/hostName.js"></script>
 		<style type="text/css">
 			.mui-bar-nav .mui-title,
 			.mui-icon,
@@ -146,7 +146,7 @@
 						<span class="item-shop-name">明卓办公用品专营店</span>
 						<span class="mui-icon mui-icon-forward"></span>
 					</a>
-					<span id="itemTrash" class="mui-icon mui-icon-trash"></span>
+					<span id="itemTrash" class="mui-icon mui-icon-trash"><span style="display: none;">id</span></span>
 				</div>
 				<div class="item-middile">
 					<img class="item-img" src="../img/dongzhi.png" />
@@ -158,7 +158,7 @@
 					<button class="item-btn-comment">评价晒单</button>
 				</div>
 			</div>
-			<div class="order-item">
+<!--			<div class="order-item">
 				<div class="item-top">
 					<img src="../img/shopIcon_1.png" />
 					<a href="#">
@@ -195,7 +195,7 @@
 					<button class="item-btn-purchase">再次购买</button>
 					<button class="item-btn-comment">评价晒单</button>
 				</div>
-			</div>
+			</div>-->
 		</div>
 
 		<script src="../js/mui.min.js" charset="UTF-8"></script>
@@ -204,8 +204,118 @@
 			mui.init({
 				swipeBack: false
 			});
+			var userId=JSON.parse(localStorage.getItem('user')).id;
 			mui.plusReady(function(){
 				//adaptive();
+				function deleteOrder(orderId){
+					mui.ajax(host+'/user/deleteGoodsOrder',{
+								data:{
+									goodsOrderId:orderId					
+								},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){						
+									if(data.code==1){
+										alert(data.message);
+										window.location.reload();
+										//getWaitPayOrder();
+									}else{//登录失败，给出提醒
+										alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									alert("出现错误");
+								}
+							});
+				}
+				
+				function deleteEvent(){
+					document.getElementById("itemTrash").addEventListener('tap',function(){
+						var orderId=this.getElementsByTagName('span')[0].innerHTML;
+						//alert(orderId);
+						deleteOrder(orderId);
+					})
+					var anishow = getaniShow();
+					mui(".order-item").on('tap','.item-btn-purchase',function(){
+						var goodsId=this.getElementsByTagName('span')[0].innerHTML;
+						//alert(goodsId);
+						var parentWebview=plus.webview.getWebviewById('HBuilder');
+						mui.fire(parentWebview, 'newWebView', {
+						id: 'Home/goodsIndex-needtem.html',
+						href: 'Home/goodsIndex-needtem.html',
+						aniShow: anishow,
+						title: '商品详情',
+						isBars: false,
+						barsIcon: '',
+						product_id: goodsId
+					}, false);//
+					});
+				};
+				function getMyCompleteOrder(){
+					mui.ajax(host+'/user/getCompleteGoodsOrder',{
+								data:{
+									userId:userId					
+								},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){						
+									if(data.code==1){
+										//alert(data.message);							
+									  	var orderJSONs=data.result;
+									  	var orderHtml="";									  	
+									  	for(var k=0;k<orderJSONs.length;k++){
+									  		var orderJSON=orderJSONs[k];
+									  		var orderImages=orderJSON.goodsClone.images;
+									  		var money=parseFloat(orderJSON.goods_order_price)*parseInt(orderJSON.goods_order_amount);
+									  		orderHtml=orderHtml
+													+"<div class=\"order-item\">"
+														+"<div class=\"item-top\">"
+															+"<img src=\"../img/shopIcon_1.png\" />"
+															+"<a href=\"#\">"
+																+"<span class=\"item-shop-name\">"+orderJSON.storeName+"</span>"
+																+"<span class=\"mui-icon mui-icon-forward\"></span>"
+															+"</a>"
+															+"<span id=\"itemTrash\" class=\"mui-icon mui-icon-trash\"><span style=\"display: none;\">"+orderJSON.id+"</span></span>"
+														+"</div>"
+														+"<div class=\"item-middile\">"
+															+"<img class=\"item-img\" src=\""+host+orderImages[0].goods_image_src+"\" />"
+															+"<span class=\"item-info\">"
+															+orderJSON.goodsClone.goods_name+"("+orderJSON.goods_order_price_description+")"
+															+"</span>"
+														+"</div>"
+														+"<div class=\"item-bottom\">"
+															+"<span class=\"item-pay\">实付款：￥<span class=\"item-account\">"+money+"</span></span>"
+															+"<button class=\"item-btn-purchase\"><span style=\"display: none;\">"+orderJSON.goodsClone.id+"</span>再次购买</button>"
+														+"</div>"
+													+"</div>";
+									  	}
+									  	document.getElementById("orderItems").innerHTML=orderHtml;	
+									  	deleteEvent()
+									}else{//登录失败，给出提醒
+										alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){	
+									alert("出现错误");
+								}
+							});
+				}
+				var currentWebview = plus.webview.currentWebview();
+				currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次
+					
+					if(plus.networkinfo.getCurrentType()==1){
+						alert("当前没有网络");
+					}else{
+						//getCatagory(); 
+						window.location.reload();
+						//alert(1);
+						//getWaitPayOrder();
+					}					
+				});
+				getMyCompleteOrder();
 			});
 
 			function adaptive() {

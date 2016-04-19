@@ -17,6 +17,8 @@ import com.csu.qxjh.goods.pojo.PromotionGifs;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import net.sf.ehcache.config.PinningConfiguration.Store;
+
 /*
  * 商品订单
  */
@@ -45,10 +47,9 @@ public class GoodsOrder {
 	private String goods_order_pay_way;//支付方式
 	private String goods_order_send_way;//收货方式
 	private int goods_order_user_use;//用户是否保留该订单记录，0代表不保留，1代表保留
-	private Goods goodsClone;//对应goods的另一个版本
-
+	private Goods goodsClone;//对应goods的另一个版本 
 	private Sellor sellor;// 所属卖家
-
+	private String storeName;//店铺名称（不存入数据库）
 	public GoodsOrder() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -264,6 +265,14 @@ public class GoodsOrder {
 	}
 	public void setGoodsClone(Goods goodsClone) {
 		this.goodsClone = goodsClone;
+	}
+	@Transient
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
 	}
 
 }

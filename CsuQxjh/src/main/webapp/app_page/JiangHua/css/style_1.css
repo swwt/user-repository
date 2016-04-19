@@ -1,0 +1,266 @@
+body,
+header,
+.mui-content-padded,
+.goods,
+.bottom {
+	max-width: 835px;
+}
+
+.comment #goods {
+	margin-bottom: 0;
+}
+
+#main,
+#goods,
+#searc,
+#shop {
+	margin-bottom: 80px;
+}
+
+h2 {
+	margin: 15px 0;
+}
+
+#top.mui-bar {
+	position: inherit;
+}
+
+#main .mui-segmented-control {
+	border: none;
+}
+
+#main .mui-segmented-control .mui-control-item {
+	display: block;
+	width: 100%;
+	border: 1px solid #ccc;
+	border-top: none;
+	background: white;
+	color: black;
+	padding: 20px 0;
+}
+
+#main .mui-segmented-control .mui-control-item:first-child {
+	border-top: 1px solid #ccc;
+}
+
+#main .mui-segmented-control .mui-control-item.mui-active {
+	color: #dd524d;
+	background-color: inherit;
+	border: none;
+}
+
+#main .mui-content-padded {
+	margin-right: 0;
+	margin-top: 0;
+}
+
+#main .mui-content-padded h4 {
+	margin: 30px 0;
+}
+
+#main .mui-table-view:before,
+#main .mui-table-view:after {
+	background: none;
+}
+
+#search .mui-segmented-control {
+	border: 1px solid #ccc;
+}
+
+#search .mui-segmented-control .mui-control-item {
+	border: none;
+	color: black;
+}
+
+#search .mui-segmented-control .mui-control-item.mui-active {
+	color: white;
+	background-color: #dd524d;
+	border: none;
+}
+
+#search .mui-table-view .mui-media-object {
+	max-width: 200px;
+	height: auto;
+}
+
+#search .mui-table-view-cell p {
+	margin: 15px 0;
+}
+
+#search .mui-table-view-cell p.mui-danger {
+	font-size: 30px;
+	color: #dd524d;
+}
+
+#search .mui-table-view-cell p.mui-name {
+	margin: 0;
+	font-size: 20px;
+	color: black;
+}
+
+.homePage #goods .goodCard {
+	margin: 3px 0;
+}
+
+#shop .goodCard .mui-table-view {
+	background: inherit;
+}
+
+#shop .goodCard {
+	margin: 3px 0;
+	padding: 8px;
+	background: inherit;
+}
+
+#goods .goodCard {
+	margin: 15px 0;
+	background: white;
+	border: 1px solid #ccc;
+}
+
+#goods .goodTag {
+	margin: 10px;
+}
+
+.order .goodTag .bones {
+	position: relative;
+	min-height: 120px;
+}
+
+.order .goodTag .mui-input-group {
+	margin-bottom: 30px;
+}
+
+.order .goodTag .bones .bonesInfo {
+	position: absolute;
+	top: 50px;
+	right: 10px;
+}
+
+.order .goodTag .bones .bonesTag,
+.homePage .goodTag .bones .bonesTag {
+	padding: 0 15px;
+	position: relative;
+	height: 100%;
+}
+
+.homePage .goodTag .bones .bonesTag p {
+	font-size: 15px;
+	margin-top: 10px;
+	margin-bottom: 0;
+	color: #444;
+}
+
+.homePage .goodTag .bones .bonesTag p.sub,
+.homePage .goodTag .bones .bonesTag p.bottom {
+	font-size: 13px;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: #888;
+}
+
+.homePage .goodTag .bones .bonesTag p.bottom {
+	position: relative;
+	bottom: -10px;
+}
+
+#goods .goodTag .bones .mui-row {
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+
+#goods .goodTag .bones .bonesName {
+	color: #888;
+}
+
+#goods .goodTag .bones .bonesInfo {
+	font-weight: bold;
+}
+
+.goodPrice,
+#goods .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	color: #dd524d;
+}
+
+#goods .mui-segmented-control.mui-segmented-control-inverted ~ .mui-slider-progress-bar {
+	background-color: #dd524d;
+}
+
+#goods table {
+	margin: 10px;
+	padding: 10px;
+}
+
+#goods table td {
+	padding: 10px;
+}
+
+#goods .comment {
+	border-top: 1px solid #ccc;
+	padding: 10px 0;
+}
+
+#goods .comment .CommentStar {
+	color: #dd524d;
+}
+
+#goods .comment .CommentUser {
+	color: #888;
+}
+
+#goods .comment .mui-row {
+	margin: 10px 0;
+}
+
+#goods .comment .commentContent {
+	color: black;
+}
+
+#goods .comment .commentPic > div {
+	margin: 0 10px;
+}
+
+#bottom .twoBtn {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	background-color: #dd524d;
+	color: white;
+}
+
+#bottom .twoBtn span:first-child {
+	border-right: 1px solid white;
+}
+
+#bottom .twoBtn span {
+	height: 48px;
+	line-height: 48px;
+}
+
+.redComment .redBack {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border-radius: 15px;
+	background: #dd524d;
+	color: white;
+	position: relative;
+}
+
+.redComment .redBack .mui-icon {
+	font-size: 40px;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+}
+
+.redComment .commentBy {
+	position: relative;
+	bottom: 8px;
+	left: 0;
+}
+
+.news-header h3 {
+	margin-bottom: 20px;
+}

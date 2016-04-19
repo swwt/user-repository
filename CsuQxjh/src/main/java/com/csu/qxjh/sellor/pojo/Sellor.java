@@ -40,7 +40,7 @@ public class Sellor {
 	private int sellor_logistic_index;//	物流速度
 	private String sellor_qr_code;//	店铺二维码
 	private String sellor_introduction;//	店铺简介
-	private String sellor_company;//	公司名称
+	private String sellor_company;//	公司名称（店铺名称）
 	private String sellor_company_address;//	所在地区
 	private String sellor_store_time;//	开店时间
 	private Set<Collection> collections;//该店铺被收藏多少次

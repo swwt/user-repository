@@ -46,7 +46,7 @@
 					</p>
 					<div class="gongyi-read-good" style="font-size: 12px;color:#8D8D8D;vertical-align: middle;height: 20px;line-height: 20px;margin:12px">
 						<span>阅读量：1521</span>&nbsp;
-						<span><img src="../img/dianzan.png" style="width: 1em;height: 1em;border-radius: 20%;"/>：4546</span>
+			<!--			<span><img src="../img/dianzan.png" style="width: 1em;height: 1em;border-radius: 20%;"/>：4546</span>-->
 						<span style="float: right;"><img src="../img/paihangbang.png" style="vertical-align:middle;width: 1em;height: 1em;border-radius: 20%;margin-right: 2px;"/>公益排行榜</span>
 					</div>
 				</div>
@@ -104,9 +104,9 @@
 			<div class="mui-backdrop"></div>
 		</div>
 		<nav class="mui-bar mui-bar-tab ">
-			<a class="mui-tab-item mui-active" href="#" style="height: 45px;line-height: 45px;">
+			<!--<a class="mui-tab-item mui-active" href="#" style="height: 45px;line-height: 45px;">
 				<span class="mui-icon iconfont icon-xinyuandan" style="font-size: 19px!important;"><span class="mui-tab-label" style="font-size: 14px;margin-left: 2px;" id="commentpraise">23</span></span>
-			</a>
+			</a>-->
 			<a id="edit-comment" class="mui-tab-item" href="#">
 				<span class="mui-icon iconfont icon-fenlei" style="font-size: 19px!important;"><span class="mui-tab-label" style="font-size: 14px;margin-left: 2px;" onclick="document.getElementById('commit').style.display='block'">写评论</span></span>
 
@@ -150,7 +150,7 @@
 										+"</p>"
 										+"<div class=\"gongyi-read-good\" style=\"font-size: 12px;color:#8D8D8D;vertical-align: middle;height: 20px;line-height: 20px;margin:12px\">"
 											+"<span>阅读量："+newsJSON.news_read_number+"</span>&nbsp;"
-											+"<span><img src=\"../img/dianzan.png\" style=\"width: 1em;height: 1em;border-radius: 20%;\"/>："+newsJSON.news_praise+"</span>"
+											//+"<span><img src=\"../img/dianzan.png\" style=\"width: 1em;height: 1em;border-radius: 20%;\"/>："+newsJSON.news_praise+"</span>"
 											+"<span style=\"float: right;\"><img src=\"../img/paihangbang.png\" style=\"vertical-align:middle;width: 1em;height: 1em;border-radius: 20%;margin-right: 2px;\"/>公益排行榜</span>"
 										+"</div>"
 									+"</div>";
@@ -182,7 +182,7 @@
 										+"</div>";
 								document.getElementById("newsContent").innerHTML=newsHtml;
 								document.getElementById("commentamount").innerHTML=commentsJSONs.length;
-								document.getElementById("commentpraise").innerHTML=newsJSON.news_praise;
+							//	document.getElementById("commentpraise").innerHTML=newsJSON.news_praise;
 							}else{//
 								alert(data.message); 
 							}
@@ -235,31 +235,36 @@
 					alert("请先登录");
 				}else{
 					var commentContent=document.getElementById("textarea").value;
-					userId=JSON.parse(localStorage.getItem('user')).id;
-					mui.ajax(host+'/news/addNewsComment',{
-						data:{
-							newsId:news_id,
-							userId:userId,
-							commentContent:commentContent
-						},
-						dataType:'json',//服务器返回json格式数据
-						type:'post',//HTTP请求类型
-						timeout:10000,//超时时间设置为10秒；
-						success:function(data){
-							//服务器返回响应，根据响应结果，分析是否成功；							
-							if(data.code==1){//评论成功
-								alert(data.message);
-								getNewsById(news_id);
-							}else{//登录失败，给出提醒
-								alert(data.message);
+					if(commentContent==''){
+						alert('请输入内容');
+					}else{
+						userId=JSON.parse(localStorage.getItem('user')).id;
+						mui.ajax(host+'/news/addNewsComment',{
+							data:{
+								newsId:news_id,
+								userId:userId,
+								commentContent:commentContent
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							success:function(data){
+								//服务器返回响应，根据响应结果，分析是否成功；							
+								if(data.code==1){//评论成功
+									alert(data.message);
+									getNewsById(news_id);
+								}else{//登录失败，给出提醒
+									alert(data.message);
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								//console.log(type);
+								alert("出现错误");
 							}
-						},
-						error:function(xhr,type,errorThrown){
-							//异常处理；
-							//console.log(type);
-							alert("出现错误");
-						}
-					});
+						});
+					}
+					
 				}
 				
 			}) 

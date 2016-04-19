@@ -642,12 +642,22 @@
 										goodsCommentHtml=goodsCommentHtml
 																+"<span class=\"mui-icon mui-icon-star\"></span>";		
 									}
-									goodsCommentHtml=goodsCommentHtml
+									if(goodsComent.goods_comment_anonymous==1){//不匿名评价
+										goodsCommentHtml=goodsCommentHtml
 																+"</span>"
 																+"<span class=\"CommentUser mui-pull-right\">"
 																	+goodsComent.user.user_login_name;//在这里用的是用户的登录名
 																+"</span>"
 															+"</div>";
+									}else{//匿名评价
+										goodsCommentHtml=goodsCommentHtml
+																+"</span>"
+																+"<span class=\"CommentUser mui-pull-right\">"
+																	+"匿名用户";//在这里用的是用户的登录名
+																+"</span>"
+															+"</div>";
+									}
+									
 									goodsCommentHtml=goodsCommentHtml
 														+"</div>";
 														

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>jianghua</title>
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/style_1.css" />
+		<style type="text/css">
+			/* 搜索框Search*/
+			
+			.mui-search .mui-placeholder {
+				text-align: left;
+			}
+			
+			.mui-search .mui-icon-speech {}
+			
+			.mui-search .mui-icon-search {}
+			
+			.mui-bar .mui-search {
+				width: 80%;
+				margin-top: 2px;
+			}
+			/*customer-service-item item-content item-title*/
+			
+			.customer-service-item {
+				margin-bottom: 10px;
+			}
+			
+			.customer-service-item .item-content .item-title {
+				background-color: white;
+				margin-bottom: 0;
+				padding-top: 5px;
+			}
+			
+			.customer-service-item .item-content .item-title .order-id-status {
+				padding: 0;
+				margin-bottom: 0;
+			}
+			
+			.customer-service-item .item-content .item-title .order-id-status .order-id {
+				margin-left: 13px;
+				color: #666666;
+			}
+			
+			.customer-service-item .item-content .item-title .order-id-status .order-status {
+				float: right;
+				margin-right: 15px;
+				color: #FF6B6B;
+			}
+			
+			.customer-service-item .item-content .item-title .order-time {
+				margin-left: 13px;
+				padding: 0;
+				margin-bottom: 8px;
+				color: #848689;
+			}
+			
+			.customer-service-item .item-content .item-for-order.mui-media .mui-media-object {
+				float: left;
+				border-radius: 10%;
+				margin-right: 12px;
+				max-width: 4em;
+				height: 4.3em;
+			}
+			
+			.customer-service-item .item-content .item-for-order .mui-media-body .order-item-des {
+				color: #252525;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			
+			.customer-service-item .item-content .item-for-order .mui-media-body .order-item-info {
+				margin-top: 10px;
+			}
+			
+			.order-item-info .order-item-num {
+				color: #848689;
+			}
+			
+			.order-item-info button {
+				font-size: 12px;
+				padding-top: 2px;
+				float: right;
+				color: #686868;
+			}
+			/*item-content*/
+			/*ul li设置分割线*/
+			
+			ul li {
+				border-bottom: 1px solid#EBEBEB;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div class="mui-content" style="margin-bottom: 48px;">
+			<div class="mui-row mui-text-center" style="margin-top: 12px;margin-bottom: 0;">
+				<div class="mui-input-row mui-search " style="width:90%;margin-left: 5%;">
+					<input id="search" type="search" class="mui-input-speech mui-input-clear " onclick="searchFocusEvent()" placeholder="输入关键词搜索" style="background-color: white;">
+				</div>
+			</div>
+
+			<div class="customer-service-items">
+				<div class="customer-service-item">
+					<ul class="item-content mui-table-view">
+						<li class="item-title">
+							<p class="order-id-status">
+								<span class="order-id">
+								订单编号：15305512797
+							</span>
+								<span class="order-status">
+								完成
+							</span>
+							</p>
+							<p class="order-time">
+								下单时间：2016-04-14 09:53:14
+							</p>
+						</li>
+						<li class="item-for-order mui-table-view-cell mui-media">
+							<img class="mui-media-object" src="../img/shuijiao.jpg" />
+							<div class="mui-media-body">
+								<p class="order-item-des">
+									旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克
+								</p>
+								<p class="order-item-info">
+									<span class="order-item-num">数量：1</span>
+									<button style="">申请售后</button>
+								</p>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+
+				<div class="customer-service-item">
+					<ul class="item-content mui-table-view">
+						<li class="item-title">
+							<p class="order-id-status">
+								<span class="order-id">
+								订单编号：15305512797
+							</span>
+								<span class="order-status">
+								完成
+							</span>
+							</p>
+							<p class="order-time">
+								下单时间：2016-04-14 09:53:14
+							</p>
+						</li>
+						<li class="item-for-order mui-table-view-cell mui-media">
+							<img class="mui-media-object" src="../img/shuijiao.jpg" />
+							<div class="mui-media-body">
+								<p class="order-item-des">
+									旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克
+								</p>
+								<p class="order-item-info">
+									<span class="order-item-num">数量：1</span>
+									<button style="">申请售后</button>
+								</p>
+							</div>
+						</li>
+						<li class="item-for-order mui-table-view-cell mui-media">
+							<img class="mui-media-object" src="../img/shuijiao.jpg" />
+							<div class="mui-media-body">
+								<p class="order-item-des">
+									旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克
+								</p>
+								<p class="order-item-info">
+									<span class="order-item-num">数量：1</span>
+									<button style="">申请售后</button>
+								</p>
+							</div>
+						</li>
+						<li class="item-for-order mui-table-view-cell mui-media">
+							<img class="mui-media-object" src="../img/shuijiao.jpg" />
+							<div class="mui-media-body">
+								<p class="order-item-des">
+									旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克旺旺仙贝 加量装 550克
+								</p>
+								<p class="order-item-info">
+									<span class="order-item-num">数量：1</span>
+									<button style="">申请售后</button>
+								</p>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			<div id="bottom" class="mui-col-xs-12">
+				<div class="mui-row twoBtn mui-text-center" style="height: 48px;">
+					<span class="btn mui-col-xs-6" style="background-color: #F23030;">进度查询</span>
+					<span class="btn mui-col-xs-6" style="background-color: #F23030;">售后帮助</span>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+	</body>
+
+</html>

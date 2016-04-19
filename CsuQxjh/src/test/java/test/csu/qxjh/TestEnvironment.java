@@ -94,6 +94,11 @@ public class TestEnvironment {
     @Resource
     private GoodsOrderSerice goodsOrderSerice;
     @Test
+    public void test32(){
+    	System.out.println(goodsOrderDao.selectOrderByNoGet("402881e853dcd3ae0153dcd3b1680000").size());
+    	System.out.println(goodsOrderSerice.getOrderByNoGet("402881e853dcd3ae0153dcd3b1680000").size());
+    }
+    @Test
     public void test31(){
     	shoppingCartService.getShoppingCart("402881e853dcd3ae0153dcd3b1680000");
     }

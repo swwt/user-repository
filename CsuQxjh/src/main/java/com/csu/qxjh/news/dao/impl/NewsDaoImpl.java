@@ -22,7 +22,7 @@ public class NewsDaoImpl implements NewsDao {
 	@Override
 	public List<News> selectAll() {
 		// TODO Auto-generated method stub
-		String hql="From News";
+		String hql="From News news order by news.id";
 		Query query=(Query)getSession().createQuery(hql);
 		List<News> newsList=query.list();
 		return newsList;
