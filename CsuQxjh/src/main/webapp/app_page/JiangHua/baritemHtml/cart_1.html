@@ -166,37 +166,7 @@
 			var dingdanMoneyTotal;
 			var userId=JSON.parse(localStorage.getItem('user')).id;
 		</script>
-		<script type="text/javascript">
-			function setOrder(cartData){
-				//alert(cartData);
-				mui.ajax(host+'/user/addGoodsOrderAndDeleteCart',{
-						data:{
-							userId:	userId,
-							cartData:cartData 
-						},
-						async:false,
-						dataType:'json',//服务器返回json格式数据
-						type:'post',//HTTP请求类型
-						timeout:10000,//超时时间设置为10秒；
-						success:function(data){
-							//服务器返回响应，根据响应结果，分析是否登录成功；							
-							if(data.code==1){//登陆成功跳转到首页
-								//alert(data.message);
-								var orderJSON=data.result;
-								orderStr=JSON.stringify(orderJSON);
-							addTop();
-							}else{//登录失败，给出提醒
-								alert(data.message);
-							}
-						},
-						error:function(xhr,type,errorThrown){
-							//异常处理；
-							//console.log(type);
-							alert("出现错误");
-						}
-					});
-			}
-		</script>
+		
 	<body>
 
 		<div class="mui-content">
@@ -302,39 +272,78 @@
 			var downDiv;
 			mui.plusReady(function() {
 				cartWebview = plus.webview.currentWebview();
-				parentWebView = cartWebview.parent();
+				parentWebView = cartWebview.parent();								
 				needlogin = document.querySelector('.need-login');
 				purchase_div = document.querySelector('#purchase-div');
 				aniShow = getaniShow();
 				downDiv = document.querySelector('.downDiv');
+				
+				var id = "Home/edit-order-needtem.html";
+				var href = "Home/edit-order-needtem.html";
+				var title = "填写订单";  //？ 
+				var isBars = false;
+				var barsIcon = '';
+				/*
+				 * 购物车结算并删除已结算的购物车中的商品
+				 */
+				function setOrder(cartData){
+				//alert(cartData);
+				plus.nativeUI.showWaiting('正在处理，请稍后...');
+				
+				mui.ajax(host+'/user/addGoodsOrderAndDeleteCart',{
+						data:{
+							userId:	userId,
+							cartData:cartData 
+						},
+						async:true,
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；							
+							if(data.code==1){//登陆成功跳转到首页
+								//alert(data.message);
+								var orderJSON=data.result;
+								orderStr=JSON.stringify(orderJSON);
+								plus.nativeUI.closeWaiting();
+								mui.fire(parentWebView, 'newWebView',{
+									id: id,
+									href: href,
+									aniShow: aniShow,
+									title: title,
+									isBars: isBars,
+									barsIcon: barsIcon,
+									cartData:orderStr,
+									dingdanMoneyTotal:dingdanMoneyTotal
+								});
+							addTop();
+							}else{//登录失败，给出提醒
+								alert(data.message);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							//console.log(type);
+							alert("出现错误");
+						}
+					});
+				}
+				
+				
 				
 				purchase_div.addEventListener('tap', function(){
 					setTotal();
 					var cartData=JSON.stringify(cartJSONArrays);
 					
 //					alert(dingdanMoneyTotal);
-					var id = "Home/edit-order-needtem.html";
-					var href = "Home/edit-order-needtem.html";
-					var title = "填写订单";  //？ 
-					var isBars = false;
-					var barsIcon = '';
+
 					//plus.nativeUI.showWaiting('订单正在处理...');
 					//alert(cartData);
 					if(cartJSONArrays.length==0){
 						alert("请先去添加购物车");
 						//plus.nativeUI.closeWaiting();
-					}else{
-						setOrder(cartData);
-						mui.fire(parentWebView, 'newWebView',{
-						id: id,
-						href: href,
-						aniShow: aniShow,
-						title: title,
-						isBars: isBars,
-						barsIcon: barsIcon,
-						cartData:orderStr,
-						dingdanMoneyTotal:dingdanMoneyTotal
-					});
+					}else{						
+						setOrder(cartData);												
 					}
 				
 				}, false);
@@ -568,7 +577,9 @@
 				});
 				loginDiv.innerHTML = html;
 			}
-			
+			/*
+			 * 获取所有购物车内容
+			 */
 			function getShoppingCarts(){
 				
 				mui.ajax(host+'/user/getShoppingCart',{
@@ -627,7 +638,9 @@
 						}
 					});
 			}
-		
+		/*
+		 * 动态统计总金额
+		 */
 		function setTotal(){//合计
 			var shoppingCartUl=document.getElementsByTagName("ul");
 			var shoppingCartLi=shoppingCartUl[0].getElementsByTagName("li");
@@ -679,6 +692,7 @@
 					if(plus.networkinfo.getCurrentType()==1){
 						alert("当前没有网络");
 					}else{
+						//alert(plus.webview.currentWebview().id);
 						//getCatagory(); 
 						location.reload();
 					}					

@@ -8,21 +8,7 @@ import java.util.Set;
 public class StringUtil {
 
 	public static void main(String[] args){
-		//System.out.println(isDigital("a41249a"));
-		//System.out.println(dealDateString("2016-04-04 12:12:12"));
-		//System.out.println(Long.parseLong("20160404121212"));
-		Set set = new HashSet();
-		set.add(123);
-		set.add(456);
-		set.add(new String("AA"));
-		set.add(new String("AA"));
-		set.add("BB");
-		set.add(null);
 
-		Iterator iterator = set.iterator();
-		while (iterator.hasNext()) {
-			System.out.println(iterator.next());
-		}
 
 	}
 	/*

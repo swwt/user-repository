@@ -1,12 +1,20 @@
 package com.csu.qxjh.user.controller.app;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.imageio.spi.RegisterableService;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.synth.SynthStyle;
 
@@ -21,12 +29,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.CollectionSerializer;
 import com.csu.qxjh.goods.pojo.Goods;
 import com.csu.qxjh.goods.pojo.GoodsComment;
+import com.csu.qxjh.goods.pojo.GoodsCommentImage;
+import com.csu.qxjh.goods.service.GoodsCommentImageService;
+import com.csu.qxjh.goods.service.GoodsCommentService;
 import com.csu.qxjh.goods.service.GoodsService;
 import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.user.pojo.Collection;
@@ -38,6 +50,7 @@ import com.csu.qxjh.user.service.GoodsOrderSerice;
 import com.csu.qxjh.user.service.ShoppingCartService;
 import com.csu.qxjh.user.service.UserService;
 import com.csu.qxjh.util.StringUtil;
+import com.csu.qxjh.util.UniqueStringGenerator;
 import com.csu.qxjh.util.pojo.CartAmount;
 import com.csu.qxjh.util.pojo.Message;
 
@@ -59,6 +72,10 @@ public class UserControllerApp {
 	private ShoppingCartService shoppingCartService;
 	@Resource
 	private GoodsService goodsService;
+	@Resource
+	private GoodsCommentService goodsCommentService;
+	@Resource
+	private GoodsCommentImageService goodsCommentImageService;
 	/*
 	 *注册页面 
 	 */
@@ -362,6 +379,7 @@ public class UserControllerApp {
 			goodsOrder.setUser(null);
 			Goods goods=new Goods();
 			Goods goodsOld=goodsOrder.getGoods();
+			goods.setId(goodsOld.getId());
 			goods.setGoods_name(goodsOld.getGoods_name());
 			goods.setImages(goodsOld.getImages());
 			goodsOrder.setGoodsClone(goods);	
@@ -398,15 +416,75 @@ public class UserControllerApp {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/addOrderComment")//用户获取已完成订单
+	@RequestMapping("/addOrderComment")//用户对订单作出评价(有图片的)
 	public Message addOrderComment(@RequestParam(value="userId")String userId,
-			@RequestParam(value="goodsId")String goodsId,
+			@RequestParam(value="goodsId")Integer goodsId,
 			@RequestParam(value="files")MultipartFile[] files,
-			GoodsComment goodsComment){
+			@RequestParam(value="orderId")String orderId,
+			GoodsComment goodsComment,
+			HttpSession session){
+		
+		try {
+			InputStream is=files[0].getInputStream();
+			String originalName=files[0].getOriginalFilename();			
+			String[] names=originalName.split("\\.");	
+			String fileName=UniqueStringGenerator.getUniqueString()+"."+names[names.length-1];//上传的文件名
+			String imageSrc="/resource_goods_comment_image/"+fileName;///resource_goods_comment_image/z1461224584465.IMG_20150101_204234.jpg
+			FileOutputStream fos=
+					new FileOutputStream(session.getServletContext().getRealPath(imageSrc));
+			byte[] buffer=new byte[1024];
+			int len=0;
+			while((len=is.read(buffer))>0){
+				fos.write(buffer, 0, len);
+			}
+			fos.close();
+			is.close();
+			User user=new User();
+			user.setId(userId);
+			Goods goods=new Goods();
+			goods.setId(goodsId);		
+			goodsComment.setGoods(goods);
+			goodsComment.setUser(user);
+			goodsCommentService.addComment(goodsComment);//添加评论
+			GoodsCommentImage goodsCommentImage=new GoodsCommentImage();
+			goodsCommentImage.setGoods_comment_image_src(imageSrc);
+			goodsCommentImage.setGoodsComment(goodsComment);//上面添加完评论后，该条评论对应的主键也就有值了
+			goodsCommentImageService.addCommentImage(goodsCommentImage);
+			
+			GoodsOrder goodsOrder=goodsOrderSerice.getById(orderId);
+			goodsOrder.setGoods_order_evaluate_status(1);//评价后设当前订单为已评价
+			goodsOrderSerice.updateOrder(goodsOrder);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		Message message=new Message();
 		message.setCode(1);
-		message.setMessage("获取已完成订单成功");
+		message.setMessage("添加评论成功");		
+		return message;
+	}
 
+	@ResponseBody
+	@RequestMapping("/addOrderCommentWithOutImage")//用户对订单作出评价(无图片的)
+	public Message addOrderCommentWithOutImage(@RequestParam(value="userId")String userId,
+			@RequestParam(value="goodsId")Integer goodsId,
+			@RequestParam(value="orderId")String orderId,
+			GoodsComment goodsComment,
+			HttpSession session){
+		User user=new User();
+		user.setId(userId);
+		Goods goods=new Goods();
+		goods.setId(goodsId);		
+		goodsComment.setGoods(goods);
+		goodsComment.setUser(user);
+		goodsCommentService.addComment(goodsComment);
+		
+		GoodsOrder goodsOrder=goodsOrderSerice.getById(orderId);
+		goodsOrder.setGoods_order_evaluate_status(1);//评价后设当前订单为已评价
+		goodsOrderSerice.updateOrder(goodsOrder);
+		Message message=new Message();
+		message.setCode(1);
+		message.setMessage("添加评论成功");		
 		return message;
 	}
 }

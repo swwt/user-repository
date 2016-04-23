@@ -1,5 +1,7 @@
 package com.csu.qxjh.user.dao;
 
+import java.util.List;
+
 import com.csu.qxjh.user.pojo.User;
 import com.csu.qxjh.util.base.BaseDao;
 

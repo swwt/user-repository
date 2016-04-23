@@ -35,6 +35,9 @@ public class GoodsOrder {
 	private double goods_order_price;//商品单价
 	private String goods_order_price_description;//商品价格对应的描述
 	private String goods_order_create_time;//下单时间
+	private String goods_order_pay_time;//付款时间
+	private String goods_order_ship_time;//发货时间
+	private String goods_order_receive_time;//收货时间
 	private int goods_order_deliver_status;//发货状态，0代表未发货，1代表已发货
 	private int goods_order_gain_status;//收货状态，0代表未收货，1代表已收货(只有收获了，该订单才能算是商品对应的销量的一部分)
 	private String goods_order_remark;//备注，买家留言
@@ -274,5 +277,29 @@ public class GoodsOrder {
 	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}
+	@Column
+	public String getGoods_order_pay_time() {
+		return goods_order_pay_time;
+	}
 
+	public void setGoods_order_pay_time(String goods_order_pay_time) {
+		this.goods_order_pay_time = goods_order_pay_time;
+	}
+	@Column
+	public String getGoods_order_ship_time() {
+		return goods_order_ship_time;
+	}
+
+	public void setGoods_order_ship_time(String goods_order_ship_time) {
+		this.goods_order_ship_time = goods_order_ship_time;
+	}
+	@Column
+	public String getGoods_order_receive_time() {
+		return goods_order_receive_time;
+	}
+
+	public void setGoods_order_receive_time(String goods_order_receive_time) {
+		this.goods_order_receive_time = goods_order_receive_time;
+	}
+	
 }

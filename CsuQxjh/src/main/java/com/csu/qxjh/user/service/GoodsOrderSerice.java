@@ -20,12 +20,12 @@ public interface GoodsOrderSerice {
 	public Map<String, Object> fuzzyPageQuery(int param_targetPageIndex, String param_key,int payment_status,int deliver_status,int gain_status,String sellor_id);
 	void insert(GoodsOrder goodsOrder);//添加一条订单信息
 	void deleteGoodsUserType(GoodsOrder goodsOrder);//用户删除订单信息（注意不是真正删除数据库数据，只是修改数据）
-	GoodsOrder getById(String id);
+	GoodsOrder getById(String id);//根据订单编号查询订单
 	List<GoodsOrder> getOrderByNoPay(String userId);//查询用户待付款的订单
 	List<GoodsOrder> getOrderByNoGet(String userId);//查询用户待收获的订单
 	List<GoodsOrder> getOrderByNoComment(String userId);//查询用户待评价的订单
 	List<GoodsOrder> getOrderByComplete(String userId);//查询用户交易完成的订单
-	
+	void updateOrder(GoodsOrder goodsOrder);//修改订单信息
 	
 	/**标记订单为已发货状态
 	 * @param OrderId 订单编号

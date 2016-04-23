@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import com.csu.qxjh.util.pojo.Message;
 /*
  * 用户个人信息修改控制层
  */
+//@Scope("prototype")-->可设置为多例，默认为单例
 @RequestMapping("/userInformation")
 @Controller
 public class UserInformationControllerApp {

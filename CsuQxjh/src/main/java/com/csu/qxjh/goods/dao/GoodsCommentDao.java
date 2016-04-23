@@ -10,4 +10,5 @@ public interface GoodsCommentDao {
 	void insert(GoodsComment goodsComment);//新加一条评价信息
 	GoodsComment selectById(int id);//根据主键查询评价信息
 	void update(GoodsComment goodsComment);//更新某条评价的信息
+	void delete(GoodsComment goodsComment);//删除评论
 }

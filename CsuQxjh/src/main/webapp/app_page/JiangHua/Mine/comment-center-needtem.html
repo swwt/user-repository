@@ -130,24 +130,29 @@
 							});
 				}
 				function commentEvent(){
-					mui('.message-item').on('tap', 'button', function(){				
-						mui.openWindow({
-							url: "comment-detail-needtem.html",
-							id: "comment-detail-needtem.html",
-							styles: {
-								top: 0
-							},
-							extras: {
-							},
-							show: {
-								autoShow: true //页面loaded事件发生后自动显示，默认为true 
-							},
-							waiting: {
-								autoShow: true, //自动显示等待框，默认为true  
-								title: '正在加载...' //等待对话框上显示的提示内容 
-							}
-						});					
-				});
+					conmentWebview = mui.preload({
+						url:'comment-detail-needtem.html',
+						id:'comment-detail-needtem.html',
+						styles:{
+							top:'0px',
+							bottom:'0px'
+						}
+					});				
+					mui('.message-item').on('tap', 'button', function(){
+						var orderId=this.getElementsByTagName('a')[0].getAttribute('href');
+						var goodsId=this.getElementsByTagName('span')[0].innerHTML;
+						var imageSrc=this.parentNode.parentNode.getElementsByTagName('img')[0].getAttribute('src');
+						mui.fire(conmentWebview,'conmentWebview',{
+							goodsId:goodsId,
+							orderId:orderId,
+							imageSrc:imageSrc
+						});
+					    mui.openWindow({
+						    url:'comment-detail-needtem.html',
+							id:'comment-detail-needtem.html'
+					 	 });
+					});
+						
 				}
 				//adaptive();
 				function getNoCommentOrder(){
@@ -173,8 +178,9 @@
 														+"<div class=\"mui-media-body\">"
 														+"<p class=\"itemDes mui-ellipsis-2\">"+orderJSON.goodsClone.goods_name+"("+orderJSON.goods_order_price_description+")"+"</p>"
 														+"<button class=\"mui-pull-right\" style=\"\">"
+														+"<span style=\"display: none;\">"+orderJSON.goodsClone.id+"</span>"
 														+"<span class=\"mui-icon mui-icon-compose\" style=\"color: #F23030;font-size: 18px;\"></span>"
-														+"评价晒单"
+														+"<a href=\""+orderJSON.id+"\">评价晒单</a>"
 														+"</button>"
 														+"</div>"
 													+"</li>";
@@ -206,7 +212,7 @@
 				getNoCommentOrder();
 				//alert(plus.webview.currentWebview().id);
 				
-				window.addEventListener('change_address', function(options) {		
+				window.addEventListener('commenSuccess', function(options) {		
 				//getAddress();
 				//alert('评价晒单');
 				location.reload();

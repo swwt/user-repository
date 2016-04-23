@@ -446,6 +446,9 @@
 		<script type="text/javascript" src="../js/main.js"></script>
 		<script src="../js/own.js" charset="UTF-8"></script>
 		<script type="text/javascript">
+			/*
+			 * 获取商品详情
+			 */
 			function getGoodsDetail(goodsID){
 				//alert(goodsID);
 				mui.ajax(host+'/goods/getGoodsById',{
@@ -730,11 +733,10 @@
 			mui.init({
 				swipeBack: true
 			});
-			
-
-			
+					
 			mui.plusReady(function(){
      			mui(".bottom-div").on('tap','.addShoppingCart',function(){
+     				plus.nativeUI.showWaiting('正在处理，请稍后...');
      				if(localStorage.getItem('user')){
      					mui.ajax(host+'/user/addShoppingCart',{//添加购物车
 						data:{
@@ -749,8 +751,10 @@
 						success:function(data){
 							//服务器返回响应，根据响应结果，分析是否登录成功；							
 							if(data.code==1){//
+								plus.nativeUI.closeWaiting();
 								mui.toast(data.message);								
 							}else{//
+								plus.nativeUI.closeWaiting();
 								mui.toast(data.message);	
 							}
 						},
@@ -768,6 +772,7 @@
 				}) 	
 				mui(".bottom-div").on('tap','.rightnowBuy',function(){
 					//alert(priceDescription);
+					plus.nativeUI.showWaiting('正在处理，请稍后...');
 					if(localStorage.getItem('user')){
 					mui.ajax(host+'/user/addGoodsOrder',{//立即购买
 						data:{
@@ -794,6 +799,7 @@
 								var barsIcon = '';
 								var aniShow = getaniShow();
 								var parentWebView=plus.webview.getWebviewById('HBuilder');
+								plus.nativeUI.closeWaiting();
 								mui.fire(parentWebView, 'newWebView',{
 									id: id,
 									href: href,
@@ -804,6 +810,7 @@
 									cartData:orderStr,
 									dingdanMoneyTotal:price
 								});
+								
 //								alert(goodsID);
 //								alert(userId);
 //								alert(price);

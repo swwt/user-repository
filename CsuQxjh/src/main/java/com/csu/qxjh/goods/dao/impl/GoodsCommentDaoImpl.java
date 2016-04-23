@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.csu.qxjh.goods.dao.GoodsCommentDao;
 import com.csu.qxjh.goods.pojo.GoodsComment;
+import com.fasterxml.jackson.databind.ObjectWriter.GeneratorSettings;
 
 @Repository
 public class GoodsCommentDaoImpl implements GoodsCommentDao{
@@ -56,6 +57,12 @@ public class GoodsCommentDaoImpl implements GoodsCommentDao{
 	public void update(GoodsComment goodsComment) {
 		// TODO Auto-generated method stub
 		getSession().update(goodsComment);
+	}
+
+	@Override
+	public void delete(GoodsComment goodsComment) {
+		// TODO Auto-generated method stub
+		getSession().delete(goodsComment);
 	}
 
 

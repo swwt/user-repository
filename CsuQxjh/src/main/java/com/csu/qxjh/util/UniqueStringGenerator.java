@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class UniqueStringGenerator {
      private UniqueStringGenerator() {}
+     /*
+      * 获取唯一的字符串名，应用：生成独立的文件名，放置文件被覆盖
+      */
      public static synchronized String getUniqueString(){
     	 try {
 			Thread.currentThread().sleep(1);

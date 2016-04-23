@@ -189,6 +189,11 @@ public class GoodsOrderServiceImpl implements GoodsOrderSerice {
 		// TODO Auto-generated method stub
 		goodsOrderDao.save(goodsOrder);
 	}
+	@Override
+	public void updateOrder(GoodsOrder goodsOrder) {
+		// TODO Auto-generated method stub
+		goodsOrderDao.update(goodsOrder);//在此不修改订单时间
+	}
 	
 	
 }

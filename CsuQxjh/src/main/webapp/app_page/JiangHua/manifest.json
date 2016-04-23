@@ -181,11 +181,11 @@
 					}
 				},
 				"android": {
-					"mdpi": "C:/Users/bob/Desktop/start_page.PNG", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "C:/Users/bob/Desktop/start_page.PNG", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "C:/Users/bob/Desktop/start_page.PNG", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "C:/Users/bob/Desktop/start_page.PNG", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "C:/Users/bob/Desktop/start_page.PNG"
+					 /*普通屏启动图片，分辨率：240x282*/
+					 /*大屏启动图片，分辨率：320x442*/
+					 /*高分屏启动图片，分辨率：480x762*/
+					 /*720P高分屏启动图片，分辨率：720x1242*/
+					
 				}
 			}
 		}
@@ -390,7 +390,8 @@
 					"Mine/user-manage-needtem.html",
 					"Mine/changeEmail-needtem.html",
 					"jsHostName/hostName.js",
-					"Mine/wait-for-pay-needtem.html"
+					"Mine/wait-for-pay-needtem.html",
+					"Mine/comment-center-needtem.html"
 				],
 				"refer": [
 					"Mine/login.html"
@@ -826,7 +827,10 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/iconfont.css",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"img/fengjing1.jpg",
+					"fonts/iconfont.ttf",
+					"jsHostName/hostName.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -836,14 +840,23 @@
 					"img/mokuai13.jpg",
 					"img/mokuai11.jpg",
 					"img/mokuai12.jpg",
-					"img/news3.jpg"
+					"img/news3.jpg",
+					"js/main.js",
+					"css/style_1.css",
+					"img/mokuai1.jpg",
+					"js/mui.min.js",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"Home/news2-needtem.html": {
 				"resources": [
-					"img/lunbo2.jpg"
+					"img/lunbo2.jpg",
+					"img/lunbo3.jpg",
+					"img/lunbo5.jpg",
+					"img/lunbo1.jpg",
+					"img/lunbo4.jpg"
 				],
 				"refer": [],
 				"priority": 0

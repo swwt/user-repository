@@ -1,5 +1,7 @@
 package com.csu.qxjh.user.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -68,5 +70,4 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
 		User user=(User)query.uniqueResult();
 		return user;
 	}
-
 }

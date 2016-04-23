@@ -2,6 +2,7 @@ package com.csu.qxjh.goods.pojo;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -120,7 +121,7 @@ public class GoodsComment {
 	public void setGoods(Goods goods) {
 		this.goods = goods;
 	}
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="goodsComment")
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="goodsComment",cascade=CascadeType.ALL)
 	public Set<GoodsCommentImage> getImages() {
 		return images;
 	}

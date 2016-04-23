@@ -338,6 +338,18 @@
 						product_id: itemID
 					});
 				});
+				
+				currentWebview = plus.webview.currentWebview();
+				currentWebview.addEventListener('show',function(){//每进入页面一次就刷新一次
+					
+					if(plus.networkinfo.getCurrentType()==1){
+						alert("当前没有网络");
+					}else{
+						//getCatagory(); 
+						//alert(1);
+						location.reload();
+					}					
+				});
 			});
 			//接收item成功的信息
 			function deleteItemSuccess(data) {
@@ -409,7 +421,7 @@
 //				setTimeout(function() {
 //					copythis.endPullupToRefresh(true | false);
 //				});
-			}
+			 } 			
 		</script>
 
 	</body>

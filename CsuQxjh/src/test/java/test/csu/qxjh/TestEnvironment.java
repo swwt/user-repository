@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.jws.soap.SOAPBinding.Use;
 
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -25,6 +26,7 @@ import com.csu.qxjh.goods.pojo.Goods;
 import com.csu.qxjh.goods.pojo.GoodsCatagory1;
 import com.csu.qxjh.goods.pojo.GoodsCatagory2;
 import com.csu.qxjh.goods.pojo.GoodsComment;
+import com.csu.qxjh.goods.pojo.GoodsCommentImage;
 import com.csu.qxjh.goods.pojo.GoodsDetail;
 import com.csu.qxjh.goods.pojo.OfferPromotionFullcutproducts;
 import com.csu.qxjh.goods.service.GoodsCatagory1Service;
@@ -42,6 +44,7 @@ import com.csu.qxjh.sellor.pojo.Sellor;
 import com.csu.qxjh.user.dao.CollectionDao;
 import com.csu.qxjh.user.dao.GoodsOrderDao;
 import com.csu.qxjh.user.dao.UserDao;
+import com.csu.qxjh.user.dao.impl.UserDaoImpl;
 import com.csu.qxjh.user.pojo.Collection;
 import com.csu.qxjh.user.pojo.GoodsOrder;
 import com.csu.qxjh.user.pojo.ShoppingCart;
@@ -93,6 +96,32 @@ public class TestEnvironment {
     private ShoppingCartService shoppingCartService; 
     @Resource
     private GoodsOrderSerice goodsOrderSerice;
+    @Resource
+    private UserDao useDao;
+    @Test
+    public void test34(){
+    	System.out.println('\'');
+    	System.out.println("\'".equals("'"));
+    
+    }
+    @Test
+    public void test33(){
+    	GoodsComment goodsComment=new GoodsComment();
+    	User user=new User();
+		user.setId("402881e55419c07f015419c67d8b0000");
+		Goods goods=new Goods();
+		goods.setId(1);	
+		goodsComment.setId(1);
+		goodsComment.setGoods(goods);
+		goodsComment.setUser(user);
+		goodsComment.setGoods_comment_content("测试");
+		GoodsCommentImage goodsCommentImage=new GoodsCommentImage();
+		Set<GoodsCommentImage> set=new HashSet<>();
+		goodsCommentImage.setId(1);
+		set.add(goodsCommentImage);
+		goodsComment.setImages(set);
+		goodsCommentDao.delete(goodsComment);
+    }
     @Test
     public void test32(){
     	System.out.println(goodsOrderDao.selectOrderByNoGet("402881e853dcd3ae0153dcd3b1680000").size());

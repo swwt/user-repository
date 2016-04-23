@@ -71,6 +71,114 @@
 			
 			
 		</style>
+		
+	</head>
+
+	<body>
+		<div id="search" class="mui-content-padded">
+			<div id="segmentedControl" class="mui-segmented-control">
+				<a class="mui-control-item mui-active" href="#item1mobile">
+					综合
+					<span class="mui-icon mui-icon-arrowdown"></span>
+				</a>
+				<a class="mui-control-item" href="#item2mobile">
+					销量
+					<span class="mui-icon mui-icon-arrowdown"></span>
+				</a>
+				<a class="mui-control-item" href="#item3mobile">
+					价格
+					<span class="mui-icon mui-icon-arrowup"></span>
+				</a>
+			</div>
+			<div class="search-result">
+				<div id="item1mobile" class="result-info mui-control-content mui-active">
+					<ul class="mui-table-view" id="zonghe">
+						<!--<li class="result-item mui-table-view-cell mui-media" style="margin-bottom: 0;">
+							<a href="#">
+								<img class="item-info-img mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
+								<div class="mui-media-body" style="">
+									<p class="item-info-des mui-ellipsis-2">湖南湘西沅陵特产大山野生新鲜板栗生板栗生栗子毛栗子油栗500克</p>
+									<p class='item-info-price' style="font-size: 14px;color:#DD524D">￥<span class="item-info-price-detail" style="">11.90</span></p>
+									<p class='' style="">
+										<span class="item-info-comment">75788条评价</span>
+										<span class="item-info-good-comment">好评97%</span>
+									</p>
+								</div>
+							</a>
+						</li>-->
+					</ul>
+				</div>
+				<div id="item2mobile" class="result-info mui-control-content">
+					<ul class="mui-table-view" id="sells">
+						<!--<li class="result-item mui-table-view-cell mui-media" style="margin-bottom: 0;">
+							<a href="#">
+								<img class="item-info-img mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
+								<div class="mui-media-body" style="">
+									<p class="item-info-des mui-ellipsis-2">湖南湘西沅陵特产大山野生新鲜板栗生板栗生栗子毛栗子油栗500克</p>
+									<p class='item-info-price' style="font-size: 14px;color:#DD524D">￥<span class="item-info-price-detail" style="">11.90</span></p>
+									<p class='' style="">
+										<span class="item-info-comment">75788条评价</span>
+										<span class="item-info-good-comment">好评97%</span>
+									</p>
+								</div>
+							</a>
+						</li>
+						<li class="result-item mui-table-view-cell mui-media" style="margin-bottom: 0;">
+							<a href="#">
+								<img class="item-info-img mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
+								<div class="mui-media-body" style="">
+									<p class="item-info-des mui-ellipsis-2">湖南湘西沅陵特产大山野生新鲜板栗生板栗生栗子毛栗子油栗500克</p>
+									<p class='item-info-price' style="font-size: 14px;color:#DD524D">￥<span class="item-info-price-detail" style="">11.90</span></p>
+									<p class='' style="">
+										<span class="item-info-comment">75788条评价</span>
+										<span class="item-info-good-comment">好评97%</span>
+									</p>
+								</div>
+							</a>
+						</li>-->
+					</ul>
+				</div>
+				<div id="item3mobile" class="result-info mui-control-content">
+					<ul class="mui-table-view" id="price">
+						<!--<li class="result-item mui-table-view-cell mui-media" style="margin-bottom: 0;">
+							<a href="#">
+								<img class="item-info-img mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
+								<div class="mui-media-body" style="">
+									<p class="item-info-des mui-ellipsis-2">湖南湘西沅陵特产大山野生新鲜板栗生板栗生栗子毛栗子油栗500克</p>
+									<p class='item-info-price' style="font-size: 14px;color:#DD524D">￥<span class="item-info-price-detail" style="">11.90</span></p>
+									<p class='' style="">
+										<span class="item-info-comment">75788条评价</span>
+										<span class="item-info-good-comment">好评97%</span>
+									</p>
+								</div>
+							</a>
+						</li>-->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="application/javascript" src="../js/own.js"></script>
+		<script type="application/javascript">
+		 mui.init({
+				swipeBack: false 
+			});	
+		window.addEventListener('searchPageFire', function(options) {					
+			var categoryID = options.detail.categoryID;
+			var listType=options.detail.listType;//判断是搜索还是二级分类下的商品展示
+			//alert(listType);
+			if(listType=='byCategoty2List'){ 
+				
+				getGoodsListByCategory2(categoryID);//二级分类下的商品展示
+			}else{
+				getGoodsListBySearch(categoryID);//商品搜索
+			}
+			//alert("searchPage:"+categoryID);
+			//getGoodsListByCategory2(categoryID);
+		}, false);				
+		</script>
+		
 		<script type="text/javascript">
 		function goodsAction(listenWhat){
 			mui.plusReady(function() {
@@ -407,115 +515,6 @@
 						}
 					});
 			}
-		</script>
-	</head>
-
-	<body>
-		<div id="search" class="mui-content-padded">
-			<div id="segmentedControl" class="mui-segmented-control">
-				<a class="mui-control-item mui-active" href="#item1mobile">
-					综合
-					<span class="mui-icon mui-icon-arrowdown"></span>
-				</a>
-				<a class="mui-control-item" href="#item2mobile">
-					销量
-					<span class="mui-icon mui-icon-arrowdown"></span>
-				</a>
-				<a class="mui-control-item" href="#item3mobile">
-					价格
-					<span class="mui-icon mui-icon-arrowup"></span>
-				</a>
-			</div>
-			<div class="search-result">
-				<div id="item1mobile" class="result-info mui-control-content mui-active">
-					<ul class="mui-table-view" id="zonghe">
-						<!--<li class="result-item mui-table-view-cell mui-media" style="margin-bottom: 0;">
-							<a href="#">
-								<img class="item-info-img mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
-								<div class="mui-media-body" style="">
-									<p class="item-info-des mui-ellipsis-2">湖南湘西沅陵特产大山野生新鲜板栗生板栗生栗子毛栗子油栗500克</p>
-									<p class='item-info-price' style="font-size: 14px;color:#DD524D">￥<span class="item-info-price-detail" style="">11.90</span></p>
-									<p class='' style="">
-										<span class="item-info-comment">75788条评价</span>
-										<span class="item-info-good-comment">好评97%</span>
-									</p>
-								</div>
-							</a>
-						</li>-->
-					</ul>
-				</div>
-				<div id="item2mobile" class="result-info mui-control-content">
-					<ul class="mui-table-view" id="sells">
-						<!--<li class="result-item mui-table-view-cell mui-media" style="margin-bottom: 0;">
-							<a href="#">
-								<img class="item-info-img mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
-								<div class="mui-media-body" style="">
-									<p class="item-info-des mui-ellipsis-2">湖南湘西沅陵特产大山野生新鲜板栗生板栗生栗子毛栗子油栗500克</p>
-									<p class='item-info-price' style="font-size: 14px;color:#DD524D">￥<span class="item-info-price-detail" style="">11.90</span></p>
-									<p class='' style="">
-										<span class="item-info-comment">75788条评价</span>
-										<span class="item-info-good-comment">好评97%</span>
-									</p>
-								</div>
-							</a>
-						</li>
-						<li class="result-item mui-table-view-cell mui-media" style="margin-bottom: 0;">
-							<a href="#">
-								<img class="item-info-img mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
-								<div class="mui-media-body" style="">
-									<p class="item-info-des mui-ellipsis-2">湖南湘西沅陵特产大山野生新鲜板栗生板栗生栗子毛栗子油栗500克</p>
-									<p class='item-info-price' style="font-size: 14px;color:#DD524D">￥<span class="item-info-price-detail" style="">11.90</span></p>
-									<p class='' style="">
-										<span class="item-info-comment">75788条评价</span>
-										<span class="item-info-good-comment">好评97%</span>
-									</p>
-								</div>
-							</a>
-						</li>-->
-					</ul>
-				</div>
-				<div id="item3mobile" class="result-info mui-control-content">
-					<ul class="mui-table-view" id="price">
-						<!--<li class="result-item mui-table-view-cell mui-media" style="margin-bottom: 0;">
-							<a href="#">
-								<img class="item-info-img mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
-								<div class="mui-media-body" style="">
-									<p class="item-info-des mui-ellipsis-2">湖南湘西沅陵特产大山野生新鲜板栗生板栗生栗子毛栗子油栗500克</p>
-									<p class='item-info-price' style="font-size: 14px;color:#DD524D">￥<span class="item-info-price-detail" style="">11.90</span></p>
-									<p class='' style="">
-										<span class="item-info-comment">75788条评价</span>
-										<span class="item-info-good-comment">好评97%</span>
-									</p>
-								</div>
-							</a>
-						</li>-->
-					</ul>
-				</div>
-			</div>
-		</div>
-		<script type="text/javascript" src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/main.js"></script>
-		<script type="application/javascript" src="../js/own.js"></script>
-		<script type="application/javascript">
-		 mui.init({
-				swipeBack: false 
-			});
-			
-		window.addEventListener('searchPageFire', function(options) {					
-			var categoryID = options.detail.categoryID;
-			var listType=options.detail.listType;//判断是搜索还是二级分类下的商品展示
-			//alert(listType);
-			if(listType=='byCategoty2List'){ 
-				
-				getGoodsListByCategory2(categoryID);//二级分类下的商品展示
-			}else{
-				getGoodsListBySearch(categoryID);//商品搜索
-			}
-			//alert("searchPage:"+categoryID);
-			//getGoodsListByCategory2(categoryID);
-		}, false);
-		
-		
 		</script>
 	</body>
 

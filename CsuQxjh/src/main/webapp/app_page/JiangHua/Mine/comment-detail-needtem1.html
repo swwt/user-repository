@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>E3父子模版，可直接用index的父子模版</title>
+
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/own.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<script src="../jsHostName/hostName.js"></script>
+		<style type="text/css">
+			.mui-icon,
+			.mui-bar-nav .mui-title {
+				color: white;
+			}
+			
+			.mui-table-view .mui-table-view-cell:after {
+				height: 0!important;
+			}
+			
+			ul li {
+				border-bottom: 1px solid#E3E5E9;
+			}
+			
+			ul.comment-img li {
+				border-bottom: 0;
+				margin-bottom: 0;
+				padding: 8px;
+			}
+			
+			ul.comment-img li div.mui-input-row {
+				height: 2.5em;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav own-main-background-color ">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">评价晒单</h1>
+			<a id="commit" class="mui-pull-right"  style="color: white;height: 41px;line-height: 41px;font-size: 16px;">提交</a>
+		</header>
+
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" style="max-width: 4em;height: 4.3em;" src="../img/shouji.png" />
+					<div class="mui-media-body" style="">
+						<p style="color: #232326;">评分</p>
+						<p style="margin-top: 10px;">
+							<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+							<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+							<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+							<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+							<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						</p>
+					</div>
+				</li>
+				<!--<li class="mui-table-view-cell" style="color:#626262;">
+					<p style="height: 2.1em;line-height:2.1em ;font-size: 16px;">
+						<span style="color: #545454;">商品包装满意度：</span>
+						<span style="float: right;">
+							<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						</span>
+					</p>
+					<p style="height: 2.1em;line-height:2.1em ;font-size: 16px;">
+						<span style="color: #545454;">送货速度满意度：</span>
+						<span style="float: right;">
+							<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						</span>
+					</p>
+					<p style="height: 2.1em;line-height:2.1em ;font-size: 16px;">
+						<span style="color: #545454;">配送人员服务满意度：</span>
+						<span style="float: right;">
+							<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						<span class="mui-icon mui-icon-star" style="color: #E3E5E9;"></span>
+						</span>
+					</p>
+
+				</li>-->
+
+				<li class="mui-table-view-cell mui-input-row" style="padding: 0;">
+					<textarea id="textarea" rows="4" style="border: 0;margin: 0;font-size：10px;" placeholder="长度在1-500字之间，写下购买体会，可以为小伙伴提供参考"></textarea>
+				</li>
+			</ul>
+
+			<ul class="comment-img mui-table-view" style="margin-top: 10px;">
+				<!--<li class="mui-table-view-cell" style="">
+					<img style="width: 100%;height: 110px;" src="../img/fengjing1.jpg" />
+					<div class="mui-input-row" style="height: 2.5em;">
+						<input class="img-des" type="text" placeholder="对上图编辑图片说明 （选填）" style="border:0;background-color: #F0F2F5;font-size: 12px;" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell" style="margin-top: 0;padding-top: 0;">
+					<img style="width: 100%;height: 110px;" src="../img/fengjing1.jpg" />
+					<div class="mui-input-row" style="">
+						<input class="img-des" type="text" placeholder="对上图编辑图片说明 （选填）" style="border:0;background-color: #F0F2F5;font-size: 12px;" />
+					</div>
+				</li>-->
+<!--				<div style="width: 100%;background-color: white;text-align:center;padding-bottom: 10px;">
+					
+					<button style="font-size:16px;color: #F32F30;"><span class="mui-icon mui-icon-image" style="color: #F32F30;font-size: 1.3em;margin-right: 4px;"></span>添加晒单图片</button>
+					
+				</div>
+				<div style="width: 100%;background-color: white;text-align:center;padding-bottom: 10px;">
+					
+					<button style="font-size:16px;color: #F32F30;"><span class="mui-icon mui-icon-image" style="color: #F32F30;font-size: 1.3em;margin-right: 4px;"></span>添加晒单图片</button>
+					
+				</div>-->
+				<div style="width: 100%;background-color: white;text-align:center;padding-bottom: 10px;">		
+					<input type="file" multiple  id="image">
+				</div>
+			</ul>
+			<div class="mui-input-row mui-checkbox mui-left" style="">
+				<input name="checkbox" type="checkbox" style="">
+				<label style="color：#232326；">匿名评价</label>
+			</div>
+		</div>
+
+		<script src="../js/mui.min.js" charset="UTF-8"></script>
+		<script src="../js/own.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: false
+			});
+			var userId=JSON.parse(localStorage.getItem('user')).id;
+			mui.plusReady(function() {
+				function commitComment(){
+					
+				}
+				//adaptive();
+				document.querySelector('#commit').addEventListener('tap', function(){
+					var length=document.getElementById("image").files.length;//文件数
+					if(length!=0){
+						var originalFile=document.getElementById("image").files[0];
+						var filename=originalFile.name;//图片原始文件名
+						var names=filename.split('.');
+						var filetype=names[names.length-1];//图片格式
+						var size=originalFile.size;//图片大小
+						if(size>1024*1024){
+							alert('图片超过限制的大小');
+						}else if(filetype!='jpg'&&filetype!='jpeg'&&filetype!='png'){
+							alert('图片格式不正确');
+						}else{
+							plus.uploader.createUpload()
+							mui.ajax(host+'/user/addOrderComment',{
+								data:{
+//									userId:userId,
+//									goodsId:1,
+									files:originalFile	 				
+								},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){						
+									if(data.code==1){
+										alert(data.message);
+									}else{//
+										alert(data.message);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									alert("出现错误");
+								}
+							});
+						}
+					}
+					
+//					history.go(0);
+//					mui.back();
+				}, false);
+				
+			});
+		</script>
+	</body>
+
+</html>

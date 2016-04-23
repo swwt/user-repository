@@ -115,7 +115,7 @@
 			if (true) {
 				emptyAddress.style.display = 'block';
 				emptyAddressBtn.addEventListener('tap',function(){
-					mui.fire(addressWebview,'updateAddress',{//公益详情
+					mui.fire(addressWebview,'updateAddress',{
 						update:'add'
 					});
 					showaddressWeb();
@@ -147,7 +147,7 @@
 			//接收rightbar事件
 			window.addEventListener('pressRightBar',function(){
 				
-				mui.fire(addressWebview,'updateAddress',{//公益详情
+				mui.fire(addressWebview,'updateAddress',{//自定义地址填写事件
 						update:'add'
 				});
 				showaddressWeb();
